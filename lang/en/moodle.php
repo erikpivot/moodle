@@ -2166,3 +2166,11 @@ $string['sectionusedefaultname'] = 'Use default section name';
 $string['publish'] = 'Publish';
 $string['extendenrol'] = 'Extend enrolment (individual)';
 $string['groupextendenrol'] = 'Extend enrolment (common)';
+
+// DC Hours Custom Course Fields
+$string['priceheader'] = 'Credit Hours and Price';
+$string['credithours'] = 'Credit Hours';
+$string['credithours_help'] = 'Total Credit Hours Earned for Taking this Course';
+$string['courseprice'] = 'Course Price ($)';
+$string['courseprice_help'] = 'Price of the Course in US Dollars';
+$string['revise'] = 'Make a Revision';

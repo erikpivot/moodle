@@ -331,6 +331,14 @@ class helper {
                 'attributes' => array('class' => 'action-edit')
             );
         }
+        // Edit.
+        if ($course->can_edit()) {
+            $actions[] = array(
+                'url' => new \moodle_url('/course/edit.php', array('id' => $course->id, 'returnto' => 'catmanage')),
+                'icon' => new \pix_icon('t/revise', \get_string('revise')),
+                'attributes' => array('class' => 'action-edit')
+            );
+        }
         // Delete.
         if ($course->can_delete()) {
             $actions[] = array(

@@ -2825,6 +2825,27 @@ function xmldb_main_upgrade($oldversion) {
         // Main savepoint reached.
         upgrade_main_savepoint(true, 2017111300.02);
     }
+    
+    /**
+     * UPGRADE CODE FOR DCHOURS
+     */
+    if ($oldversion < 2017111302.00) {
+        // add new fields to the course table for credit hours and price
+        $table = new xmldb_table('course');
+        $field = new xmldb_field('credithrs', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('courseprice', XMLDB_TYPE_FLOAT, '10,2', null, XMLDB_NOTNULL, null, '0.00', null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
 
     return true;
 }

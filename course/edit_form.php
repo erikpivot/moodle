@@ -185,6 +185,16 @@ class course_edit_form extends moodleform {
         // Just a placeholder for the course format options.
         $mform->addElement('hidden', 'addcourseformatoptionshere');
         $mform->setType('addcourseformatoptionshere', PARAM_BOOL);
+        
+        // Hours and Price
+        $mform->addElement('header', 'pricehdr', get_string('priceheader'));
+        
+        $mform->addElement('text', 'credithrs', get_string('credithours'));
+        $mform->setType('credithrs', PARAM_INT);
+        $mform->addHelpButton('credithrs', 'credithours');
+        $mform->addElement('text', 'courseprice', get_string('courseprice'));
+        $mform->setType('courseprice', PARAM_FLOAT);
+        $mform->addHelpButton('courseprice', 'courseprice');
 
         // Appearance.
         $mform->addElement('header', 'appearancehdr', get_string('appearance'));
