@@ -2846,6 +2846,433 @@ function xmldb_main_upgrade($oldversion) {
             $dbman->add_field($table, $field);
         }
     }
+    
+    if ($oldversion < 2017111303.01) {
+        // add new fields to the course table for all of the state approval numbers
+        $table = new xmldb_table('course');
+        $field = new xmldb_field('alapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('akapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('azapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('arapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('caapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('coapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('ctapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('deapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('dcapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('flapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('gaapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('hiapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('idapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('ilapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('inapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('iaapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('ksapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('kyapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('laapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('meapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('mdapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('maapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('miapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('mnapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('msapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('moapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('mtapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('neapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('nvapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('nhapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('njapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('nmapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('nyapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('ncapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('ndapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('ohapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('okapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('orapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('paapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('riapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('scapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('sdapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('tnapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('txapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('utapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('vtapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('vaapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('waapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('wvapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('wiapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('wyapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
+    
+    if ($oldversion < 2017111303.02) {
+        // add new fields to the course table for credit hours and price
+        $table = new xmldb_table('course');
+        $field = new xmldb_field('ecommtitle', XMLDB_TYPE_CHAR, '255', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('paceapprovalno', XMLDB_TYPE_CHAR, '25', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $field = new xmldb_field('productid', XMLDB_TYPE_INTEGER, '10', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
+    
+    if ($oldversion < 2017111303.03) {
+        // add a new field to the course table for ecommerce short description
+        $table = new xmldb_table('course');
+        $field = new xmldb_field('ecommshortdescr', XMLDB_TYPE_TEXT, null, null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
+    
+    if ($oldversion < 2017111303.04) {
+        // add new fields to the tag table for the ecommerce product category
+        $table = new xmldb_table('tag');
+        $field = new xmldb_field('ecommproductcat', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
+    
+    if ($oldversion < 2017111303.0) {
+        // add new fields to the course table for revision text and revision number
+        $table = new xmldb_table('course');
+        $field = new xmldb_field('revisiontext', XMLDB_TYPE_CHAR, '255', null, null, null, null, null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $table = new xmldb_table('course');
+        $field = new xmldb_field('revisionno', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
 
     return true;
 }

@@ -378,7 +378,9 @@ class icon_system_fontawesome extends icon_system_font {
             'core:t/up' => 'fa-arrow-up',
             'core:t/user' => 'fa-user',
             'core:t/viewdetails' => 'fa-list',
-            'core:t/revise' => 'fa-recycle'
+            'core:t/revise' => 'fa-recycle',
+            'core:t/scorm' => 'fa-archive',
+            'core:t/certificate' => 'fa-certificate',
         ];
     }
 

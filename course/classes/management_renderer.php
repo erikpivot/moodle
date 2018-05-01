@@ -653,10 +653,18 @@ class core_course_management_renderer extends plugin_renderer_base {
         $html .= html_writer::empty_tag('input', $bulkcourseinput).'&nbsp;';
         $html .= html_writer::end_div();
         $html .= html_writer::link($viewcourseurl, $text, array('class' => 'float-left coursename'));
+        if ($course->revisiontext) {
+            $html .= html_writer::tag('span', '&nbsp;&nbsp;', array('class' => 'float-left'));
+            $html .= html_writer::tag('span', s(' R.' . $course->revisionno), array('class' => 'float-left'));
+            $html .= html_writer::tag('span', '&nbsp;&nbsp;', array('class' => 'float-left'));
+            $html .= html_writer::tag('span', s($course->revisiontext), array('class' => 'float-left'));
+        }
         $html .= html_writer::start_div('float-right');
+        /*
         if ($course->idnumber) {
             $html .= html_writer::tag('span', s($course->idnumber), array('class' => 'dimmed idnumber'));
         }
+        */
         $html .= $this->course_listitem_actions($category, $course);
         $html .= html_writer::end_div();
         $html .= html_writer::end_div();

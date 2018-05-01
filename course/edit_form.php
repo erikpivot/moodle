@@ -22,6 +22,7 @@ class course_edit_form extends moodleform {
         $mform    = $this->_form;
         $PAGE->requires->yui_module('moodle-course-formatchooser', 'M.course.init_formatchooser',
                 array(array('formid' => $mform->getAttribute('id'))));
+        //$PAGE->requires->js(new moodle_url($CFG->wwwroot . '/course/editactions.js'));
 
         $course        = $this->_customdata['course']; // this contains the data of this form
         $category      = $this->_customdata['category'];
@@ -73,6 +74,11 @@ class course_edit_form extends moodleform {
             $mform->hardFreeze('shortname');
             $mform->setConstant('shortname', $course->shortname);
         }
+        
+        $mform->addElement('text','ecommtitle', get_string('ecommercetitle'),'maxlength="254" size="50"');
+        $mform->addHelpButton('ecommtitle', 'ecommercetitle');
+        $mform->addRule('ecommtitle', get_string('missingecommtitle'), 'required', null, 'client');
+        $mform->setType('ecommtitle', PARAM_TEXT);
 
         // Verify permissions to change course category or keep current.
         if (empty($course->id)) {
@@ -144,7 +150,12 @@ class course_edit_form extends moodleform {
         $mform->addHelpButton('summary_editor', 'coursesummary');
         $mform->setType('summary_editor', PARAM_RAW);
         $summaryfields = 'summary_editor';
-
+        
+        $mform->addElement('textarea','ecommshortdescr', get_string('ecommshortdescription'), 'wrap="virtual" rows="10" cols="100"');
+        $mform->addHelpButton('ecommshortdescr', 'ecommshortdescription');
+        $mform->addRule('ecommshortdescr', get_string('missingecommshortdescription'), 'required', null, 'client');
+        $mform->setType('ecommshortdescr', PARAM_RAW);
+        
         if ($overviewfilesoptions = course_overviewfiles_options($course)) {
             $mform->addElement('filemanager', 'overviewfiles_filemanager', get_string('courseoverviewfiles'), null, $overviewfilesoptions);
             $mform->addHelpButton('overviewfiles_filemanager', 'courseoverviewfiles');
@@ -195,6 +206,171 @@ class course_edit_form extends moodleform {
         $mform->addElement('text', 'courseprice', get_string('courseprice'));
         $mform->setType('courseprice', PARAM_FLOAT);
         $mform->addHelpButton('courseprice', 'courseprice');
+        
+        // State Approval Numbers
+        $mform->addElement('header', 'stateapprovenos', get_string('stateapprovalnumbers'));
+        /*
+        $all_states = array(
+            'al'=>'Alabama',
+            'ak'=>'Alaska',
+            'az'=>'Arizona',
+            'ar'=>'Arkansas',
+            'ca'=>'California',
+            'co'=>'Colorado',
+            'ct'=>'Connecticut',
+            'de'=>'Delaware',
+            'dc'=>'District of Columbia',
+            'fl'=>'Florida',
+            'ga'=>'Georgia',
+            'hi'=>'Hawaii',
+            'id'=>'Idaho',
+            'il'=>'Illinois',
+            'in'=>'Indiana',
+            'ia'=>'Iowa',
+            'ks'=>'Kansas',
+            'ky'=>'Kentucky',
+            'la'=>'Louisiana',
+            'me'=>'Maine',
+            'md'=>'Maryland',
+            'ma'=>'Massachusetts',
+            'mi'=>'Michigan',
+            'mn'=>'Minnesota',
+            'ms'=>'Mississippi',
+            'mo'=>'Missouri',
+            'mt'=>'Montana',
+            'ne'=>'Nebraska',
+            'nv'=>'Nevada',
+            'nh'=>'New Hampshire',
+            'nj'=>'New Jersey',
+            'nm'=>'New Mexico',
+            'ny'=>'New York',
+            'nc'=>'North Carolina',
+            'nd'=>'North Dakota',
+            'oh'=>'Ohio',
+            'ok'=>'Oklahoma',
+            'or'=>'Oregon',
+            'pa'=>'Pennsylvania',
+            'ri'=>'Rhode Island',
+            'sc'=>'South Carolina',
+            'sd'=>'South Dakota',
+            'tn'=>'Tennessee',
+            'tx'=>'Texas',
+            'ut'=>'Utah',
+            'vt'=>'Vermont',
+            'va'=>'Virginia',
+            'wa'=>'Washington',
+            'wv'=>'West Virginia',
+            'wi'=>'Wisconsin',
+            'wy'=>'Wyoming'
+        );
+        $mform->addElement('select', 'approvalnolist', get_string('approvalnumberlist'), $all_states);
+        $mform->addHelpButton('approvalnolist', 'approvalnumberlist');
+        */
+        
+        $mform->addElement('text', 'paceapprovalno', get_string('paceapproval'));
+        $mform->setType('paceapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'alapprovalno', get_string('alabamaapproval'));
+        $mform->setType('alapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'akapprovalno', get_string('alaskaapproval'));
+        $mform->setType('akapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'azapprovalno', get_string('arizonaapproval'));
+        $mform->setType('azapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'arapprovalno', get_string('arkansasapproval'));
+        $mform->setType('arapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'caapprovalno', get_string('californiaapproval'));
+        $mform->setType('caapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'coapprovalno', get_string('coloradoapproval'));
+        $mform->setType('coapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'ctapprovalno', get_string('connecticutapproval'));
+        $mform->setType('ctapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'deapprovalno', get_string('delewareapproval'));
+        $mform->setType('deapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'dcapprovalno', get_string('wasdcapproval'));
+        $mform->setType('dcapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'flapprovalno', get_string('floridaapproval'));
+        $mform->setType('flapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'gaapprovalno', get_string('georgiaapproval'));
+        $mform->setType('gaapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'hiapprovalno', get_string('hawaiiapproval'));
+        $mform->setType('hiapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'idapprovalno', get_string('idahoapproval'));
+        $mform->setType('idapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'ilapprovalno', get_string('illinoisapproval'));
+        $mform->setType('ilapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'inapprovalno', get_string('indianaapproval'));
+        $mform->setType('inapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'iaapprovalno', get_string('iowaapproval'));
+        $mform->setType('iaapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'ksapprovalno', get_string('kansasapproval'));
+        $mform->setType('ksapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'kyapprovalno', get_string('kentuckyapproval'));
+        $mform->setType('kyapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'laapprovalno', get_string('louisianaapproval'));
+        $mform->setType('laapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'meapprovalno', get_string('maineapproval'));
+        $mform->setType('meapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'mdapprovalno', get_string('marylandapproval'));
+        $mform->setType('mdapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'maapprovalno', get_string('massachusettsapproval'));
+        $mform->setType('maapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'miapprovalno', get_string('michiganapproval'));
+        $mform->setType('miapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'mnapprovalno', get_string('minnesotaapproval'));
+        $mform->setType('mnapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'msapprovalno', get_string('mississippiapproval'));
+        $mform->setType('msapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'moapprovalno', get_string('missouriapproval'));
+        $mform->setType('moapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'mtapprovalno', get_string('montanaapproval'));
+        $mform->setType('mtapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'neapprovalno', get_string('nebraskaapproval'));
+        $mform->setType('neapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'nvapprovalno', get_string('nevadaapproval'));
+        $mform->setType('nvapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'nhapprovalno', get_string('newhampshireapproval'));
+        $mform->setType('nhapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'njapprovalno', get_string('newjerseyapproval'));
+        $mform->setType('njapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'nmapprovalno', get_string('newmexicoapproval'));
+        $mform->setType('nmapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'nyapprovalno', get_string('newyorkapproval'));
+        $mform->setType('nyapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'ncapprovalno', get_string('northcarolinaapproval'));
+        $mform->setType('ncapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'ndapprovalno', get_string('northdakotaapproval'));
+        $mform->setType('ndapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'ohapprovalno', get_string('ohioapproval'));
+        $mform->setType('ohapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'okapprovalno', get_string('oklahomaapproval'));
+        $mform->setType('okapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'orapprovalno', get_string('oregonapproval'));
+        $mform->setType('orapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'paapprovalno', get_string('pennsylvaniaapproval'));
+        $mform->setType('paapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'riapprovalno', get_string('rhodeislandapproval'));
+        $mform->setType('riapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'scapprovalno', get_string('southcarolinaapproval'));
+        $mform->setType('scapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'sdapprovalno', get_string('southdakotaapproval'));
+        $mform->setType('sdapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'tnapprovalno', get_string('tennesseeapproval'));
+        $mform->setType('tnapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'txapprovalno', get_string('texasapproval'));
+        $mform->setType('txapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'utapprovalno', get_string('utahapproval'));
+        $mform->setType('utapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'vtapprovalno', get_string('vermontapproval'));
+        $mform->setType('vtapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'vaapprovalno', get_string('virginiaapproval'));
+        $mform->setType('vaapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'waapprovalno', get_string('washingtonapproval'));
+        $mform->setType('waapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'wvapprovalno', get_string('westvirginiaapproval'));
+        $mform->setType('wvapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'wiapprovalno', get_string('wisconsinapproval'));
+        $mform->setType('wiapprovalno', PARAM_TEXT);
+        $mform->addElement('text', 'wyapprovalno', get_string('wyomingapproval'));
+        $mform->setType('wyapprovalno', PARAM_TEXT);
 
         // Appearance.
         $mform->addElement('header', 'appearancehdr', get_string('appearance'));
@@ -321,8 +497,8 @@ class course_edit_form extends moodleform {
         if (core_tag_tag::is_enabled('core', 'course') &&
                 ((empty($course->id) && guess_if_creator_will_have_course_capability('moodle/course:tag', $categorycontext))
                 || (!empty($course->id) && has_capability('moodle/course:tag', $coursecontext)))) {
-            $mform->addElement('header', 'tagshdr', get_string('tags', 'tag'));
-            $mform->addElement('tags', 'tags', get_string('tags'),
+            $mform->addElement('header', 'tagshdr', 'Categories');
+            $mform->addElement('tags', 'tags', 'Categories',
                     array('itemtype' => 'course', 'component' => 'core'));
         }
 
@@ -434,4 +610,3 @@ class course_edit_form extends moodleform {
         return $errors;
     }
 }
-

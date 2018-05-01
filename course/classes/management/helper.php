@@ -318,11 +318,32 @@ class helper {
      * @return string
      */
     public static function get_course_listitem_actions(\coursecat $category, \course_in_list $course) {
+        global $DB;
+        
         $baseurl = new \moodle_url(
             '/course/management.php',
             array('courseid' => $course->id, 'categoryid' => $course->category, 'sesskey' => \sesskey())
         );
         $actions = array();
+        // Add SCORM, if neccessary
+        if ($course->can_edit()) {
+            $has_scorm = $DB->record_exists('course_modules', array('module' => 18, 'course' => $course->id, 'deletioninprogress' => 0));
+            if (!$has_scorm) {
+                    $url_params = array(
+                    'add' => 'scorm',
+                    'type' => '',
+                    'course' => $course->id,
+                    'section' => 0,
+                    'return' => 0,
+                    'sr' => 0
+                );
+                $actions[] = array(
+                    'url' => new \moodle_url('/course/modedit.php', $url_params),
+                    'icon' => new \pix_icon('t/scorm', \get_string('addscorm')),
+                    'attributes' => array('class' => 'action-edit')
+                );    
+            }
+        }
         // Edit.
         if ($course->can_edit()) {
             $actions[] = array(
@@ -331,10 +352,10 @@ class helper {
                 'attributes' => array('class' => 'action-edit')
             );
         }
-        // Edit.
+        // Revise.
         if ($course->can_edit()) {
             $actions[] = array(
-                'url' => new \moodle_url('/course/edit.php', array('id' => $course->id, 'returnto' => 'catmanage')),
+                'url' => new \moodle_url('/course/revise.php', array('id' => $course->id)),
                 'icon' => new \pix_icon('t/revise', \get_string('revise')),
                 'attributes' => array('class' => 'action-edit')
             );

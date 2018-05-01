@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/state_settings/db" VERSION="20180330" COMMENT="XMLDB file for Moodle local/state_settings"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_state_settings" COMMENT="State approval number settings">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="state" TYPE="char" LENGTH="30" NOTNULL="true" SEQUENCE="false" COMMENT="State settings apply to"/>
+        <FIELD NAME="pace" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Pace approved"/>
+        <FIELD NAME="life" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Life University Sponsorship"/>
+        <FIELD NAME="stateapproval" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="State approval required"/>
+        <FIELD NAME="staterequire" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="State requirements"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

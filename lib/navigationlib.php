@@ -4043,6 +4043,8 @@ class settings_navigation extends navigation_node {
                         $adminsettings->remove();
                         $adminsettings = false;
                     }
+                   
+                    /* CORE ADMINISTRATION */ 
                     $siteadminnode = $this->add(get_string('administrationsite'), new moodle_url('/admin/search.php'),
                             self::TYPE_SITE_ADMIN, null, 'siteadministration');
                     $siteadminnode->id = 'expandable_branch_' . $siteadminnode->type . '_' .

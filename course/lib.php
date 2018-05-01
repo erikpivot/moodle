@@ -152,7 +152,7 @@ function build_mnet_logs_array($hostid, $course, $user=0, $date=0, $order="l.tim
 
     /// Setup for group handling.
 
-    // TODO: I don't understand group/context/etc. enough to be able to do
+    // TODO: I don't understand group/context/etc. enough to be able to docre
     // something interesting with it here
     // What is the context of a remote course?
 
@@ -2500,6 +2500,7 @@ function create_course($data, $editoroptions = NULL) {
     $context->mark_dirty();
 
     // Trigger a course created event.
+    /*
     $event = \core\event\course_created::create(array(
         'objectid' => $course->id,
         'context' => context_course::instance($course->id),
@@ -2508,6 +2509,7 @@ function create_course($data, $editoroptions = NULL) {
     ));
 
     $event->trigger();
+    */
 
     // Setup the blocks
     blocks_add_default_course_blocks($course);
@@ -2531,6 +2533,17 @@ function create_course($data, $editoroptions = NULL) {
     if (isset($data->tags)) {
         core_tag_tag::set_item_tags('core', 'course', $course->id, context_course::instance($course->id), $data->tags);
     }
+    
+    /* MOVED TO SEND TAGS TO ECOMMERCE */
+    // Trigger a course created event.
+    $event = \core\event\course_created::create(array(
+        'objectid' => $course->id,
+        'context' => context_course::instance($course->id),
+        'other' => array('shortname' => $course->shortname,
+            'fullname' => $course->fullname)
+    ));
+
+    $event->trigger();
 
     return $course;
 }
