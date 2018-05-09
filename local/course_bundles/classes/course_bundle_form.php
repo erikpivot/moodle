@@ -110,7 +110,7 @@ class bundle_edit_form extends moodleform {
         $mform->addElement('select', 'state', get_string('statelist', 'local_course_bundles'), $all_states);
         
         // get all courses to set up as checkboxes
-        $courses = $DB->get_records('course', array('revisionno' => 0));
+        $courses = $DB->get_records('course', array('category' => 1));
         $course_list = array();
         foreach($courses as $course_info) {
             // build the class name based on the states that are associated with the course
@@ -306,10 +306,15 @@ class bundle_edit_form extends moodleform {
         $mform->addRule('description', null, 'required');
         $mform->setType('description', PARAM_RAW);
         
+        // bundle featured image
+        $mform->addElement('filemanager', 'featuredimage', get_string('bundlefeaturedimage', 'local_course_bundles'), array('.jpg', '.gif', '.png'));
+        
         // bundle short description
+        /*
         $mform->addElement('textarea', 'shortdescript', get_string('bundleshortdescription', 'local_course_bundles'), 'wrap="virtual" rows="20" cols="75"');
         $mform->addRule('shortdescript', null, 'required');
         $mform->setType('shortdescript', PARAM_RAW);
+        */
         
         // total credit hours
         $mform->addElement('text', 'credithrs', get_string('bundlecredithours', 'local_course_bundles'));

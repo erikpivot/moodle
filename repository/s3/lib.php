@@ -285,6 +285,7 @@ class repository_s3 extends repository {
         $strrequired = get_string('required');
         $endpointselect = array( // List of possible Amazon S3 Endpoints.
             "s3.amazonaws.com" => "s3.amazonaws.com",
+            "s3.us-east-2.amazonaws.com" => "s3.us-east-2.amazonaws.com",
             "s3-external-1.amazonaws.com" => "s3-external-1.amazonaws.com",
             "s3-us-west-2.amazonaws.com" => "s3-us-west-2.amazonaws.com",
             "s3-us-west-1.amazonaws.com" => "s3-us-west-1.amazonaws.com",

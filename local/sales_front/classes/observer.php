@@ -37,20 +37,22 @@ defined('MOODLE_INTERNAL') || die();
 class observer {
     
     public static function create_product(\core\event\course_created $event) {
-        global $DB;
+        global $DB, $CFG;
         $eventdata = $event->get_data();
         $course = get_course($eventdata['objectid']);
         file_put_contents(__DIR__ . 'create_product.txt', print_r($course, true) . "\n", FILE_APPEND);
         file_put_contents(__DIR__ . 'create_product.txt', print_r($eventdata, true) . "\n", FILE_APPEND);
         
-        // create a unique course id for reference from the front end site
-        $course_no = date('Ymdhis') . "-" . $eventdata['objectid'];
+        // create a unique course id for reference from the front end site, if neccessary
+        if (empty($course->idnumber)) {
+            $course_no = date('Ymdhis') . "-" . $eventdata['objectid'];
         
-        // update the course id number
-        $course_obj = new \stdClass();
-        $course_obj->id = $eventdata['objectid'];
-        $course_obj->idnumber = $course_no;
-        $DB->update_record('course', $course_obj);
+            // update the course id number
+            $course_obj = new \stdClass();
+            $course_obj->id = $eventdata['objectid'];
+            $course_obj->idnumber = $course_no;
+            $DB->update_record('course', $course_obj);    
+        }
         
         // action performed depends on if the new course is a revision
         if ($course->revisionno > 0) {
@@ -101,14 +103,34 @@ class observer {
             
             file_put_contents(__DIR__ . 'create_product.txt', "Product Cats: " . print_r($product_cats, true) . "\n", FILE_APPEND);
             
+            // get any images associated with the course
+            require_once($CFG->libdir. '/coursecatlib.php');
+            $course_obj = new \course_in_list($course);
+            $img_arr = [];
+            $cur_position = 0;
+            foreach ($course_obj->get_course_overviewfiles() as $file) {
+                $isimage = $file->is_valid_image();
+                $url = file_encode_url($CFG->wwwroot . '/pluginfile.php',
+                '/'. $file->get_contextid(). '/'. $file->get_component(). '/'.
+                $file->get_filearea(). $file->get_filepath(). $file->get_filename(), !$isimage);
+                if($isimage) {
+                    $img_arr[] = [
+                        'src' => $url,
+                        'position' => $cur_position
+                    ];
+                    $cur_position++;
+                }
+            }
+            
             // create the woocommerce data object for the new product
             $data = [
-                'name' => $course->ecommtitle,
+                'name' => $course->fullname,
                 'type' => 'simple',
                 'regular_price' => $course->courseprice,
                 'description' => $course->summary,
-                'short_description' => $course->ecommshortdescr,
+                //'short_description' => $course->summary,
                 'categories' => $product_cats,
+                'images' => $img_arr,
                 'sold_individually' => true,
                 'meta_data' => [
                     [
@@ -147,7 +169,7 @@ class observer {
     }
     
     public static function update_product(\core\event\course_updated $event) {
-        global $DB;
+        global $DB, $CFG;
         $eventdata = $event->get_data();
         $course = $event->get_record_snapshot('course', $eventdata['objectid']);
         file_put_contents(__DIR__ . 'update_product.txt', print_r($course, true) . "\n", FILE_APPEND);
@@ -177,14 +199,34 @@ class observer {
         
         file_put_contents(__DIR__ . 'update_product.txt', "Categories: " . print_r($cat_array, true) . "\n", FILE_APPEND);
         
+        // get any images associated with the course
+        require_once($CFG->libdir. '/coursecatlib.php');
+        $course_obj = new \course_in_list($course);
+        $img_arr = [];
+        $cur_position = 0;
+        foreach ($course_obj->get_course_overviewfiles() as $file) {
+            $isimage = $file->is_valid_image();
+            $url = file_encode_url($CFG->wwwroot . '/pluginfile.php',
+            '/'. $file->get_contextid(). '/'. $file->get_component(). '/'.
+            $file->get_filearea(). $file->get_filepath(). $file->get_filename(), !$isimage);
+            if($isimage) {
+                $img_arr[] = [
+                    'src' => $url,
+                    'position' => $cur_position
+                ];
+                $cur_position++;
+            }
+        }
+        
         // create the woocommerce data object for the product
         $data = [
-            'name' => $course->ecommtitle,
+            'name' => $course->fullname,
             'type' => 'simple',
             'regular_price' => $course->courseprice,
-            'description' => strip_tags($course->summary),
-            'short_description' => $course->ecommshortdescr,
+            'description' => $course->summary,
+            //'short_description' => $course->ecommshortdescr,
             'categories' => $cat_array,
+            'images' => $img_arr,
             'meta_data' => [
                 [
                     'key' => 'dc_credit_hours',
@@ -192,7 +234,7 @@ class observer {
                 ]
             ]
         ];
-        
+        file_put_contents(__DIR__ . 'update_product_result.txt', print_r($data, true), FILE_APPEND);
         // Make the curl request
         $config = get_config('local_sales_front');
         $ch = curl_init($config->ecommerce_url . "/wp-json/wc/v2/products/" . $course->productid . "/?consumer_key=" . $config->wc_client_key . "&consumer_secret=" . $config->wc_client_secret);
@@ -203,6 +245,9 @@ class observer {
         $res = curl_exec($ch);
         curl_close($ch);
         file_put_contents(__DIR__ . 'update_product_result.txt', $res . "\n", FILE_APPEND);
+        
+        // update any bundles the course is associated with
+        observer::updateBundleDescriptions($course->idnumber);
         
     }
     
@@ -536,5 +581,61 @@ class observer {
             // copy the pages from the main template to the new one
             $new_template->copy_to_template($mod_info->templateid);
         }
+    }
+    
+    public static function updateBundleDescriptions($idnumber) {
+        global $DB;
+        // get all of the bundles with the course idnumber sent
+        $select = "courses LIKE '%" . $idnumber . "%'";
+        file_put_contents(__DIR__ . '/update_bundle_result.txt', "SELECT: " . $select . "\n");
+        $records = $DB->get_records_select('local_course_bundles', $select, array('id', 'courses', 'ecommproductid'));
+        file_put_contents(__DIR__ . '/update_bundle_result.txt', "RECORDS: " . print_r($records, true) . "\n", FILE_APPEND);
+        foreach ($records as $record) {
+            // get the courses involved and build the new description for the bundle
+            $cselect = "idnumber IN ('" . str_replace(",", "','", $record->courses) . "')";
+            file_put_contents(__DIR__ . '/update_bundle_result.txt', "SELECT COURSE: " . $cselect . "\n", FILE_APPEND);
+            $courses = $DB->get_records_select('course', $cselect, array('id', 'fullname', 'credithrs', 'summary'));
+            file_put_contents(__DIR__ . '/update_bundle_result.txt', "COURSE RECORDS: " . print_r($courses, true) . "\n", FILE_APPEND);
+            $bundle_descr = observer::buildDescription($courses);
+            // send the update to the ecommerce site
+            // create the woocommerce data object for the new product
+            $woo_data = [
+                'description' => $bundle_descr
+            ];
+            
+            // Make the curl request
+            $config = get_config('local_sales_front');
+            $ch = curl_init($config->ecommerce_url . "/wp-json/wc/v2/products/" . $record->ecommproductid . "/?consumer_key=" . $config->wc_client_key . "&consumer_secret=" . $config->wc_client_secret);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($woo_data));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $res = curl_exec($ch);
+            curl_close($ch);
+            file_put_contents(__DIR__ . '/update_bundle_result.txt', $res . "\n", FILE_APPEND);
+        }
+    }
+    
+    /**
+     * @param object $courses - contains information of all assigned courses
+     * @return string - the long description for eCommerce
+     */
+    public static function buildDescription($courses) {
+        global $DB;
+        file_put_contents(__DIR__ . '/build_bundle_descripts.txt', print_r($courses, true), FILE_APPEND);
+        $descr_str = '';
+        
+        // go through each course
+        foreach ($courses as $course_info) {
+            $descr_str .= $course_info->fullname . " - Credit Hours: " . $course_info->credithrs;
+            // get the categories associated with the course
+            $tag_info = \core_tag_tag::get_item_tags_array('core', 'course', $course_info->id);
+            //file_put_contents(__DIR__ . '/tag_info.txt', "Course: " . $course_info['fullname'] . "\n" . print_r($tag_info, true), FILE_APPEND);
+            foreach($tag_info as $key => $value) {
+                $descr_str .= '<span class="course-category">' . $value . '</span>';
+            }
+            $descr_str .= $course_info->summary . '<br /><br />';
+        }
+        return $descr_str;
     }
 }

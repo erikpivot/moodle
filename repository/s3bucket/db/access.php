@@ -15,17 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Plugin capabilities.
  *
- * @package    repository
- * @subpackage s3
- * @copyright  2009 Dongsheng Cai
- * @author     Dongsheng Cai <dongsheng@moodle.com>
+ * @package    repository_s3bucket
+ * @copyright  2015 Renaat Debleu (www.eWallah.net) (based on work by Dongsheng Cai)
+ * @author     Renaat Debleu (www.eWallah.net)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2017111301;        // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2017110800;        // Requires this Moodle version
-$plugin->component = 'repository_s3';   // Full name of the plugin (used for diagnostics)
+$capabilities = array(
+
+    'repository/s3bucket:view' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_MODULE,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        )
+    ),
+    'repository/s3bucket:addinstance' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_COURSE,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        )
+    )
+);

@@ -44,6 +44,7 @@ class S3
 
 	const STORAGE_CLASS_STANDARD = 'STANDARD';
 	const STORAGE_CLASS_RRS = 'REDUCED_REDUNDANCY';
+	const STORAGE_CLASS_STANDARD_IA = 'STANDARD_IA';
 
 	const SSE_NONE = '';
 	const SSE_AES256 = 'AES256';
@@ -79,7 +80,7 @@ class S3
 	 * Default delimiter to be used, for example while getBucket().
 	 * @var string
 	 * @access public
-	 * @static
+	 * @static 
 	 */
 	public static $defDelimiter = null;
 
@@ -1920,7 +1921,7 @@ final class S3Request
 	 * AWS URI
 	 *
 	 * @var string
-	 * @access pricate
+	 * @access private
 	 */
 	private $endpoint;
 	

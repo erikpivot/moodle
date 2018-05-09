@@ -107,7 +107,7 @@ function enrol_into_course($courseid, $userid, $roleid = 5) {
  * Updates the licensing info for a user from the front end
  * ECommerce site
  */
-function update_user_license_info($userid) {
+function update_user_license_info($userid, $new = false) {
     global $DB;
     // get the wordpress user id for the user
     $user_info = $DB->get_record('user', array('id' => $userid));
@@ -137,60 +137,69 @@ function update_user_license_info($userid) {
     // success?
         if ($license_info->success) {
             // update the user extra fields with the data
-            if (!empty($license_info->license_info->primary->state)) {
+            if (!empty($license_info->license_info->primary->state) || $new) {
                 // update the state
-                update_license_field($license_info->license_info->primary->state, $userid, 1);
+                update_license_field($license_info->license_info->primary->state, $userid, 1, $new);
                 
                 // update the number
-                update_license_field($license_info->license_info->primary->number, $userid, 2);
+                update_license_field($license_info->license_info->primary->number, $userid, 2, $new);
             }
             
-            if (!empty($license_info->license_info->secondary->state)) {
+            if (!empty($license_info->license_info->secondary->state) || $new) {
                 // update the state
-                update_license_field($license_info->license_info->secondary->state, $userid, 3);
+                update_license_field($license_info->license_info->secondary->state, $userid, 3, $new);
                 
                 // update the number
-                update_license_field($license_info->license_info->secondary->number, $userid, 4);
+                update_license_field($license_info->license_info->secondary->number, $userid, 4, $new);
             }
             
-            if (!empty($license_info->license_info->tertiary->state)) {
+            if (!empty($license_info->license_info->tertiary->state) || $new) {
                 // update the state
-                update_license_field($license_info->license_info->tertiary->state, $userid, 5);
+                update_license_field($license_info->license_info->tertiary->state, $userid, 5, $new);
                 
                 // update the number
-                update_license_field($license_info->license_info->tertiary->number, $userid, 6);
+                update_license_field($license_info->license_info->tertiary->number, $userid, 6, $new);
             }
             
-            if (!empty($license_info->address->street)) {
+            if (!empty($license_info->address->street) || $new) {
                 // update the street address
                 $full_address = str_replace("'", "\'", $license_info->address->street);
                 if (!empty($license_info->address->street2)) {
                     $full_address .= ' ' . str_replace("'", "\'", $license_info->address->street2);
                 }
-                update_license_field($full_address, $userid, 7);
+                update_license_field($full_address, $userid, 7, $new);
             }
             
-            if (!empty($license_info->address->city)) {
+            if (!empty($license_info->address->city) || $new) {
                 // update the city
-                update_license_field(str_replace("'", "\'", $license_info->address->city), $userid, 8);
+                update_license_field(str_replace("'", "\'", $license_info->address->city), $userid, 8, $new);
             }
             
-            if (!empty($license_info->address->state)) {
+            if (!empty($license_info->address->state) || $new) {
                 // update the state
-                update_license_field($license_info->address->state, $userid, 9);
+                update_license_field($license_info->address->state, $userid, 9, $new);
             }
             
-            if (!empty($license_info->address->zip)) {
+            if (!empty($license_info->address->zip) || $new) {
                 // update the postal code
-                update_license_field($license_info->address->zip, $userid, 10);
+                update_license_field($license_info->address->zip, $userid, 10, $new);
             }
         }
 }
 
-function update_license_field($data, $userid, $fieldid) {
+function update_license_field($data, $userid, $fieldid, $new = false) {
         global $DB;
-        $sql = "UPDATE {user_info_data} SET data = ? WHERE userid = ? AND fieldid = ?";
-        $DB->execute($sql, array('data' => $data, 'userid' => $userid, 'fieldid' => $fieldid));
+        //file_put_contents(__DIR__ . '/update-license-fields.txt', $data . " " . $userid . " " . $fieldid . "\n", FILE_APPEND);
+        if (!$new) {
+            $sql = "UPDATE {user_info_data} SET data = ? WHERE userid = ? AND fieldid = ?";
+            $DB->execute($sql, array('data' => $data, 'userid' => $userid, 'fieldid' => $fieldid));    
+        } else {
+            $record = new stdClass();
+            $record->userid = $userid;
+            $record->fieldid = $fieldid;
+            $record->data = $data;
+            $lastinsertid = $DB->insert_record('user_info_data', $record);
+        }
     }
 
 $rawdata = $_GET['data'];
@@ -327,11 +336,10 @@ if (!empty($_GET)) {
 			$newuser = truncate_user($newuser);
 
 			$newuser->id = $DB->insert_record('user', $newuser);
-			
-			// update user licensing information
-			update_user_license_info($newuser->id);
 
 			$user = get_complete_user_data('id', $newuser->id);
+			// update user licensing information
+			update_user_license_info($user->id, true);
 			\core\event\user_created::create_from_userid($user->id)->trigger();
 
 		}

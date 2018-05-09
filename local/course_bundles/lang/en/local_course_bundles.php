@@ -37,3 +37,4 @@ $string['bundlecredithours'] = 'Total Credit Hours';
 $string['deletingbundle'] = 'Deleting Bundle {$a}';
 $string['deletedbundle'] = 'Bundle {$a} Deleted';
 $string['deletebundlecheck'] = 'Are you sure you want to delete this bundle?  This action cannot be undone.';
+$string['bundlefeaturedimage'] = 'Featured Image';

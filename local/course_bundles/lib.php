@@ -105,8 +105,17 @@ function local_course_bundles_update_record($data, $insert = true) {
     
     // grab the course names
     $all_courses = explode(",", $data->courses);
+    $courses = array();
     foreach ($all_courses as $course_id) {
         $course_info = $DB->get_record('course', array('idnumber' => $course_id));
+        $courses[] = array(
+            'id' => $course_info->id,
+            'fullname' => $course_info->fullname,
+            'summary' => $course_info->summary,
+            'credithrs' => $course_info->credithrs,
+            'idnumber' => $course_id,
+            'removed' => false
+        );
         $sel_courses .= '<li>' . $course_info->fullname . '</li>';
     }
     $sel_courses .= '</ul>';
@@ -115,6 +124,7 @@ function local_course_bundles_update_record($data, $insert = true) {
         file_put_contents(__DIR__ . '/create_product_result.txt', print_r($data, true) . "\n", FILE_APPEND);
         $result = $DB->insert_record('local_course_bundles', $data, true, false);
         $product_cats = [];
+        $product_cats[] = ['id' => 45]; // Bundle Category
         processStateCategoryIds($data->state, $product_cats);
         file_put_contents(__DIR__ . '/create_product.txt', "Product Cats: " . print_r($product_cats, true) . "\n", FILE_APPEND);
         // create the woocommerce data object for the new product
@@ -122,8 +132,8 @@ function local_course_bundles_update_record($data, $insert = true) {
             'name' => $data->name,
             'type' => 'simple',
             'regular_price' => (string)$data->price,
-            'description' => $data->description . $sel_courses,
-            'short_description' => $data->shortdescript,
+            'description' => buildDescription($courses),
+            'short_description' => $data->description,
             'categories' => $product_cats,
             'sold_individually' => true,
             'meta_data' => [
@@ -158,11 +168,30 @@ function local_course_bundles_update_record($data, $insert = true) {
             $up_obj->ecommproductid = $product->id;
             file_put_contents(__DIR__. '/create_product_result.txt', print_r($up_obj, true) . "\n", FILE_APPEND);
             $DB->update_record('local_course_bundles', $up_obj);
+            
+            // update the course short descriptions
+            updateCourseShortDescripts($result, $courses);
         }
         //local_course_bundles_events::bundle_added($result);
     } else {
+        // get the previously saved course id numbers before updating
+        $previds = $DB->get_record('local_course_bundles', array('id' => $data->id), 'courses');
+        if (!empty($previds)) {
+            // compare the ids found to the currently selected course ids
+            $prev_courses = explode(",", $previds->courses);
+            foreach($prev_courses as $this_course) {
+                if (array_search($this_course, array_column($courses, 'idnumber')) === false) {
+                    // add to the courses array to be removed
+                    $courses[] = array(
+                        'idnumber' => $this_course,
+                        'removed' => true
+                    );
+                }
+            }
+        }
         $result = $DB->update_record('local_course_bundles', $data, false);
         $product_cats = [];
+        $product_cats[] = ['id' => 45]; // Bundle Category
         processStateCategoryIds($data->state, $product_cats);
         file_put_contents(__DIR__ . '/update_product.txt', "Product Cats: " . print_r($product_cats, true) . "\n", FILE_APPEND);
         file_put_contents(__DIR__ . '/update_product.txt', "Data: " . print_r($data, true) . "\n", FILE_APPEND);
@@ -171,13 +200,17 @@ function local_course_bundles_update_record($data, $insert = true) {
             'name' => $data->name,
             'type' => 'simple',
             'regular_price' => (string)$data->price,
-            'description' => $data->description . $sel_courses,
-            'short_description' => $data->shortdescript,
+            'description' => buildDescription($courses),
+            'short_description' => $data->description,
             'categories' => $product_cats,
             'meta_data' => [
                 [
                     'key' => 'dc_credit_hours',
                     'value' => $data->credithrs
+                ],
+                [
+                    'key' => 'dc_course_ids',
+                    'value' => $data->courses
                 ]
             ]
         ];
@@ -194,6 +227,8 @@ function local_course_bundles_update_record($data, $insert = true) {
         curl_close($ch);
         file_put_contents(__DIR__ . '/update_product_result.txt', $res . "\n", FILE_APPEND);
         //local_course_bundles_events::bundle_updated($data->id);
+        // update the course short descriptions
+        updateCourseShortDescripts($data->id, $courses);
     }
     
     return boolval($result);
@@ -224,5 +259,64 @@ function setPACE(&$course_info, $pace_number) {
         $this_state = substr($pace->name, (strlen($pace->name) - 2), 2);
         $c_idx = $this_state . 'approvalno';
         $course_info->$c_idx = $pace_number;
+    }
+}
+
+/**
+ * @param object $courses - contains information of all assigned courses
+ * @return string - the long description for eCommerce
+ */
+function buildDescription($courses) {
+    global $DB;
+    $descr_str = '';
+    
+    // go through each course
+    foreach ($courses as $course_info) {
+        $descr_str .= $course_info['fullname'] . " - Credit Hours: " . $course_info['credithrs'];
+        // get the categories associated with the course
+        $tag_info = \core_tag_tag::get_item_tags_array('core', 'course', $course_info['id']);
+        //file_put_contents(__DIR__ . '/tag_info.txt', "Course: " . $course_info['fullname'] . "\n" . print_r($tag_info, true), FILE_APPEND);
+        foreach($tag_info as $key => $value) {
+            $descr_str .= '<span class="course-category">' . $value . '</span>';
+        }
+        $descr_str .= $course_info['summary'] . '<br /><br />';
+    }
+    return $descr_str;
+}
+
+function updateCourseShortDescripts($bundle_id, $courses) {
+    global $DB;
+    $config = get_config('local_sales_front');
+    // loop through the individual courses and see if they are associated with
+    // other bundles
+    file_put_contents(__DIR__ . '/course_short_descripts.txt', print_r($courses, true), FILE_APPEND);
+    foreach ($courses as $courseinfo) {
+        $select = "courses LIKE '%" . $courseinfo['idnumber'] . "%' AND id != " . $bundle_id;
+        $records = $DB->get_records_select('local_course_bundles', $select, array('id'));
+        if (empty($records)) {
+            // the course is not a part of another bundle
+            // check if the short description needs to be removed or added
+            if ($courseinfo['removed']) {
+                $woo_data = [
+                    'short_description' => ''
+                ];
+            } else {
+                $woo_data = [
+                    'short_description' => '<div class="has-bundle">This course is part of a bundle.</div>'
+                ];
+            }
+            // get the ecommerce id for the course
+            $course_rec = $DB->get_record('course', array('idnumber' => $courseinfo['idnumber']));
+            if (!empty($course_rec)) {
+                // send the update to the eCommerce site
+                $ch = curl_init($config->ecommerce_url . "/wp-json/wc/v2/products/" . $course_rec->productid . "/?consumer_key=" . $config->wc_client_key . "&consumer_secret=" . $config->wc_client_secret);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($woo_data));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                $res = curl_exec($ch);
+                curl_close($ch);
+            }
+        }
     }
 }

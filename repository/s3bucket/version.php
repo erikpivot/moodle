@@ -13,19 +13,22 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
- 
-/**
- * @package   local_course_bundles
- * @copyright 2018 Pivot Creative
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
- 
-defined('MOODLE_INTERNAL') || die();
- 
-$plugin->version   = 2018050200.01;
-$plugin->requires  = 2017111300; // Requires this Moodle version (3.4).
-$plugin->cron      = 0;
-$plugin->component = 'local_course_bundles';
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '3.4 release (Build: 2017111300)';
 
+/**
+ * Version details
+ *
+ * @package    repository_s3bucket
+ * @copyright  2015 Renaat Debleu (www.eWallah.net) (based on work by Dongsheng Cai)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+defined('MOODLE_INTERNAL') || die();
+
+$plugin->version   = 2017051800;
+$plugin->requires  = 2017051500;
+$plugin->component = 'repository_s3bucket';
+$plugin->maturity  = MATURITY_STABLE;
+$plugin->release   = '3.3';
+$plugin->dependencies = array(
+    'repository_s3' => ANY_VERSION
+);

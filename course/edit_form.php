@@ -75,11 +75,13 @@ class course_edit_form extends moodleform {
             $mform->setConstant('shortname', $course->shortname);
         }
         
+        /*
         $mform->addElement('text','ecommtitle', get_string('ecommercetitle'),'maxlength="254" size="50"');
         $mform->addHelpButton('ecommtitle', 'ecommercetitle');
         $mform->addRule('ecommtitle', get_string('missingecommtitle'), 'required', null, 'client');
         $mform->setType('ecommtitle', PARAM_TEXT);
-
+        */
+       
         // Verify permissions to change course category or keep current.
         if (empty($course->id)) {
             if (has_capability('moodle/course:create', $categorycontext)) {
@@ -151,10 +153,12 @@ class course_edit_form extends moodleform {
         $mform->setType('summary_editor', PARAM_RAW);
         $summaryfields = 'summary_editor';
         
+        /*
         $mform->addElement('textarea','ecommshortdescr', get_string('ecommshortdescription'), 'wrap="virtual" rows="10" cols="100"');
         $mform->addHelpButton('ecommshortdescr', 'ecommshortdescription');
         $mform->addRule('ecommshortdescr', get_string('missingecommshortdescription'), 'required', null, 'client');
         $mform->setType('ecommshortdescr', PARAM_RAW);
+        */
         
         if ($overviewfilesoptions = course_overviewfiles_options($course)) {
             $mform->addElement('filemanager', 'overviewfiles_filemanager', get_string('courseoverviewfiles'), null, $overviewfilesoptions);

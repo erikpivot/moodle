@@ -13,19 +13,18 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
- 
+
 /**
- * @package   local_course_bundles
- * @copyright 2018 Pivot Creative
+ * Strings for component 'repository_s3bucket', language 'en', branch 'MOODLE_29_STABLE'
+ *
+ * @package   repository_s3bucket
+ * @copyright 2015 Renaat Debleu (www.eWallah.net) (based on work by Dongsheng Cai)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
-defined('MOODLE_INTERNAL') || die();
- 
-$plugin->version   = 2018050200.01;
-$plugin->requires  = 2017111300; // Requires this Moodle version (3.4).
-$plugin->cron      = 0;
-$plugin->component = 'local_course_bundles';
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '3.4 release (Build: 2017111300)';
 
+$string['configplugin'] = 'Amazon S3 bucket settings';
+$string['pluginname'] = 'Amazon S3 bucket';
+$string['pluginname_help'] = 'Amazon s3 bucket repository';
+$string['bucketname'] = 'Bucket name';
+$string['s3bucket:view'] = 'View Amazon s3 bucket repository';
+$string['s3bucket:addinstance'] = 'Add a new Amazon s3 bucket instance';
