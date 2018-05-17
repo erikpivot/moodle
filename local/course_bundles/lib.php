@@ -55,6 +55,8 @@ function local_course_bundles_get_record($bundleid = 0) {
     global $DB;
     
     $bundlerecord = $DB->get_record('local_course_bundles', array('id' => $bundleid), '*', MUST_EXIST);
+    // interperet the description of the html editor
+    $bundlerecord->description = array('text' => $bundlerecord->description, 'format' => 1);
     
     return $bundlerecord;
 }
@@ -106,6 +108,7 @@ function local_course_bundles_update_record($data, $insert = true) {
     // grab the course names
     $all_courses = explode(",", $data->courses);
     $courses = array();
+    $product_cats = [];
     foreach ($all_courses as $course_id) {
         $course_info = $DB->get_record('course', array('idnumber' => $course_id));
         $courses[] = array(
@@ -117,13 +120,23 @@ function local_course_bundles_update_record($data, $insert = true) {
             'removed' => false
         );
         $sel_courses .= '<li>' . $course_info->fullname . '</li>';
+        // get the product category ids
+        $tag_info = \core_tag_tag::get_item_tags_array('core', 'course', $course_info->id);
+        foreach($tag_info as $key => $value) {
+            $cat_res = $DB->get_record('tag', array('id' => $key), 'ecommproductcat');
+            $product_cats[] = [
+                'id' => $cat_res->ecommproductcat
+            ];
+        }
     }
     $sel_courses .= '</ul>';
+    
+    // rebuild the data description property to the text of the html editor
+    $data->description = $data->description['text'];
 
     if (boolval($insert)) {
         file_put_contents(__DIR__ . '/create_product_result.txt', print_r($data, true) . "\n", FILE_APPEND);
         $result = $DB->insert_record('local_course_bundles', $data, true, false);
-        $product_cats = [];
         $product_cats[] = ['id' => 45]; // Bundle Category
         processStateCategoryIds($data->state, $product_cats);
         file_put_contents(__DIR__ . '/create_product.txt', "Product Cats: " . print_r($product_cats, true) . "\n", FILE_APPEND);
@@ -190,7 +203,6 @@ function local_course_bundles_update_record($data, $insert = true) {
             }
         }
         $result = $DB->update_record('local_course_bundles', $data, false);
-        $product_cats = [];
         $product_cats[] = ['id' => 45]; // Bundle Category
         processStateCategoryIds($data->state, $product_cats);
         file_put_contents(__DIR__ . '/update_product.txt', "Product Cats: " . print_r($product_cats, true) . "\n", FILE_APPEND);

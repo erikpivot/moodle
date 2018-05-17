@@ -302,7 +302,7 @@ class bundle_edit_form extends moodleform {
         $mform->addElement('hidden', 'ecommproductid', '');
         
         // bundle description
-        $mform->addElement('textarea', 'description', get_string('bundledescription', 'local_course_bundles'), 'wrap="virtual" rows="20" cols="75"');
+        $mform->addElement('editor', 'description', get_string('bundledescription', 'local_course_bundles'), 'wrap="virtual" rows="20" cols="75"');
         $mform->addRule('description', null, 'required');
         $mform->setType('description', PARAM_RAW);
         
