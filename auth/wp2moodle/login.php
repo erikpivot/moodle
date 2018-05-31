@@ -100,7 +100,9 @@ function enrol_into_course($courseid, $userid, $roleid = 5) {
 		MUST_EXIST
 	);
 	// retrieve enrolment instance associated with your course
-	return $manualenrol->enrol_user($enrolinstance, $userid, $roleid); // enrol the user
+	$timestart = strtotime(date());
+	$timeend = $timestart + 15724800;
+	return $manualenrol->enrol_user($enrolinstance, $userid, $roleid, $timestart, $timeend); // enrol the user
 }
 
 /**
@@ -392,7 +394,9 @@ if (!empty($_GET)) {
 				if ($DB->record_exists('course', array('idnumber'=>$course))) {
 					$courserow = $DB->get_record('course', array('idnumber'=>$course));
 					if (get_config('auth/wp2moodle', 'redirectnoenrol') !== 'yes') {
-						if (!enrol_try_internal_enrol($courserow->id, $user->id, $studentrow->id)) {
+					    $timestart = strtotime(date());
+	                    $timeend = $timestart + 15724800;
+						if (!enrol_try_internal_enrol($courserow->id, $user->id, $studentrow->id, $timestart, $timeend)) {
 							continue;
 						}
 					}
