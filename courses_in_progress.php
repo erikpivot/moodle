@@ -43,12 +43,14 @@ foreach ($courses as $course) {
         // get the sco information
         $sco = $DB->get_record('scorm_scoes', array('scorm' => $scorm_info->id, 'scormtype' => 'sco'), 'id,organization');
 ?>
+<div class="user-course-list">
 <form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">
 <?=$course->fullname;?>&nbsp;&nbsp;<input type="submit" value="Open Course" class="btn btn-primary">
 &nbsp;&nbsp;
 Course Expires: <?=date('m/d/Y', $enrollment_end);?>
 <br />
 </form>
+</div>
 <script>
 jQuery('#scormviewform<?=$course->id;?>').on('submit', function(e) {
     e.preventDefault();
