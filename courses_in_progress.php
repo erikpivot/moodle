@@ -13,7 +13,9 @@ $PAGE->set_heading("Courses in Progress");
 $PAGE->set_url($CFG->wwwroot . "/courses_in_progress.php");
 
 echo $OUTPUT->header();
-
+?>
+<div class="user-course-list">
+<?php
 // get the user courses they are involved in
 $sort = 'visible DESC, sortorder ASC';
 $courses = enrol_get_my_courses('*', $sort);
@@ -21,7 +23,9 @@ $courseinfo = array();
 foreach ($courses as $course) {
 
     $completion = new \completion_info($course);
-    if (empty($completion->is_course_complete($USER->id))) {
+    // get completion percentage
+    $percentage = progress::get_course_progress_percentage($course);
+    if (100 != $percentage) {
         // enrollment end date
         $sql = "SELECT ue.timestart
               FROM {user_enrolments} ue
@@ -43,12 +47,20 @@ foreach ($courses as $course) {
         // get the sco information
         $sco = $DB->get_record('scorm_scoes', array('scorm' => $scorm_info->id, 'scormtype' => 'sco'), 'id,organization');
 ?>
-<div class="user-course-list">
+<div class="user-course-item">
 <form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">
-<?=$course->fullname;?>&nbsp;&nbsp;<input type="submit" value="Open Course" class="btn btn-primary">
-&nbsp;&nbsp;
+<div class="user-course-col">
+<?=$course->fullname;?>
+</div>
+<div class="user-course-col">
+<input type="submit" value="Open Course" class="btn btn-primary">
+</div>
+<div class="user-course-col">
+Course Purchased: <?=date('m/d/Y', $start_time);?>
+</div>
+<div class="user-course-col">
 Course Expires: <?=date('m/d/Y', $enrollment_end);?>
-<br />
+</div>
 </form>
 </div>
 <script>
@@ -59,7 +71,7 @@ jQuery('#scormviewform<?=$course->id;?>').on('submit', function(e) {
     var sco = <?=$sco->id;?>;
     var launch_url = M.cfg.wwwroot + "/mod/scorm/player.php?a=" + scorm + "&currentorg=" + currentorg + "&scoid=" + sco + "&sesskey=" + M.cfg.sesskey + "&display=popup";
     launch_url += '&mode=normal';
-    poptions = 'resizable=yes';
+    poptions = 'resizable=yes,location=no';
     poptions = poptions + ',width=' + screen.availWidth + ',height=' + screen.availHeight + ',left=0,top=0';
     winobj = window.open(launch_url, 'Popup', poptions);
     this.target = 'Popup';
@@ -67,6 +79,9 @@ jQuery('#scormviewform<?=$course->id;?>').on('submit', function(e) {
 </script>
 <?php
     }
-} 
+}
+?>
+</div>
+<?php
 echo $OUTPUT->footer();
 ?>

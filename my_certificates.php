@@ -8,9 +8,9 @@ global $DB;
 
 $PAGE->set_context(get_system_context());
 $PAGE->set_pagelayout('standard');
-$PAGE->set_title("Courses Completed");
-$PAGE->set_heading("Courses Completed");
-$PAGE->set_url($CFG->wwwroot . "/courses_completed.php");
+$PAGE->set_title("My Certificates");
+$PAGE->set_heading("My Certificates");
+$PAGE->set_url($CFG->wwwroot . "/my_certificates.php");
 
 // download a certificate?
 if (!empty($_POST['action'])) {
@@ -36,29 +36,12 @@ foreach ($courses as $course) {
     // if 100 then the course is considered complete (there's only 1 activity that has to be completed)
     $percentage = progress::get_course_progress_percentage($course);
     if (100 == $percentage) {
-        // enrollment start date
-        $sql = "SELECT ue.timestart
-              FROM {user_enrolments} ue
-              JOIN {enrol} e ON (e.id = ue.enrolid AND e.courseid = :courseid)
-              JOIN {user} u ON u.id = ue.userid
-             WHERE ue.userid = :userid AND u.deleted = 0";
-            $params = array('userid'=>$USER->id, 'courseid'=>$course->id);
-        
-        $enrollments = $DB->get_records_sql($sql, $params, 0, 1);
-        $start_time = 0;
-        foreach($enrollments as $enroll) {
-            $start_time = $enroll->timestart;
-            break;
-        }
-        
         // find the certificate
         $cert_info = $DB->get_record('customcert', array('course' => $course->id), 'id,templateid');
         
-        // get the scorm activity
+        // get the scorm activity for grabbing the completion information
         $scorm_info = $DB->get_record('scorm', array('course' => $course->id), 'id');
         $activity = $DB->get_record('course_modules', array('instance' => $scorm_info->id), 'id');
-        // get the sco information
-        $sco = $DB->get_record('scorm_scoes', array('scorm' => $scorm_info->id, 'scormtype' => 'sco'), 'id,organization'); 
         
         // get the completion date for the course
         $complete_info = $DB->get_record('course_modules_completion', array('userid' => $USER->id, 'coursemoduleid' => $activity->id), 'timemodified');
@@ -67,11 +50,6 @@ foreach ($courses as $course) {
 <div class="user-course-col">
 <?=$course->fullname;?>
 </div>
-<form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">
-<div class="user-course-col">
-<input type="submit" value="Open Course" class="btn btn-primary">
-</div>
-</form>
 <div class="user-course-col">
 <form id="coursecert<?=$course->id;?>" method="post">
 <input type="hidden" name="templid" value="<?=$cert_info->templateid;?>">
@@ -80,26 +58,9 @@ foreach ($courses as $course) {
 </form>
 </div>
 <div class="user-course-col">
-Course Purchased: <?=date('m/d/Y', $start_time);?>
-</div>
-<div class="user-course-col">
 Course Completed: <?=date('m/d/Y', $complete_info->timemodified);?>
 </div>
 </div>
-<script>
-jQuery('#scormviewform<?=$course->id;?>').on('submit', function(e) {
-    e.preventDefault();
-    var scorm = <?=$scorm_info->id;?>;
-    var currentorg = '<?=$sco->organization;?>';
-    var sco = <?=$sco->id;?>;
-    var launch_url = M.cfg.wwwroot + "/mod/scorm/player.php?a=" + scorm + "&currentorg=" + currentorg + "&scoid=" + sco + "&sesskey=" + M.cfg.sesskey + "&display=popup";
-    launch_url += '&mode=normal';
-    poptions = 'resizable=yes,location=no';
-    poptions = poptions + ',width=' + screen.availWidth + ',height=' + screen.availHeight + ',left=0,top=0';
-    winobj = window.open(launch_url, 'Popup', poptions);
-    this.target = 'Popup';
-});
-</script>
 <?php
     }
 }
