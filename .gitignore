@@ -37,3 +37,4 @@ composer.phar
 atlassian-ide-plugin.xml
 /node_modules/
 /upstream-update.sh
+/local/state_settings/classes/approvals.php

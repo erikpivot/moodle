@@ -23,6 +23,15 @@ if (!empty($_POST['action'])) {
 echo $OUTPUT->header();
 ?>
 <div class="user-course-list">
+
+<div class="user-course-list">
+<div class="user-course-item header">
+<div class="user-course-col description">Course Title</div>
+<div class="user-course-col open-course">Play/Resume</div>
+<div class="user-course-col download-certificate">Download Certificate</div>
+<div class="user-course-col purchased">Purchased</div>
+<div class="user-course-col completed-date">Completed</div>
+</div>
 <?php
 
 // get the user courses they are involved in
@@ -64,26 +73,26 @@ foreach ($courses as $course) {
         $complete_info = $DB->get_record('course_modules_completion', array('userid' => $USER->id, 'coursemoduleid' => $activity->id), 'timemodified');
 ?>
 <div class="user-course-item">
-<div class="user-course-col">
+<div class="user-course-col description">
 <?=$course->fullname;?>
 </div>
+<div class="user-course-col open-course">
 <form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">
-<div class="user-course-col">
 <input type="submit" value="Open Course" class="btn btn-primary">
-</div>
 </form>
-<div class="user-course-col">
+</div>
+<div class="user-course-col download-certificate">
 <form id="coursecert<?=$course->id;?>" method="post">
 <input type="hidden" name="templid" value="<?=$cert_info->templateid;?>">
 <input type="hidden" name="action" value="download">
 <input type="submit" value="Download Certificate" class="btn btn-primary">
 </form>
 </div>
-<div class="user-course-col">
-Course Purchased: <?=date('m/d/Y', $start_time);?>
+<div class="user-course-col purchased">
+<?=date('m/d/Y', $start_time);?>
 </div>
-<div class="user-course-col">
-Course Completed: <?=date('m/d/Y', $complete_info->timemodified);?>
+<div class="user-course-col completed-date">
+<?=date('m/d/Y', $complete_info->timemodified);?>
 </div>
 </div>
 <script>

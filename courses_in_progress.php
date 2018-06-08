@@ -15,6 +15,13 @@ $PAGE->set_url($CFG->wwwroot . "/courses_in_progress.php");
 echo $OUTPUT->header();
 ?>
 <div class="user-course-list">
+
+<div class="user-course-item header">
+<div class="user-course-col description">Course Title</div>
+<div class="user-course-col open-course">Play/Resume</div>
+<div class="user-course-col purchased">Purchased</div>
+<div class="user-course-col expires">Expires</div>
+</div>
 <?php
 // get the user courses they are involved in
 $sort = 'visible DESC, sortorder ASC';
@@ -48,20 +55,22 @@ foreach ($courses as $course) {
         $sco = $DB->get_record('scorm_scoes', array('scorm' => $scorm_info->id, 'scormtype' => 'sco'), 'id,organization');
 ?>
 <div class="user-course-item">
-<form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">
-<div class="user-course-col">
+<!--<form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">-->
+<div class="user-course-col description">
 <?=$course->fullname;?>
 </div>
-<div class="user-course-col">
+<div class="user-course-col open-course">
+<form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">
 <input type="submit" value="Open Course" class="btn btn-primary">
-</div>
-<div class="user-course-col">
-Course Purchased: <?=date('m/d/Y', $start_time);?>
-</div>
-<div class="user-course-col">
-Course Expires: <?=date('m/d/Y', $enrollment_end);?>
-</div>
 </form>
+</div>
+<div class="user-course-col purchased">
+<?=date('m/d/Y', $start_time);?>
+</div>
+<div class="user-course-col expires">
+<?=date('m/d/Y', $enrollment_end);?>
+</div>
+<!--</form>-->
 </div>
 <script>
 jQuery('#scormviewform<?=$course->id;?>').on('submit', function(e) {
