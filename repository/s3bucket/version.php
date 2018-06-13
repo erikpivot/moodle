@@ -24,11 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2017051800;
-$plugin->requires  = 2017051500;
+$plugin->version   = 2018042200;
+$plugin->requires  = 2017111300;
 $plugin->component = 'repository_s3bucket';
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '3.3';
-$plugin->dependencies = array(
-    'repository_s3' => ANY_VERSION
-);
+$plugin->release   = '3.4+';
+$plugin->dependencies = ['repository_s3' => ANY_VERSION, 'local_aws' => 2017030100];

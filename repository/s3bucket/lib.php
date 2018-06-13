@@ -18,23 +18,30 @@
  * This plugin is used to access s3bucket files
  *
  * @package    repository_s3bucket
- * @copyright  2015 Renaat Debleu (www.eWallah.net) (based on work by Dongsheng Cai)
+ * @copyright  2017 Renaat Debleu (www.eWallah.net) (based on work by Dongsheng Cai)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->dirroot . '/repository/lib.php');
+require_once($CFG->dirroot . '/local/aws/sdk/aws-autoloader.php');
 require_once($CFG->dirroot . '/repository/s3/S3.php');
+
+use Aws\Common\Credentials\Credentials;
+use Aws\Common\Signature\SignatureV4;
 
 /**
  * This is a repository class used to browse a Amazon S3 bucket.
  *
  * @package    repository_s3bucket
- * @copyright  2015 Renaat Debleu (www.eWallah.net) (based on work by Dongsheng Cai)
+ * @copyright  2017 Renaat Debleu (www.eWallah.net) (based on work by Dongsheng Cai)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class repository_s3bucket extends repository {
+
+    /** @var _s3client s3 client object */
+    private $_s3client;
 
     /**
      * Get S3 file list
@@ -43,14 +50,14 @@ class repository_s3bucket extends repository {
      * @param string $page the page number of file list
      * @return array the list of files, including some meta infomation
      */
-    public function get_listing($path = '', $page = '') {
+    public function get_listing($path = '.', $page = '') {
+        // TODO: Paging.
         global $OUTPUT;
         $s = $this->create_s3();
         $bucket = $this->get_option('bucket_name');
-
         $list = [];
         $list['list'] = [];
-        $list['path'] = [['name' => $bucket, 'path' => '']];
+        $list['path'] = [['name' => $bucket, 'path' => $path]];
         $list['manage'] = false;
         $list['dynload'] = true;
         $list['nologin'] = true;
@@ -59,7 +66,7 @@ class repository_s3bucket extends repository {
         $folders = [];
 
         try {
-            $contents = $s->getBucket($bucket, $path, null, null, '/', true);
+            $results = $s->getPaginator('ListObjects', ['Bucket' => $bucket, 'Prefix' => $path]);
         } catch (S3Exception $e) {
             throw new moodle_exception(
                 'errorwhilecommunicatingwith',
@@ -69,24 +76,38 @@ class repository_s3bucket extends repository {
                 $e->getMessage()
             );
         }
-        foreach ($contents as $object) {
-            if (isset($object['prefix'])) {
-                $title = rtrim($object['prefix'], '/');
-            } else {
-                $title = $object['name'];
-            }
-            if (strlen($path) > 0) {
-                $title = substr($title, strlen($path));
-                if (empty($title) && !is_numeric($title)) {
-                    continue;
+
+        if ($path === '') {
+            $path = '.';
+        } else {
+            $path .= '/';
+        }
+        foreach ($results as $result) {
+            foreach ($result['Contents'] as $object) {
+                $pathinfo = pathinfo($object['Key']);
+                if ($object['Size'] == 0) {
+                    if ($pathinfo['dirname'] == $path) {
+                        $folders[] = [
+                            'title' => $pathinfo['basename'],
+                            'children' => [],
+                            'thumbnail' => $OUTPUT->image_url(file_folder_icon(90))->out(false),
+                            'thumbnail_height' => 64,
+                            'thumbnail_width' => 64,
+                            'path' => $object['Key']];
+                    }
+                } else {
+                    if ($pathinfo['dirname'] == $path or $pathinfo['dirname'] . '//' == $path) {
+                        $files[] = [
+                            'title' => $pathinfo['basename'],
+                            'size' => $object['Size'],
+                            'path' => $object['Key'],
+                            'datemodified' => date_timestamp_get($object['LastModified']),
+                            'thumbnail_height' => 64,
+                            'thumbnail_width' => 64,
+                            'source' => $object['Key'],
+                            'thumbnail' => $OUTPUT->image_url(file_extension_icon($object['Key'], 90))->out(false)];
+                    }
                 }
-            }
-            if (isset($object['prefix'])) {
-                $folders[] = ['title' => $title, 'children' => [],
-                              'thumbnail' => $OUTPUT->image_url(file_folder_icon(90))->out(false), 'path' => $object['prefix']];
-            } else {
-                $files[] = ['title' => $title, 'size' => $object['size'], 'datemodified' => $object['time'],
-                            'source' => $object['name'], 'thumbnail' => $OUTPUT->image_url(file_extension_icon($title, 90))->out(false)];
             }
         }
         $list['list'] = array_merge($folders, $files);
@@ -105,7 +126,7 @@ class repository_s3bucket extends repository {
         $s = $this->create_s3();
         $bucket = $this->get_option('bucket_name');
         try {
-            $s->getObject($bucket, $filepath, $path);
+            $s->getObject(['Bucket' => $bucket, 'Key' => $filepath, 'SaveAs' => $path]);
         } catch (S3Exception $e) {
             throw new moodle_exception(
                 'errorwhilecommunicatingwith',
@@ -205,17 +226,26 @@ class repository_s3bucket extends repository {
      * @return array errors
      */
     public static function instance_form_validation($mform, $data, $errors) {
+        // TODO: check if user has read access.
         global $DB, $USER;
+        $endpoint = self::fixendpoint($data['endpoint']);
+        $credentials = ['key' => $data['access_key'], 'secret' => $data['secret_key']];
+        $arr = ['version' => 'latest', 'signature_version' => 'v4', 'credentials' => $credentials, 'region' => $endpoint];
+        $s3 = \Aws\S3\S3Client::factory($arr);
+        $s3->registerStreamWrapper();
         $cont = context_user::instance($USER->id);
         $params = ['contextid' => $cont->id, 'component' => 'user', 'filearea' => 'draft', 'itemid' => $data['attachments']];
         if ($files = $DB->get_records('files', $params)) {
-            $s3 = new S3($data['access_key'], $data['secret_key'], false, $data['endpoint']);
             $fs = get_file_storage();
             foreach ($files as $file) {
                 if ($file->filesize > 0) {
+                    $s3 = new \S3($data['access_key'], $data['secret_key'], false, $data['endpoint']);
                     $src = $fs->get_file_by_hash($file->pathnamehash);
                     $path = substr($file->filepath, 1) . $file->filename;
                     $result = $s3->putObjectString($src->get_content(), $data['bucket_name'], $path);
+                    if ($result == false) {
+                        $errors['attachments'] = 'v4 upload not yet implemented';
+                    }
                 }
             }
         }
@@ -246,14 +276,33 @@ class repository_s3bucket extends repository {
      * @return s3
      */
     private function create_s3() {
-        $accesskey = $this->get_option('access_key');
-        if (empty($accesskey)) {
-            throw new moodle_exception('needaccesskey', 'repository_s3');
+        if ($this->_s3client == null) {
+            $accesskey = $this->get_option('access_key');
+            if (empty($accesskey)) {
+                throw new moodle_exception('needaccesskey', 'repository_s3');
+            }
+            $credentials = ['key' => $accesskey, 'secret' => $this->get_option('secret_key')];
+            $endpoint = self::fixendpoint($this->get_option('endpoint'));
+            $arr = ['version' => 'latest', 'signature_version' => 'v4', 'credentials' => $credentials, 'region' => $endpoint];
+            $s = \Aws\S3\S3Client::factory($arr);
+            $s->registerStreamWrapper();
+            $this->_s3client = $s;
         }
-        $secretkey = $this->get_option('secret_key');
-        $endpoint = $this->get_option('endpoint');
-        $s = new S3($accesskey, $secretkey, false, $endpoint);
-        $s->setExceptions(true);
-        return $s;
+        return $this->_s3client;
+    }
+
+    /**
+     * Fix endpoint string
+     *
+     * @param string endpoint point of entry
+     * @return string fixedendpoint
+     */
+    private static function fixendpoint($endpoint) {
+        if ($endpoint == 's3.amazonaws.com') {
+            return 'us-east-1';
+        } else {
+            $endpoint = str_replace('.amazonaws.com', '', $endpoint);
+            return str_replace('s3-', '', $endpoint);
+        }
     }
 }
