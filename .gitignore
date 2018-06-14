@@ -39,3 +39,6 @@ atlassian-ide-plugin.xml
 /upstream-update.sh
 /local/state_settings/classes/approvals.php
 /lang/en/moodle.php
+/repository/s3bucket
+/repository/s3links
+/local/aws

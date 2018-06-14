@@ -29,6 +29,7 @@ if($isadmin) {
 <a href="<?=$CFG->wwwroot;?>/user/editadvanced.php?id=-1">Add New User</a><br /><br />
 <h2>Reports</h2>
 <h2>Configuration</h2>
+<a href="<?=$CFG->wwwroot;?>/admin/repositoryinstance.php?sesskey=<?=$USER->sesskey;?>&type=s3bucket&edit=11">Amazon S3 File Settings/Uploader</a><br />
 <?php
 } else {
     echo "You are not authorized to view this page.";

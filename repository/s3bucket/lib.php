@@ -239,7 +239,7 @@ class repository_s3bucket extends repository {
             $fs = get_file_storage();
             foreach ($files as $file) {
                 if ($file->filesize > 0) {
-                    $s3 = new \S3($data['access_key'], $data['secret_key'], false, $data['endpoint']);
+                    $s3 = new S3($data['access_key'], $data['secret_key'], false, $data['endpoint']);
                     $src = $fs->get_file_by_hash($file->pathnamehash);
                     $path = substr($file->filepath, 1) . $file->filename;
                     $result = $s3->putObjectString($src->get_content(), $data['bucket_name'], $path);

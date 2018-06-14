@@ -48,6 +48,13 @@ function xmldb_local_state_settings_upgrade($oldversion) {
         $field = new xmldb_field('customapprove', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
         $dbman->add_field($table, $field);
     }
+    
+    if ($oldversion < 2018061300) {
+        // add new field to store the bundle category id for the state
+        $table = new xmldb_table('local_state_settings');
+        $field = new xmldb_field('ecommbundlecatid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        $dbman->add_field($table, $field);
+    }
 
     return true;
 }

@@ -22,7 +22,7 @@
  
 defined('MOODLE_INTERNAL') || die();
  
-$plugin->version   = 2018041500.00;
+$plugin->version   = 2018061300.00;
 $plugin->requires  = 2017111300; // Requires this Moodle version (3.4).
 $plugin->cron      = 0;
 $plugin->component = 'local_state_settings';

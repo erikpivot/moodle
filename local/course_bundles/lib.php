@@ -137,7 +137,7 @@ function local_course_bundles_update_record($data, $insert = true) {
     if (boolval($insert)) {
         file_put_contents(__DIR__ . '/create_product_result.txt', print_r($data, true) . "\n", FILE_APPEND);
         $result = $DB->insert_record('local_course_bundles', $data, true, false);
-        $product_cats[] = ['id' => 45]; // Bundle Category
+        //$product_cats[] = ['id' => 45]; // Bundle Category
         processStateCategoryIds($data->state, $product_cats);
         file_put_contents(__DIR__ . '/create_product.txt', "Product Cats: " . print_r($product_cats, true) . "\n", FILE_APPEND);
         // create the woocommerce data object for the new product
@@ -203,7 +203,7 @@ function local_course_bundles_update_record($data, $insert = true) {
             }
         }
         $result = $DB->update_record('local_course_bundles', $data, false);
-        $product_cats[] = ['id' => 45]; // Bundle Category
+        //$product_cats[] = ['id' => 45]; // Bundle Category
         processStateCategoryIds($data->state, $product_cats);
         file_put_contents(__DIR__ . '/update_product.txt', "Product Cats: " . print_r($product_cats, true) . "\n", FILE_APPEND);
         file_put_contents(__DIR__ . '/update_product.txt', "Data: " . print_r($data, true) . "\n", FILE_APPEND);
@@ -253,7 +253,7 @@ function processStateCategoryIds($state, &$product_cats) {
     $state_settings = $DB->get_records('local_state_settings');
     $state_cats = array();
     foreach($state_settings as $setting) {
-        $state_cats[$setting->state] = $setting->ecommcatid;
+        $state_cats[$setting->state] = $setting->ecommbundlecatid;
     }
     
     // which id's need to be returned?
