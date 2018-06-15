@@ -121,6 +121,7 @@ function local_course_bundles_update_record($data, $insert = true) {
         );
         $sel_courses .= '<li>' . $course_info->fullname . '</li>';
         // get the product category ids
+        /*
         $tag_info = \core_tag_tag::get_item_tags_array('core', 'course', $course_info->id);
         foreach($tag_info as $key => $value) {
             $cat_res = $DB->get_record('tag', array('id' => $key), 'ecommproductcat');
@@ -128,6 +129,7 @@ function local_course_bundles_update_record($data, $insert = true) {
                 'id' => $cat_res->ecommproductcat
             ];
         }
+        */
     }
     $sel_courses .= '</ul>';
     
