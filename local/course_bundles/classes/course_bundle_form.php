@@ -307,7 +307,7 @@ class bundle_edit_form extends moodleform {
         $mform->setType('description', PARAM_RAW);
         
         // bundle featured image
-        $mform->addElement('filemanager', 'featuredimage', get_string('bundlefeaturedimage', 'local_course_bundles'), array('.jpg', '.gif', '.png'));
+        //$mform->addElement('filemanager', 'featuredimage', get_string('bundlefeaturedimage', 'local_course_bundles'), array('.jpg', '.gif', '.png'));
         
         // bundle short description
         /*

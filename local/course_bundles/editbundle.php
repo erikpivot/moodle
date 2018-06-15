@@ -57,25 +57,25 @@ if ($editing = boolval($bundleid)) {
         $bundlerecord->$checkbox_id = $course_id;
     }
     // get the featured image
-    $draftitemid = file_get_submitted_draft_itemid('featuredimage');
-    file_prepare_draft_area($draftitemid, $context->id, 'local_course_bundels', 'featuredimage', 0, array('subdirs' => false));
-    $bundlerecord->featuredimage = $draftitemid;
-    file_put_contents(__DIR__ . '/bundle_record.txt', print_r($bundlerecord, true));
+    //$draftitemid = file_get_submitted_draft_itemid('featuredimage');
+    //file_prepare_draft_area($draftitemid, $context->id, 'local_course_bundels', 'featuredimage', 0, array('subdirs' => false));
+    //$bundlerecord->featuredimage = $draftitemid;
+    //file_put_contents(__DIR__ . '/bundle_record.txt', print_r($bundlerecord, true));
     $mform->set_data($bundlerecord);
 }
 
 // processing of received data
 if ($data = $mform->get_data()) {
-    $fs = get_file_storage();
-    $fs->delete_area_files($context->id, 'local_course_bundles', 'featuredimage');
+    //$fs = get_file_storage();
+    //$fs->delete_area_files($context->id, 'local_course_bundles', 'featuredimage');
     if ($editing) {
         $data->id = $bundleid;
         local_course_bundles_update_record($data, false);
-        file_save_draft_area_files($data->featuredimage, $context->id, 'local_course_bundles', 'featuredimage', 0, array('subdirs' => false));
+        //file_save_draft_area_files($data->featuredimage, $context->id, 'local_course_bundles', 'featuredimage', 0, array('subdirs' => false));
         redirect($managerbundle, get_string('eventbundleupdated', 'local_course_bundles'));
     } else {
         local_course_bundles_update_record($data, true);
-        file_save_draft_area_files($data->featuredimage, $context->id, 'local_course_bundles', 'featuredimage', 0, array('subdirs' => false));
+        //file_save_draft_area_files($data->featuredimage, $context->id, 'local_course_bundles', 'featuredimage', 0, array('subdirs' => false));
         redirect($managerbundle, get_string('eventbundlecreated', 'local_course_bundles'));
     }
 }
