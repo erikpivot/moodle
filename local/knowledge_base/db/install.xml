@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/local_knowledge_base/db" VERSION="20180618" COMMENT="XMLDB file for Moodle local/knowledge_base"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_knowledge_base" COMMENT="Knowledge Base">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="KB Title"/>
+        <FIELD NAME="content" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Content of the KB Entry"/>
+        <FIELD NAME="posteddate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Date posted as a unix timestamp"/>
+        <FIELD NAME="updateddate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Date post was modified as a unix timestamp"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>
