@@ -31,6 +31,7 @@ echo $OUTPUT->header();
 <div class="user-course-col download-certificate">Download Certificate</div>
 <div class="user-course-col purchased">Purchased</div>
 <div class="user-course-col completed-date">Completed</div>
+<div class="user-course-col expires">Expires</div>
 </div>
 <?php
 
@@ -59,6 +60,8 @@ foreach ($courses as $course) {
             $start_time = $enroll->timestart;
             break;
         }
+        // enrollment expiration date
+        $enrollment_end = $start_time + 15724800; // add 26 weeks
         
         // find the certificate
         $cert_info = $DB->get_record('customcert', array('course' => $course->id), 'id,templateid');
@@ -77,9 +80,20 @@ foreach ($courses as $course) {
 <?=$course->fullname;?>
 </div>
 <div class="user-course-col open-course">
+<?php
+// check to see if the course can still be viewed
+if ($enrollment_end > strtotime(date('Y-m-d'))) {
+    // can still view
+?>
 <form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">
 <input type="submit" value="Open Course" class="btn btn-primary">
 </form>
+<?php
+} else {
+    // course expired
+    echo "EXPIRED";
+}
+?>
 </div>
 <div class="user-course-col download-certificate">
 <form id="coursecert<?=$course->id;?>" method="post">
@@ -93,6 +107,9 @@ foreach ($courses as $course) {
 </div>
 <div class="user-course-col completed-date">
 <?=date('m/d/Y', $complete_info->timemodified);?>
+</div>
+<div class="user-course-col expires">
+<?=date('m/d/Y', $enrollment_end);?>
 </div>
 </div>
 <script>

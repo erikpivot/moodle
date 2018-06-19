@@ -21,12 +21,18 @@ if($isadmin) {
 <h2>Courses</h2>
 <a href="<?=$CFG->wwwroot;?>/course/management.php">Manage Courses</a><br />
 <a href="<?=$CFG->wwwroot;?>/local/course_bundles/index.php">Manage Course Bundles</a><br />
-<a href="<?=$CFG->wwwroot;?>/tag/manage.php?tc=3">Manage Course Categories</a><br /><br />
+<a href="<?=$CFG->wwwroot;?>/tag/manage.php?tc=3">Manage Course Categories</a><br />
+<br />
 <h2>States</h2>
-<a href="<?=$CFG->wwwroot;?>/local/state_settings/index.php">State Settings</a><br /><br />
+<a href="<?=$CFG->wwwroot;?>/local/state_settings/index.php">State Settings</a><br />
+<br />
 <h2>Users</h2>
 <a href="<?=$CFG->wwwroot;?>/admin/user.php">User List</a><br />
-<a href="<?=$CFG->wwwroot;?>/user/editadvanced.php?id=-1">Add New User</a><br /><br />
+<a href="<?=$CFG->wwwroot;?>/user/editadvanced.php?id=-1">Add New User</a><br />
+<br />
+<h2>Help</h2>
+<a href="<?=$CFG->wwwroot;?>/local/knowledge_base/index.php">Knowledge Base</a><br />
+<br />
 <h2>Reports</h2>
 <h2>Configuration</h2>
 <a href="<?=$CFG->wwwroot;?>/admin/repositoryinstance.php?sesskey=<?=$USER->sesskey;?>&type=s3bucket&edit=11">Amazon S3 File Settings/Uploader</a><br />
