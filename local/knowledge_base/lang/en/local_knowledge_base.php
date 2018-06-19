@@ -39,4 +39,4 @@ $string['deletedkbitem'] = 'Knowledge Base Entry {$a} Removed';
 $string['eventkbitemupdated'] = "Knowledge Base Entry Updated";
 $string['eventkbitemcreated'] = "Knowledge Base Entry Created";
 $string['kbitemmanage'] = "Manage Knowledge Base Entry";
-$string['backtoindex'] = "Back"
+$string['backtoindex'] = "Back";
