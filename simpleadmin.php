@@ -34,6 +34,8 @@ if($isadmin) {
 <a href="<?=$CFG->wwwroot;?>/local/knowledge_base/index.php">Knowledge Base</a><br />
 <br />
 <h2>Reports</h2>
+<a href="<?=$CFG->wwwroot;?>/report/courseenrollments/index.php">Enrollments</a><br />
+<br />
 <h2>Configuration</h2>
 <a href="<?=$CFG->wwwroot;?>/admin/repositoryinstance.php?sesskey=<?=$USER->sesskey;?>&type=s3bucket&edit=11">Amazon S3 File Settings/Uploader</a><br />
 <?php

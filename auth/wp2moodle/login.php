@@ -120,7 +120,8 @@ function update_user_license_info($userid, $new = false) {
     $req_string = json_encode($req);
     
     // create the curl request to retrieve the licensing and address information
-    $ch = curl_init('https://lmthours.com/wp-content/plugins/student-license-info-fields/scripts.php');
+    $ecom_url = explode("/", $config->logoffurl);
+    $ch = curl_init($ecom_url . '/wp-content/plugins/student-license-info-fields/scripts.php');
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, "uid=" . $user_info->idnumber);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
