@@ -120,8 +120,10 @@ function update_user_license_info($userid, $new = false) {
     $req_string = json_encode($req);
     
     // create the curl request to retrieve the licensing and address information
-    $ecom_url = explode("/", $config->logoffurl);
-    $ch = curl_init($ecom_url[0] . '/wp-content/plugins/student-license-info-fields/scripts.php');
+    $ecom_url = get_config('auth/wp2moodle', 'logoffurl');
+    $url_parts = parse_url($ecom_url);
+    //file_put_contents(__DIR__ . '/testing.txt', print_r($url_parts, true));
+    $ch = curl_init('https://' . $url_parts['host'] . '/wp-content/plugins/student-license-info-fields/scripts.php');
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, "uid=" . $user_info->idnumber);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -444,4 +446,3 @@ if (!empty($_GET)) {
 // redirect to the homepage
 redirect($SESSION->wantsurl);
 ?>
-
