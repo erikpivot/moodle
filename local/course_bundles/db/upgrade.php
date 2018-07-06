@@ -45,9 +45,14 @@ function xmldb_local_course_bundles_upgrade($oldversion) {
         $field = new xmldb_field('credithrs', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
         $dbman->add_field($table, $field);
     }
+    
+    if ($oldversion < 2018070600) {
+        // modify the courses field
+        $table = new xmldb_table('local_course_bundles');
+        $field = new xmldb_field('courses', XMLDB_TYPE_TEXT, '', null, null, null, null, null);
+        $dbman->change_field_type($table, $field);
+    }
 
 
     return true;
 }
-
-

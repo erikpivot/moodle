@@ -22,10 +22,9 @@
  
 defined('MOODLE_INTERNAL') || die();
  
-$plugin->version   = 2018050200.02;
+$plugin->version   = 2018070500.00;
 $plugin->requires  = 2017111300; // Requires this Moodle version (3.4).
 $plugin->cron      = 0;
 $plugin->component = 'local_course_bundles';
 $plugin->maturity  = MATURITY_STABLE;
 $plugin->release   = '3.4 release (Build: 2017111300)';
-
