@@ -93,9 +93,15 @@ class observer {
             }
             
             // designate states that are pace, if neccessary
-            if (!empty($course->paceapprovalno)) {
+            if (!empty($course->paceapprovalno) && 0 == $course->includecustomstates) {
                 // get all the states that are designated as pace
-                observer::setPACE($course, $course->paceapprovalno);
+                observer::setPACE($course, $course->paceapprovalno, 1);
+            }
+            
+            // designate states that are life university, if necessary
+            if (1 == $course->lifeapprovedstates) {
+                // get all of the states that are flagged as life
+                observer::setPACE($course, '', 2);
             }
             
             // find out what states were selected (based on approval numbers entered)
@@ -189,9 +195,15 @@ class observer {
         }
         
         // designate states that are pace, if neccessary
-        if (!empty($course->paceapprovalno)) {
+        if (!empty($course->paceapprovalno) && 0 == $course->includecustomstates) {
             // get all the states that are designated as pace
-            observer::setPACE($course, $course->paceapprovalno);
+            observer::setPACE($course, $course->paceapprovalno, 1);
+        }
+        
+        // designate states that are life university, if necessary
+        if (1 == $course->lifeapprovedstates) {
+            // get all of the states that are flagged as life
+            observer::setPACE($course, '', 2);
         }
         
         // find out what states were selected (based on approval numbers entered)
@@ -507,10 +519,10 @@ class observer {
         
     }
     
-    public static function setPACE(&$course_info, $pace_number) {
+    public static function setPACE(&$course_info, $pace_number, $number_type) {
         // grab the pace settings
         global $DB;
-        $pace_settings = $DB->get_records('local_state_settings', array('pace' => 1));
+        $pace_settings = $DB->get_records('local_state_settings', array('customapprove' => $number_type));
         file_put_contents(__DIR__ . 'get_pace_states.txt', print_r($pace_settings, true));
         // assign the number for the found states
         foreach ($pace_settings as $pace) {

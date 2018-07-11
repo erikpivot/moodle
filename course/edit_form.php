@@ -17,7 +17,7 @@ class course_edit_form extends moodleform {
      * Form definition.
      */
     function definition() {
-        global $CFG, $PAGE;
+        global $CFG, $PAGE, $DB;
 
         $mform    = $this->_form;
         $PAGE->requires->yui_module('moodle-course-formatchooser', 'M.course.init_formatchooser',
@@ -213,66 +213,80 @@ class course_edit_form extends moodleform {
         
         // State Approval Numbers
         $mform->addElement('header', 'stateapprovenos', get_string('stateapprovalnumbers'));
-        /*
+        
         $all_states = array(
-            'al'=>'Alabama',
-            'ak'=>'Alaska',
-            'az'=>'Arizona',
-            'ar'=>'Arkansas',
-            'ca'=>'California',
-            'co'=>'Colorado',
-            'ct'=>'Connecticut',
-            'de'=>'Delaware',
-            'dc'=>'District of Columbia',
-            'fl'=>'Florida',
-            'ga'=>'Georgia',
-            'hi'=>'Hawaii',
-            'id'=>'Idaho',
-            'il'=>'Illinois',
-            'in'=>'Indiana',
-            'ia'=>'Iowa',
-            'ks'=>'Kansas',
-            'ky'=>'Kentucky',
-            'la'=>'Louisiana',
-            'me'=>'Maine',
-            'md'=>'Maryland',
-            'ma'=>'Massachusetts',
-            'mi'=>'Michigan',
-            'mn'=>'Minnesota',
-            'ms'=>'Mississippi',
-            'mo'=>'Missouri',
-            'mt'=>'Montana',
-            'ne'=>'Nebraska',
-            'nv'=>'Nevada',
-            'nh'=>'New Hampshire',
-            'nj'=>'New Jersey',
-            'nm'=>'New Mexico',
-            'ny'=>'New York',
-            'nc'=>'North Carolina',
-            'nd'=>'North Dakota',
-            'oh'=>'Ohio',
-            'ok'=>'Oklahoma',
-            'or'=>'Oregon',
-            'pa'=>'Pennsylvania',
-            'ri'=>'Rhode Island',
-            'sc'=>'South Carolina',
-            'sd'=>'South Dakota',
-            'tn'=>'Tennessee',
-            'tx'=>'Texas',
-            'ut'=>'Utah',
-            'vt'=>'Vermont',
-            'va'=>'Virginia',
-            'wa'=>'Washington',
-            'wv'=>'West Virginia',
-            'wi'=>'Wisconsin',
-            'wy'=>'Wyoming'
+            'al'=>'alabama',
+            'ak'=>'alaska',
+            'az'=>'arizona',
+            'ar'=>'arkansas',
+            'ca'=>'california',
+            'co'=>'colorado',
+            'ct'=>'connecticut',
+            'de'=>'delaware',
+            'dc'=>'wasdc',
+            'fl'=>'florida',
+            'ga'=>'georgia',
+            'hi'=>'hawaii',
+            'id'=>'idaho',
+            'il'=>'illinois',
+            'in'=>'indiana',
+            'ia'=>'iowa',
+            'ks'=>'kansas',
+            'ky'=>'kentucky',
+            'la'=>'louisiana',
+            'me'=>'maine',
+            'md'=>'maryland',
+            'ma'=>'massachusetts',
+            'mi'=>'michigan',
+            'mn'=>'minnesota',
+            'ms'=>'mississippi',
+            'mo'=>'missouri',
+            'mt'=>'montana',
+            'ne'=>'nebraska',
+            'nv'=>'nevada',
+            'nh'=>'newhampshire',
+            'nj'=>'newjersey',
+            'nm'=>'newmexico',
+            'ny'=>'newyork',
+            'nc'=>'northcarolina',
+            'nd'=>'northdakota',
+            'oh'=>'ohio',
+            'ok'=>'oklahoma',
+            'or'=>'oregon',
+            'pa'=>'pennsylvania',
+            'ri'=>'rhodeisland',
+            'sc'=>'southcarolina',
+            'sd'=>'southdakota',
+            'tn'=>'tennessee',
+            'tx'=>'texas',
+            'ut'=>'utah',
+            'vt'=>'vermont',
+            'va'=>'virginia',
+            'wa'=>'washington',
+            'wv'=>'westvirginia',
+            'wi'=>'wisconsin',
+            'wy'=>'wyoming'
         );
-        $mform->addElement('select', 'approvalnolist', get_string('approvalnumberlist'), $all_states);
-        $mform->addHelpButton('approvalnolist', 'approvalnumberlist');
-        */
+        //$mform->addElement('select', 'approvalnolist', get_string('approvalnumberlist'), $all_states);
+        //$mform->addHelpButton('approvalnolist', 'approvalnumberlist');
+        
+       
+       // get the settings for the states
+       $state_settings = $DB->get_records('local_state_settings');
         
         $mform->addElement('text', 'paceapprovalno', get_string('paceapproval'));
         $mform->setType('paceapprovalno', PARAM_TEXT);
+        $mform->addElement('advcheckbox', 'includecustomstates', get_string('includecustomstates'), '', array(), array(0, 1));
+        //$mform->setDefault('includecustomstates', 1);
+        $mform->addElement('advcheckbox', 'lifeapprovedstates', get_string('lifeapprovedstates'), '', array(), array(0, 1));
+        
+        foreach($state_settings as $setting_info) {
+            if (1 == $setting_info->stateapproval || 0 == $setting_info->customapprove) {
+                $mform->addElement('text', $setting_info->state . 'approvalno', get_string($all_states[$setting_info->state] . 'approval'));
+                $mform->setType('alapprovalno', PARAM_TEXT);
+            }
+        }
+        /*
         $mform->addElement('text', 'alapprovalno', get_string('alabamaapproval'));
         $mform->setType('alapprovalno', PARAM_TEXT);
         $mform->addElement('text', 'akapprovalno', get_string('alaskaapproval'));
@@ -375,6 +389,7 @@ class course_edit_form extends moodleform {
         $mform->setType('wiapprovalno', PARAM_TEXT);
         $mform->addElement('text', 'wyapprovalno', get_string('wyomingapproval'));
         $mform->setType('wyapprovalno', PARAM_TEXT);
+        */
 
         // Appearance.
         $mform->addElement('header', 'appearancehdr', get_string('appearance'));

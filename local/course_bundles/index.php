@@ -53,6 +53,9 @@ $titlepage = get_string('pluginname', 'local_course_bundles');
 $PAGE->set_heading($titlepage);
 $PAGE->set_title($titlepage);
 echo $OUTPUT->header();
+// add bundle button
+$addbundleurl = new moodle_url($editbundle);
+echo $OUTPUT->single_button($addbundleurl, get_string('addabundle', 'local_course_bundles'), 'get');
 
 // table declaration
 $table = new flexible_table('course_bundles_table');
@@ -84,7 +87,7 @@ foreach($callbacks as $callback) {
 $table->print_html();
 
 // add bundle button
-$addbundleurl = new moodle_url($editbundle);
+//$addbundleurl = new moodle_url($editbundle);
 echo $OUTPUT->single_button($addbundleurl, get_string('addabundle', 'local_course_bundles'), 'get');
 
 echo $OUTPUT->footer();

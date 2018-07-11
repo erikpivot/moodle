@@ -88,7 +88,7 @@ function local_state_settings_update_record($data, $all_states) {
         $sql = "UPDATE {local_state_settings} SET customapprove = ?, stateapproval = ?, staterequire = ? WHERE state = ?";
         $params = array(
             'customapprove' => $up_data->customapprove,
-            'stateapproval' => $up_data->stateapproval,
+            'stateapproval' => (0 == $up_data->customapprove ? 1 : $up_data->stateapproval),
             'staterequire' => $up_data->staterequire,
             'state' => $key
         );

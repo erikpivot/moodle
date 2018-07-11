@@ -40,7 +40,7 @@ use Automattic\WooCommerce\Client;
 function local_course_bundles_get_list_records($limitfrom = 0, $limitnum = 0) {
     global $DB;
     
-    $listbundles = $DB->get_records('local_course_bundles', null, 'id', '*', $limitfrom, $limitnum);
+    $listbundles = $DB->get_records('local_course_bundles', null, 'name', '*', $limitfrom, $limitnum);
     
     return $listbundles;
 }

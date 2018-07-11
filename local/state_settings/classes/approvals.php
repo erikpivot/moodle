@@ -2,9 +2,15 @@
 global $approvals;
 $approvals = array(
   1 => array(
-        'label' => 'NCBTMB',
+        'label' => 'PACE',
         'has_number' => true,
-        'cert_text' => 'NCBTMB Approval No.',
-        'ecomm_text' => 'NCBTMB Approved'
+        'cert_text' => 'PACE Approval No.',
+        'ecomm_text' => 'PACE Approved'
+  ),
+  2 => array(
+        'label' => 'Life University',
+        'has_number' => false,
+        'cert_text' => 'Life Universtiy Sponsorship',
+        'ecomm_text' => 'Life University Sponsorship'
   )
 );

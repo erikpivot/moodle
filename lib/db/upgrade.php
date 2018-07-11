@@ -3255,7 +3255,7 @@ function xmldb_main_upgrade($oldversion) {
         }
     }
     
-    if ($oldversion < 2017111303.0) {
+    if ($oldversion < 2017111303.05) {
         // add new fields to the course table for revision text and revision number
         $table = new xmldb_table('course');
         $field = new xmldb_field('revisiontext', XMLDB_TYPE_CHAR, '255', null, null, null, null, null);
@@ -3267,6 +3267,25 @@ function xmldb_main_upgrade($oldversion) {
         
         $table = new xmldb_table('course');
         $field = new xmldb_field('revisionno', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+    }
+    
+    if ($oldversion < 2017111303.10) {
+        // add new fields to the course table for flagging all custom states and life approved states
+        $table = new xmldb_table('course');
+        $field = new xmldb_field('includecustomstates', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', null);
+        
+        // Conditionally launch add field basicauth.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        
+        $table = new xmldb_table('course');
+        $field = new xmldb_field('lifeapprovedstates', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', null);
         
         // Conditionally launch add field basicauth.
         if (!$dbman->field_exists($table, $field)) {

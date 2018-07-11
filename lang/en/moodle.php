@@ -2236,3 +2236,5 @@ $string['missingecommtitle'] = 'Please enter the Course title that will show on 
 $string['ecommshortdescription'] = 'Short Description for ECommerce';
 $string['ecommshortdescription_help'] = 'Short description of the course that will appear on the ECommerce site';
 $string['missingecommshortdescription'] = 'Please enter the short description for the course that will appear on the ECommerce site';
+$string['includecustomstates'] = 'This is a State Specific Course';
+$string['lifeapprovedstates'] = 'Life University Approved';
