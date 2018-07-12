@@ -94,15 +94,21 @@ class observer {
             
             // designate states that are pace, if neccessary
             if (!empty($course->paceapprovalno) && 0 == $course->includecustomstates) {
-                // get all the states that are designated as pace
+                // get all the states that are designated as pace and life
                 observer::setPACE($course, $course->paceapprovalno, 1);
             }
             
             // designate states that are life university, if necessary
+            if (0 == $course->includecustomstates) {
+                observer::setPACE($course, 'LIFE', 2);
+            }
+            
+            /*
             if (1 == $course->lifeapprovedstates) {
                 // get all of the states that are flagged as life
                 observer::setPACE($course, '', 2);
             }
+            */
             
             // find out what states were selected (based on approval numbers entered)
             observer::processStateCategoryIds($course, $product_cats);
@@ -196,14 +202,13 @@ class observer {
         
         // designate states that are pace, if neccessary
         if (!empty($course->paceapprovalno) && 0 == $course->includecustomstates) {
-            // get all the states that are designated as pace
+            // get all the states that are designated as pace and life
             observer::setPACE($course, $course->paceapprovalno, 1);
         }
         
         // designate states that are life university, if necessary
-        if (1 == $course->lifeapprovedstates) {
-            // get all of the states that are flagged as life
-            observer::setPACE($course, '', 2);
+        if (0 == $course->includecustomstates) {
+            observer::setPACE($course, 'LIFE', 2);
         }
         
         // find out what states were selected (based on approval numbers entered)

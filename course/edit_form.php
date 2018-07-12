@@ -278,10 +278,10 @@ class course_edit_form extends moodleform {
         $mform->setType('paceapprovalno', PARAM_TEXT);
         $mform->addElement('advcheckbox', 'includecustomstates', get_string('includecustomstates'), '', array(), array(0, 1));
         //$mform->setDefault('includecustomstates', 1);
-        $mform->addElement('advcheckbox', 'lifeapprovedstates', get_string('lifeapprovedstates'), '', array(), array(0, 1));
+        //$mform->addElement('advcheckbox', 'lifeapprovedstates', get_string('lifeapprovedstates'), '', array(), array(0, 1));
         
         foreach($state_settings as $setting_info) {
-            if (1 == $setting_info->stateapproval || 0 == $setting_info->customapprove) {
+            if ((1 == $setting_info->stateapproval || 0 == $setting_info->customapprove) && $setting_info->customapprove != 9) {
                 $mform->addElement('text', $setting_info->state . 'approvalno', get_string($all_states[$setting_info->state] . 'approval'));
                 $mform->setType('alapprovalno', PARAM_TEXT);
             }

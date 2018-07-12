@@ -110,6 +110,7 @@ class settings_edit_form extends moodleform {
             foreach ($approvals as $akey => $avalue) {
                 $radioarray[] = $mform->createElement('radio', $key . 'setapprove', '', $avalue['label'], $akey, '');
             }
+            $radioarray[] = $mform->createElement('radio', $key . 'setapprove', '', get_string('notonline', 'local_state_settings'), 99, '');
             $mform->addGroup($radioarray, $key . 'radio', get_string('selapproval', 'local_state_settings'), array(''), false);
             $mform->addElement('advcheckbox', $key . 'stateapprove', get_string('stateapprove', 'local_state_settings'), '', array(), array(0, 1));
             $mform->addElement('editor', $key . 'staterequire', get_string('staterequire', 'local_state_settings'), 'wrap="virtual" rows="20" cols="100"');

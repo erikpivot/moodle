@@ -269,6 +269,7 @@ class bundle_edit_form extends moodleform {
             if (!empty($course_info->wyapprovalno)) {
                 $sel_states[] = 'wy';
             }
+            /*
             if (1 == $course_info->lifeapprovedstates) {
                 // need to find all states that are marked for the custom approval numbers
                 $get_states = $DB->get_records('local_state_settings', array('customapprove' => 2));
@@ -276,6 +277,7 @@ class bundle_edit_form extends moodleform {
                     $sel_states[] = $state_set->state;
                 }
             }
+            */
             // only do the following checks if not a state specific course
             if (0 == $course_info->includecustomstates) {
                 if (!empty($course_info->paceapprovalno)) {
@@ -284,6 +286,12 @@ class bundle_edit_form extends moodleform {
                     foreach($get_states as $state_set) {
                         $sel_states[] = $state_set->state;
                     }
+                }
+                
+                // life states
+                $get_states = $DB->get_records('local_state_settings', array('customapprove' => 2));
+                foreach($get_states as $state_set) {
+                    $sel_states[] = $state_set->state;
                 }
                 // get states that my not have numbers
                 $get_states = $DB->get_records('local_state_settings', array('customapprove' => 0));
