@@ -81,3 +81,4 @@ $string['waheader'] = "Washington";
 $string['wvheader'] = "West Virginia";
 $string['wiheader'] = "Wisconsin";
 $string['wyheader'] = "Wyoming";
+$string['notonline'] = "Online Hours Not Accepted";
