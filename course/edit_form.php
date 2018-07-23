@@ -283,7 +283,7 @@ class course_edit_form extends moodleform {
         foreach($state_settings as $setting_info) {
             if ((1 == $setting_info->stateapproval || 0 == $setting_info->customapprove) && $setting_info->customapprove != 9) {
                 $mform->addElement('text', $setting_info->state . 'approvalno', get_string($all_states[$setting_info->state] . 'approval'));
-                $mform->setType('alapprovalno', PARAM_TEXT);
+                $mform->setType($setting_info->state . 'approvalno', PARAM_TEXT);
             }
         }
         /*
