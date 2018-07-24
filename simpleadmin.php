@@ -1,7 +1,7 @@
 <?php
 require_once('config.php');
 
-$PAGE->set_context(get_system_context());
+$PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 $PAGE->set_title("Administration");
 $PAGE->set_heading("Admin");

@@ -116,157 +116,157 @@ class bundle_edit_form extends moodleform {
             // build the class name based on the states that are associated with the course
             $class_name = '';
             $sel_states = array();
-            if (!empty($course_info->alapprovalno)) {
+            if (!empty($course_info->alapprovalno) && 0 == $course_info->alexclude) {
                 $sel_states[] = 'al';
             }
-            if (!empty($course_info->akapprovalno)) {
+            if (!empty($course_info->akapprovalno) && 0 == $course_info->akexclude) {
                 $sel_states[] = 'ak';
             }
-            if (!empty($course_info->azapprovalno)) {
+            if (!empty($course_info->azapprovalno) && 0 == $course_info->azexclude) {
                 $sel_states[] = 'az';
             }
-            if (!empty($course_info->arapprovalno)) {
+            if (!empty($course_info->arapprovalno) && 0 == $course_info->arexclude) {
                 $sel_states[] = 'ar';
             }
-            if (!empty($course_info->caapprovalno)) {
+            if (!empty($course_info->caapprovalno) && 0 == $course_info->caexclude) {
                 $sel_states[] = 'ca';
             }
-            if (!empty($course_info->coapprovalno)) {
+            if (!empty($course_info->coapprovalno) && 0 == $course_info->coexclude) {
                 $sel_states[] = 'co';
             }
-            if (!empty($course_info->ctapprovalno)) {
+            if (!empty($course_info->ctapprovalno) && 0 == $course_info->ctexclude) {
                 $sel_states[] = 'ct';
             }
-            if (!empty($course_info->deapprovalno)) {
+            if (!empty($course_info->deapprovalno) && 0 == $course_info->deexclude) {
                 $sel_states[] = 'de';
             }
-            if (!empty($course_info->dcapprovalno)) {
+            if (!empty($course_info->dcapprovalno) && 0 == $course_info->dcexclude) {
                 $sel_states[] = 'dc';
             }
-            if (!empty($course_info->flapprovalno)) {
+            if (!empty($course_info->flapprovalno) && 0 == $course_info->flexclude) {
                 $sel_states[] = 'fl';
             }
-            if (!empty($course_info->gaapprovalno)) {
+            if (!empty($course_info->gaapprovalno) && 0 == $course_info->gaexclude) {
                 $sel_states[] = 'ga';
             }
-            if (!empty($course_info->hiapprovalno)) {
+            if (!empty($course_info->hiapprovalno) && 0 == $course_info->hiexclude) {
                 $sel_states[] = 'hi';
             }
-            if (!empty($course_info->idapprovalno)) {
+            if (!empty($course_info->idapprovalno) && 0 == $course_info->idexclude) {
                 $sel_states[] = 'id';
             }
-            if (!empty($course_info->ilapprovalno)) {
+            if (!empty($course_info->ilapprovalno) && 0 == $course_info->ilexclude) {
                 $sel_states[] = 'il';
             }
-            if (!empty($course_info->inapprovalno)) {
+            if (!empty($course_info->inapprovalno) && 0 == $course_info->inexclude) {
                 $sel_states[] = 'in';
             }
-            if (!empty($course_info->iaapprovalno)) {
+            if (!empty($course_info->iaapprovalno) && 0 == $course_info->iaexclude) {
                 $sel_states[] = 'ia';
             }
-            if (!empty($course_info->ksapprovalno)) {
+            if (!empty($course_info->ksapprovalno) && 0 == $course_info->ksexclude) {
                 $sel_states[] = 'ks';
             }
-            if (!empty($course_info->kyapprovalno)) {
+            if (!empty($course_info->kyapprovalno) && 0 == $course_info->kyexclude) {
                 $sel_states[] = 'ky';
             }
-            if (!empty($course_info->laapprovalno)) {
+            if (!empty($course_info->laapprovalno) && 0 == $course_info->laexclude) {
                 $sel_states[] = 'la';
             }
-            if (!empty($course_info->meapprovalno)) {
+            if (!empty($course_info->meapprovalno) && 0 == $course_info->meexclude) {
                 $sel_states[] = 'me';
             }
-            if (!empty($course_info->mdapprovalno)) {
+            if (!empty($course_info->mdapprovalno) && 0 == $course_info->mdexclude) {
                 $sel_states[] = 'md';
             }
-            if (!empty($course_info->maapprovalno)) {
+            if (!empty($course_info->maapprovalno) && 0 == $course_info->maexclude) {
                 $sel_states[] = 'ma';
             }
-            if (!empty($course_info->miapprovalno)) {
+            if (!empty($course_info->miapprovalno) && 0 == $course_info->miexclude) {
                 $sel_states[] = 'mi';
             }
-            if (!empty($course_info->mnapprovalno)) {
+            if (!empty($course_info->mnapprovalno) && 0 == $course_info->mnexclude) {
                 $sel_states[] = 'mn';
             }
-            if (!empty($course_info->msapprovalno)) {
+            if (!empty($course_info->msapprovalno) && 0 == $course_info->msexclude) {
                 $sel_states[] = 'ms';
             }
-            if (!empty($course_info->moapprovalno)) {
+            if (!empty($course_info->moapprovalno) && 0 == $course_info->moexclude) {
                 $sel_states[] = 'mo';
             }
-            if (!empty($course_info->mtapprovalno)) {
+            if (!empty($course_info->mtapprovalno) && 0 == $course_info->mtexclude) {
                 $sel_states[] = 'mt';
             }
-            if (!empty($course_info->neapprovalno)) {
+            if (!empty($course_info->neapprovalno) && 0 == $course_info->neexclude) {
                 $sel_states[] = 'ne';
             }
-            if (!empty($course_info->nvapprovalno)) {
+            if (!empty($course_info->nvapprovalno) && 0 == $course_info->nvexclude) {
                 $sel_states[] = 'nv';
             }
-            if (!empty($course_info->nhapprovalno)) {
+            if (!empty($course_info->nhapprovalno) && 0 == $course_info->nhexclude) {
                 $sel_states[] = 'nh';
             }
-            if (!empty($course_info->njapprovalno)) {
+            if (!empty($course_info->njapprovalno) && 0 == $course_info->njexclude) {
                 $sel_states[] = 'nj';
             }
-            if (!empty($course_info->nmapprovalno)) {
+            if (!empty($course_info->nmapprovalno) && 0 == $course_info->nmexclude) {
                 $sel_states[] = 'nm';
             }
-            if (!empty($course_info->nyapprovalno)) {
+            if (!empty($course_info->nyapprovalno) && 0 == $course_info->nyexclude) {
                 $sel_states[] = 'ny';
             }
-            if (!empty($course_info->ncapprovalno)) {
+            if (!empty($course_info->ncapprovalno) && 0 == $course_info->ncexclude) {
                 $sel_states[] = 'nc';
             }
-            if (!empty($course_info->ndapprovalno)) {
+            if (!empty($course_info->ndapprovalno) && 0 == $course_info->ndexclude) {
                 $sel_states[] = 'nd';
             }
-            if (!empty($course_info->ohapprovalno)) {
+            if (!empty($course_info->ohapprovalno) && 0 == $course_info->ohexclude) {
                 $sel_states[] = 'oh';
             }
-            if (!empty($course_info->okapprovalno)) {
+            if (!empty($course_info->okapprovalno) && 0 == $course_info->okexclude) {
                 $sel_states[] = 'ok';
             }
-            if (!empty($course_info->orapprovalno)) {
+            if (!empty($course_info->orapprovalno) && 0 == $course_info->orexclude) {
                 $sel_states[] = 'or';
             }
-            if (!empty($course_info->paapprovalno)) {
+            if (!empty($course_info->paapprovalno) && 0 == $course_info->paexclude) {
                 $sel_states[] = 'pa';
             }
-            if (!empty($course_info->riapprovalno)) {
+            if (!empty($course_info->riapprovalno) && 0 == $course_info->riexclude) {
                 $sel_states[] = 'ri';
             }
-            if (!empty($course_info->scapprovalno)) {
+            if (!empty($course_info->scapprovalno) && 0 == $course_info->scexclude) {
                 $sel_states[] = 'sc';
             }
-            if (!empty($course_info->sdapprovalno)) {
+            if (!empty($course_info->sdapprovalno) && 0 == $course_info->sdexclude) {
                 $sel_states[] = 'sd';
             }
-            if (!empty($course_info->tnapprovalno)) {
+            if (!empty($course_info->tnapprovalno) && 0 == $course_info->tnexclude) {
                 $sel_states[] = 'tn';
             }
-            if (!empty($course_info->txapprovalno)) {
+            if (!empty($course_info->txapprovalno) && 0 == $course_info->txexclude) {
                 $sel_states[] = 'tx';
             }
-            if (!empty($course_info->utapprovalno)) {
+            if (!empty($course_info->utapprovalno) && 0 == $course_info->utexclude) {
                 $sel_states[] = 'ut';
             }
-            if (!empty($course_info->vtapprovalno)) {
+            if (!empty($course_info->vtapprovalno) && 0 == $course_info->vtexclude) {
                 $sel_states[] = 'vt';
             }
-            if (!empty($course_info->vaapprovalno)) {
+            if (!empty($course_info->vaapprovalno) && 0 == $course_info->vaexclude) {
                 $sel_states[] = 'va';
             }
-            if (!empty($course_info->waapprovalno)) {
+            if (!empty($course_info->waapprovalno) && 0 == $course_info->waexclude) {
                 $sel_states[] = 'wa';
             }
-            if (!empty($course_info->wvapprovalno)) {
+            if (!empty($course_info->wvapprovalno) && 0 == $course_info->wvexclude) {
                 $sel_states[] = 'wv';
             }
-            if (!empty($course_info->wiapprovalno)) {
+            if (!empty($course_info->wiapprovalno) && 0 == $course_info->wiexclude) {
                 $sel_states[] = 'wi';
             }
-            if (!empty($course_info->wyapprovalno)) {
+            if (!empty($course_info->wyapprovalno) && 0 == $course_info->wyexclude) {
                 $sel_states[] = 'wy';
             }
             /*
@@ -284,19 +284,28 @@ class bundle_edit_form extends moodleform {
                     // need to find all states that are marked for the custom approval numbers
                     $get_states = $DB->get_records('local_state_settings', array('customapprove' => 1));
                     foreach($get_states as $state_set) {
-                        $sel_states[] = $state_set->state;
+                        $state_var = $state_set->state . 'exclude';
+                        if (0 == $course_info->$state_var) {
+                            $sel_states[] = $state_set->state;    
+                        }
                     }
                 }
                 
                 // life states
                 $get_states = $DB->get_records('local_state_settings', array('customapprove' => 2));
                 foreach($get_states as $state_set) {
-                    $sel_states[] = $state_set->state;
+                    $state_var = $state_set->state . 'exclude';
+                    if (0 == $course_info->$state_var) {
+                        $sel_states[] = $state_set->state;    
+                    }
                 }
                 // get states that my not have numbers
                 $get_states = $DB->get_records('local_state_settings', array('customapprove' => 0));
                 foreach($get_states as $state_set) {
-                    $sel_states[] = $state_set->state;
+                    $state_var = $state_set->state . 'exclude';
+                    if (0 == $course_info->$state_var) {
+                        $sel_states[] = $state_set->state;    
+                    }
                 }    
             }
             //echo print_r($course_info, true);

@@ -6,7 +6,7 @@ use core_completion\progress;
 
 global $DB;
 
-$PAGE->set_context(get_system_context());
+$PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 $PAGE->set_title("Courses Completed");
 $PAGE->set_heading("Courses Completed");
