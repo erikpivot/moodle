@@ -184,16 +184,16 @@ class observer {
         global $DB, $CFG;
         $eventdata = $event->get_data();
         $course = $event->get_record_snapshot('course', $eventdata['objectid']);
-        file_put_contents(__DIR__ . 'update_product.txt', print_r($course, true) . "\n", FILE_APPEND);
-        file_put_contents(__DIR__ . 'update_product.txt', print_r($eventdata, true) . "\n", FILE_APPEND);
+        file_put_contents(__DIR__ . '/update_product.txt', print_r($course, true) . "\n", FILE_APPEND);
+        file_put_contents(__DIR__ . '/update_product.txt', print_r($eventdata, true) . "\n", FILE_APPEND);
         //file_put_contents(__DIR__ . 'update_product.txt', print_r($event->get_record_snapshot('course', $eventdata['objectid']), true) . "\n", FILE_APPEND);
         $tag_info = \core_tag_tag::get_item_tags_array('core', 'course', $eventdata['objectid']);
-        file_put_contents(__DIR__ . 'update_product.txt', print_r($tag_info, true) . "\n", FILE_APPEND);
+        file_put_contents(__DIR__ . '/update_product.txt', print_r($tag_info, true) . "\n", FILE_APPEND);
         
         // get the product category ids
         $cat_array = [];
         foreach($tag_info as $key => $value) {
-            file_put_contents(__DIR__ . 'update_product.txt', "Category ID: " . $key . "\n", FILE_APPEND);
+            file_put_contents(__DIR__ . '/update_product.txt', "Category ID: " . $key . "\n", FILE_APPEND);
             $cat_res = $DB->get_record('tag', array('id' => $key), 'ecommproductcat');
             $cat_array[] = [
                 'id' => $cat_res->ecommproductcat
@@ -214,7 +214,7 @@ class observer {
         // find out what states were selected (based on approval numbers entered)
         observer::processStateCategoryIds($course, $cat_array);
         
-        file_put_contents(__DIR__ . 'update_product.txt', "Categories: " . print_r($cat_array, true) . "\n", FILE_APPEND);
+        file_put_contents(__DIR__ . '/update_product.txt', "Categories: " . print_r($cat_array, true) . "\n", FILE_APPEND);
         
         // get any images associated with the course
         require_once($CFG->libdir. '/coursecatlib.php');
@@ -251,7 +251,7 @@ class observer {
                 ]
             ]
         ];
-        file_put_contents(__DIR__ . 'update_product_result.txt', print_r($data, true), FILE_APPEND);
+        file_put_contents(__DIR__ . '/update_product_result.txt', print_r($data, true), FILE_APPEND);
         // Make the curl request
         $config = get_config('local_sales_front');
         $ch = curl_init($config->ecommerce_url . "/wp-json/wc/v2/products/" . $course->productid . "/?consumer_key=" . $config->wc_client_key . "&consumer_secret=" . $config->wc_client_secret);
@@ -261,7 +261,7 @@ class observer {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = curl_exec($ch);
         curl_close($ch);
-        file_put_contents(__DIR__ . 'update_product_result.txt', $res . "\n", FILE_APPEND);
+        file_put_contents(__DIR__ . '/update_product_result.txt', $res . "\n", FILE_APPEND);
         
         // update any bundles the course is associated with
         observer::updateBundleDescriptions($course->idnumber);
@@ -607,6 +607,9 @@ class observer {
         file_put_contents(__DIR__ . '/update_bundle_result.txt', "SELECT: " . $select . "\n");
         $records = $DB->get_records_select('local_course_bundles', $select, array('id', 'courses', 'ecommproductid'));
         file_put_contents(__DIR__ . '/update_bundle_result.txt', "RECORDS: " . print_r($records, true) . "\n", FILE_APPEND);
+        $woo_data = array(
+            'update' => array()
+        );
         foreach ($records as $record) {
             // get the courses involved and build the new description for the bundle
             $cselect = "idnumber IN ('" . str_replace(",", "','", $record->courses) . "')";
@@ -616,21 +619,24 @@ class observer {
             $bundle_descr = observer::buildDescription($courses);
             // send the update to the ecommerce site
             // create the woocommerce data object for the new product
-            $woo_data = [
+            $woo_data['update'][] = array(
+                'id' => $record->ecommproductid,
                 'description' => $bundle_descr
-            ];
-            
-            // Make the curl request
-            $config = get_config('local_sales_front');
-            $ch = curl_init($config->ecommerce_url . "/wp-json/wc/v2/products/" . $record->ecommproductid . "/?consumer_key=" . $config->wc_client_key . "&consumer_secret=" . $config->wc_client_secret);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($woo_data));
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $res = curl_exec($ch);
-            curl_close($ch);
-            file_put_contents(__DIR__ . '/update_bundle_result.txt', $res . "\n", FILE_APPEND);
+            );
         }
+        file_put_contents(__DIR__ . '/update_bundle_result.txt', "UPDATE ARRAY: " . print_r($woo_data, true) . "\n", FILE_APPEND);
+        $req_json = json_encode($woo_data);
+        file_put_contents(__DIR__ . '/update_bundle_result.txt', "UPDATE JSON STRING: " . $req_json . "\n", FILE_APPEND);
+        // Make the curl request
+        $config = get_config('local_sales_front');
+        $ch = curl_init($config->ecommerce_url . "/wp-json/wc/v2/products/batch/?consumer_key=" . $config->wc_client_key . "&consumer_secret=" . $config->wc_client_secret);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $req_json);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        file_put_contents(__DIR__ . '/update_bundle_result.txt', $res . "\n", FILE_APPEND);
     }
     
     /**
