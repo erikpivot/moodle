@@ -2238,4 +2238,4 @@ $string['ecommshortdescription_help'] = 'Short description of the course that wi
 $string['missingecommshortdescription'] = 'Please enter the short description for the course that will appear on the ECommerce site';
 $string['includecustomstates'] = 'This is a State Specific Course';
 $string['lifeapprovedstates'] = 'Life University Approved';
-$string['stateexclude'] = 'NOT LINKED TO THIS STATE';
+$string['stateexclude'] = 'Life Course Not Approved In This State';
