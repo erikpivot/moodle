@@ -1,0 +1,59 @@
+// Post SCSS for the theme
+$default-border: 1px solid #000;
+$btn-color: #0000ff;
+$btn-font-color: #fff;
+
+body.pagelayout-login {                                                                                                             
+    background-image: url([[pix:theme_dchours|loginbackgroundimage]]);                                                                
+    background-size: cover;                                                                                                         
+}
+
+.course-box {
+    border: $default-border;
+    width: 200px;
+    height: 200px;
+    padding: 5px;
+}
+
+.enroll-btn {
+    color: $btn-font-color;
+    background-color: $btn-color;
+    padding: 10px;
+}
+
+#id_courseformathdr,
+#id_appearancehdr,
+#id_filehdr,
+#id_completionhdr,
+#id_groups,
+#id_rolerenaming {
+    display: none;
+}
+
+#id_general .fcontainer div:nth-child(3),
+#id_general .fcontainer div:nth-child(4),
+#id_general .fcontainer div:nth-child(5),
+#id_general .fcontainer div:nth-child(6),
+#id_general .fcontainer div:nth-child(7),
+#id_general .fcontainer div:nth-child(8) {
+    display: none;
+}
+
+.fa-archive::before {
+    color: #ff0000;
+}
+
+/* CATEGORY MANAGEMENT */
+[aria-labelledby="category-listing-title"] .menubar,
+.listing-actions.category-listing-actions {
+    display: none;
+}
+
+/* Hide Navigation for Admins */
+.pivot-site-admin a[href*='courses_in_progress'],
+.pivot-site-admin a[href*='courses_completed'], 
+.pivot-site-admin a[href*='my-account'], 
+.pivot-site-admin a[href*='my_certificates'], 
+.pivot-site-admin a[href*='shop'] {
+    display: none;
+}
