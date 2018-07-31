@@ -4,6 +4,7 @@
  *
  * @package   theme_dchours
  * @copyright 2018 Pivot Creative
+ * @website https://pivotcreates.com
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 // This line protects the file from being accessed by a URL directly.                                                               
