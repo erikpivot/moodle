@@ -70,12 +70,12 @@ function local_state_settings_update_record($data, $all_states) {
         
         // custom approval?
         if ($data->$setapprove != 0) {
-            $ecommdescript .= $approvals[$data->$setapprove]['ecomm_text'];
+            $ecommdescript .= "<p>" . $approvals[$data->$setapprove]['ecomm_text'] . "</p>";
         }
         
         // state board approved?
         if (1 == $data->$approval) {
-            $ecommdescript .= "State Board Approved\n";
+            $ecommdescript .= "<p>State Board Approved</p>";
         }
         
         $up_data->customapprove = $data->$setapprove;
