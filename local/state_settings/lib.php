@@ -56,6 +56,9 @@ function local_state_settings_update_record($data, $all_states) {
     global $DB, $approvals;
     file_put_contents(__DIR__ . '/state_setting_data.txt', print_r($data, true), FILE_APPEND);
     // save the settings for each state
+    $woo_data = array(
+        'update' => array()
+    );
     foreach($all_states as $key => $value) {
         $ecommdescript = '';
         $up_data = new stdClass();
@@ -99,19 +102,21 @@ function local_state_settings_update_record($data, $all_states) {
         $setting_info = $DB->get_record('local_state_settings', array('state' => $key));
         
         // update the description on the eCommerce site
-        $woo_data = [
+        $woo_data['update'][] = array(
+            'id' => $setting_info->ecommcatid,
             'description' => $ecommdescript
-        ];
-        
-        $config = get_config('local_sales_front');
-        $ch = curl_init($config->ecommerce_url . "/wp-json/wc/v2/products/categories/" . $setting_info->ecommcatid . "/?consumer_key=" . $config->wc_client_key . "&consumer_secret=" . $config->wc_client_secret);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($woo_data));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
-        curl_close($ch);
+        );
     }
+    
+    // update the product categories
+    $config = get_config('local_sales_front');
+    $ch = curl_init($config->ecommerce_url . "/wp-json/wc/v2/products/categories/batch/?consumer_key=" . $config->wc_client_key . "&consumer_secret=" . $config->wc_client_secret);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($woo_data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $res = curl_exec($ch);
+    curl_close($ch);
     
     return true;
 }

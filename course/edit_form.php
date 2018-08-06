@@ -286,9 +286,11 @@ class course_edit_form extends moodleform {
                 $approvalarr[] =& $mform->createElement('text', $setting_info->state . 'approvalno', '');
                 $mform->setType($setting_info->state . 'approvalno', PARAM_TEXT);
             }
-            // life approved state?
+            // life or PACE approved state?
             if (2 == $setting_info->customapprove) {
                 $approvalarr[] =& $mform->createElement('advcheckbox', $setting_info->state . 'exclude', get_string('stateexclude'), '', array(), array(0, 1));
+            } else if (1 == $setting_info->customapprove) {
+                $approvalarr[] =& $mform->createElement('advcheckbox', $setting_info->state . 'exclude', get_string('paceexclude'), '', array(), array(0, 1));                
             }
             if (sizeof($approvalarr) > 0) {
                 $mform->addGroup($approvalarr, $setting_info->state . 'approvalgrp', get_string($all_states[$setting_info->state] . 'approval'), ' ', false);

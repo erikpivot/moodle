@@ -2239,3 +2239,4 @@ $string['missingecommshortdescription'] = 'Please enter the short description fo
 $string['includecustomstates'] = 'This is a State Specific Course';
 $string['lifeapprovedstates'] = 'Life University Approved';
 $string['stateexclude'] = 'Life Course Not Approved In This State';
+$string['paceexclude'] = 'PACE Course Not Approved In This State';
