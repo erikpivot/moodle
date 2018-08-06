@@ -68,20 +68,11 @@ function local_state_settings_update_record($data, $all_states) {
         $approval = $key . 'stateapprove';
         $requirements = $key . 'staterequire';
         
-        // custom approval?
-        if ($data->$setapprove != 0) {
-            $ecommdescript .= '<p class="custom-approval-line">' . $approvals[$data->$setapprove]['ecomm_text'] . "</p>";
-        }
-        
-        // state board approved?
-        if (1 == $data->$approval) {
-            $ecommdescript .= '<p class="sb-approval-line">State Board Approved</p>';
-        }
-        
         $up_data->customapprove = $data->$setapprove;
         $up_data->stateapproval = $data->$approval;
         $up_data->staterequire = $data->$requirements['text'];
         $ecommdescript .= $data->$requirements['text'];
+        
         //file_put_contents(__DIR__ . '/data_submitted.txt', print_r($data, true), FILE_APPEND);
         /*
         $sql = "UPDATE {local_state_settings} SET customapprove = " . $up_data->customapprove . ",
