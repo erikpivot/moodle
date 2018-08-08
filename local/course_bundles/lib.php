@@ -295,7 +295,7 @@ function buildDescription($courses) {
             $descr_str .= '<span class="course-category">' . $value . '</span>';
         }
         $descr_str .= '</p>';
-        $descr_str .= '<p class="bundle-course-summary">' . $course_info['summary'] . '</p>';
+        $descr_str .= '<div class="bundle-course-summary">' . $course_info['summary'] . '</div>';
         $descr_str .= '</div>';
     }
     return $descr_str;
