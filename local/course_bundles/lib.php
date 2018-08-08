@@ -286,14 +286,17 @@ function buildDescription($courses) {
     
     // go through each course
     foreach ($courses as $course_info) {
-        $descr_str .= $course_info['fullname'] . " - Credit Hours: " . $course_info['credithrs'];
+        $descr_str .= '<div class="bundle-course-block">';
+        $descr_str .= '<p class="bundle-title-line"><span class="bundle-course-title">' . $course_info['fullname'] . '</span> - <span class="bundle-course-credit-hrs">Credit Hours: ' . $course_info['credithrs'] . '</span>';
         // get the categories associated with the course
         $tag_info = \core_tag_tag::get_item_tags_array('core', 'course', $course_info['id']);
         //file_put_contents(__DIR__ . '/tag_info.txt', "Course: " . $course_info['fullname'] . "\n" . print_r($tag_info, true), FILE_APPEND);
         foreach($tag_info as $key => $value) {
             $descr_str .= '<span class="course-category">' . $value . '</span>';
         }
-        $descr_str .= $course_info['summary'] . '<br /><br />';
+        $descr_str .= '</p>';
+        $descr_str .= '<p class="bundle-course-summary">' . $course_info['summary'] . '</p>';
+        $descr_str .= '</div>';
     }
     return $descr_str;
 }

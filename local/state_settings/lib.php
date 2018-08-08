@@ -81,6 +81,9 @@ function local_state_settings_update_record($data, $all_states) {
         if (1 == $data->$approval) {
             $ecommdescript .= '<p class="sb-approval-line">State Board Approved</p>';
         }
+        
+        // disclaimer
+        $ecommdescript .= '<p class="state-notify-area">At the top of the list are our bundles.  We bundle several courses together at a discounted price.  You may also scroll down further to choose from our list of individuals courses that are approved in this state.</p>';
         //file_put_contents(__DIR__ . '/data_submitted.txt', print_r($data, true), FILE_APPEND);
         /*
         $sql = "UPDATE {local_state_settings} SET customapprove = " . $up_data->customapprove . ",
