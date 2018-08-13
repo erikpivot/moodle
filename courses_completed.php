@@ -68,7 +68,7 @@ foreach ($courses as $course) {
         
         // get the scorm activity
         $scorm_info = $DB->get_record('scorm', array('course' => $course->id), 'id');
-        $activity = $DB->get_record('course_modules', array('instance' => $scorm_info->id), 'id');
+        $activity = $DB->get_record('course_modules', array('instance' => $scorm_info->id, 'module' => 18), 'id');
         // get the sco information
         $sco = $DB->get_record('scorm_scoes', array('scorm' => $scorm_info->id, 'scormtype' => 'sco'), 'id,organization'); 
         

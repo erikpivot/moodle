@@ -41,7 +41,7 @@ foreach ($courses as $course) {
         
         // get the scorm activity for grabbing the completion information
         $scorm_info = $DB->get_record('scorm', array('course' => $course->id), 'id');
-        $activity = $DB->get_record('course_modules', array('instance' => $scorm_info->id), 'id');
+        $activity = $DB->get_record('course_modules', array('instance' => $scorm_info->id, 'module' => 18), 'id');
         
         // get the completion date for the course
         $complete_info = $DB->get_record('course_modules_completion', array('userid' => $USER->id, 'coursemoduleid' => $activity->id), 'timemodified');
