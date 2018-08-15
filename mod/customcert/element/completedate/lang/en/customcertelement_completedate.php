@@ -15,19 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Code fragment to define the version of the customcert module
+ * Strings for component 'customcertelement_completedate', language 'en'.
  *
- * @package    mod_customcert
- * @copyright  2013 Mark Nelson <markn@moodle.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or late
+ * @package    customcertelement_completedate
+ * @copyright  2018 Pivot Creative
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die('Direct access to this script is forbidden.');
-
-$plugin->version   = 2017111304; // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2017111300; // Requires this Moodle version (3.4).
-$plugin->cron      = 0; // Period for cron to check this module (secs).
-$plugin->component = 'mod_customcert';
-
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = "3.4 release (Build: 2017111300)"; // User-friendly version number.
+$string['pluginname'] = 'Course Completion Date';
