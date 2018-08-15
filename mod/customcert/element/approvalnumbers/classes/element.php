@@ -157,8 +157,9 @@ class element extends \mod_customcert\element {
                 $state_rows .= 'Sponsored by Life University ';
             }
             */
-            if (1 == $state_settings->stateapproval && !empty($course->$state_info['numberkey'])) {
-                $state_rows .= 'State Board Approval No. ' . $course->$state_info['numberkey'];
+            $number_key = $state_info['numberkey'];
+            if (1 == $state_settings->stateapproval && !empty($course->$number_key)) {
+                $state_rows .= 'State Board Approval No. ' . $course->$number_key;
             }
             $state_rows .= '</td></tr>';
         }
