@@ -185,7 +185,7 @@ function local_course_bundles_update_record($data, $insert = true) {
             $DB->update_record('local_course_bundles', $up_obj);
             
             // update the course short descriptions
-            updateCourseShortDescripts($result, $courses);
+            //updateCourseShortDescripts($result, $courses);
         }
         //local_course_bundles_events::bundle_added($result);
     } else {
@@ -242,7 +242,7 @@ function local_course_bundles_update_record($data, $insert = true) {
         file_put_contents(__DIR__ . '/update_product_result.txt', $res . "\n", FILE_APPEND);
         //local_course_bundles_events::bundle_updated($data->id);
         // update the course short descriptions
-        updateCourseShortDescripts($data->id, $courses);
+        //updateCourseShortDescripts($data->id, $courses);
     }
     
     return boolval($result);
