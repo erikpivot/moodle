@@ -66,6 +66,17 @@ foreach ($courses as $course) {
         // find the certificate
         $cert_info = $DB->get_record('customcert', array('course' => $course->id), 'id,templateid');
         
+        // see if the certificate has been issued yet
+        if (!$DB->record_exists('customcert_issues', array('userid' => $USER->id, 'customcertid' => $cert_info->id))) {
+            $customcertissue = new stdClass();
+            $customcertissue->customcertid = $cert_info->id;
+            $customcertissue->userid = $USER->id;
+            $customcertissue->code = \mod_customcert\certificate::generate_code();
+            $customcertissue->timecreated = time();
+            // Insert the record into the database.
+            $DB->insert_record('customcert_issues', $customcertissue);
+        }
+        
         // get the scorm activity
         $scorm_info = $DB->get_record('scorm', array('course' => $course->id), 'id');
         $activity = $DB->get_record('course_modules', array('instance' => $scorm_info->id, 'module' => 18), 'id');
