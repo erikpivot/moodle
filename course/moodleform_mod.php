@@ -685,7 +685,7 @@ abstract class moodleform_mod extends moodleform {
                     get_string('completionusegrade_desc', 'completion'));
                 $mform->disabledIf('completionusegrade', 'completion', 'ne', COMPLETION_TRACKING_AUTOMATIC);
                 $mform->addHelpButton('completionusegrade', 'completionusegrade', 'completion');
-                $mform->setDefault('completionusegrade', 1);
+                $mform->setDefault('completionusegrade', 0);
                 $gotcompletionoptions = true;
 
                 // If using the rating system, there is no grade unless ratings are enabled.
