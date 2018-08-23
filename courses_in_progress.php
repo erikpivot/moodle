@@ -60,9 +60,20 @@ foreach ($courses as $course) {
 <?=$course->fullname;?>
 </div>
 <div class="user-course-col open-course">
+<?php
+// check to see if the course can still be viewed
+if ($enrollment_end > strtotime(date('Y-m-d'))) {
+    // can still view
+?>
 <form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">
 <input type="submit" value="Open Course" class="btn btn-primary">
 </form>
+<?php
+} else {
+    // course expired
+    echo "EXPIRED";
+}
+?>
 </div>
 <div class="user-course-col purchased">
 <?=date('m/d/Y', $start_time);?>
