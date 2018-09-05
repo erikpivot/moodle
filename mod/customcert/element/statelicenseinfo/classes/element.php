@@ -43,12 +43,12 @@ class element extends \mod_customcert\element {
      * @param \stdClass $user the user we are rendering this for
      */
     public function render($pdf, $preview, $user) {
-        global $USER, $DB;
+        global $DB;
         $courseid = \mod_customcert\element_helper::get_courseid($this->get_id());
         $course = get_course($courseid);
         
         // get the license numbers for the user
-        $user_info_data = $DB->get_records('user_info_data', array('userid' => $USER->id));
+        $user_info_data = $DB->get_records('user_info_data', array('userid' => $user->id));
         //file_put_contents(__DIR__ . '/debug.txt', print_r($user_info_data, true));
         
         $primary = '';
