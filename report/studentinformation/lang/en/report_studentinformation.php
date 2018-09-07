@@ -15,17 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Lang strings
  *
  * @package    report
- * @subpackage courseenrollments
+ * @subpackage studentinformation
  * @copyright  2018 Pivot Creative
  * @author     Pivot Creative <info@pivotcreates.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
-
-$plugin->version   = 2018062503;          // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2017110800;          // Requires this Moodle version
-$plugin->component = 'report_courseenrollments'; // Full name of the plugin (used for diagnostics)
+$string['pluginname'] = 'Student Information';
+$string['filterstudentfirstname'] = 'First Name';
+$string['filterstudentlastname'] = 'Last Name';
+$string['studentname'] = 'Name';
+$string['coursename'] = 'Course';
+$string['credithours'] = 'Credit Hours';
+$string['coursetime'] = 'Time in Course';
+$string['completedate'] = 'Date of Completion';
+$string['subfilter'] = 'Submit';

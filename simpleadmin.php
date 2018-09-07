@@ -36,6 +36,7 @@ if($isadmin) {
 <h2>Reports</h2>
 <a href="<?=$CFG->wwwroot;?>/report/courseenrollments/index.php">Enrollments</a><br />
 <a href="<?=$CFG->wwwroot;?>/report/courseinfo/index.php">Course Information</a><br />
+<a href="<?=$CFG->wwwroot;?>/report/studentinformation/index.php">Student Information</a><br />
 <a href="<?=$CFG->wwwroot;?>/report/approvalnumstate/index.php">Approval Numbers By State</a><br />
 <br />
 <h2>Configuration</h2>
