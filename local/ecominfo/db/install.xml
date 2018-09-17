@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/ecominfo/db" VERSION="20180116" COMMENT="XMLDB file for Moodle local/ecominfo"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_ecominfo" COMMENT="Information about purchases from the ECommerce Site">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="ecomstudentid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Student ID from the ECommerce Site"/>
+        <FIELD NAME="courses" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Comma separated list of course ids"/>
+        <FIELD NAME="price" TYPE="float" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Purchase Price"/>
+        <FIELD NAME="ecommproductid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Product ID from ECommerce Site"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>
