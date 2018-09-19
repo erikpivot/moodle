@@ -85,7 +85,7 @@ class get_orders_task extends \core\task\scheduled_task {
                     // add the order to the table
                     $insert_obj = new \stdClass();
                     $insert_obj->ecomstudentid = $student_id;
-                    $insert_obj->courses = $course_ids->courses;
+                    $insert_obj->courses = (empty($course_ids->courses) ? $course_ids->idnumber : $course_ids->courses);
                     $insert_obj->price = $order_item->subtotal;
                     $insert_obj->ecommproductid = $order_item->product_id;
                     $insert_obj->orderid = $order_id;
