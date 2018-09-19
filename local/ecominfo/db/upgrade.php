@@ -13,18 +13,36 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
- 
+
 /**
+ * Upgrade script for local ecominfo
+ *
  * @package   local_ecominfo
- * @copyright 2018 Pivot Creative
+ * @copyright 2018 Pivot Creative <team@pivotcreates.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 defined('MOODLE_INTERNAL') || die();
- 
-$plugin->version   = 2018091900.00;
-$plugin->requires  = 2017111300; // Requires this Moodle version (3.4).
-$plugin->cron      = 0;
-$plugin->component = 'local_ecominfo';
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '3.4 release (Build: 2017111300)';
+
+
+/**
+ * @global moodle_database $DB
+ * @param int $oldversion
+ * @return bool
+ */
+function xmldb_local_ecominfo_upgrade($oldversion) {
+    global $CFG, $DB;
+    
+    $dbman = $DB->get_manager();
+
+    if ($oldversion < 2018091900) {
+        // add new fields to the bundles table
+        $table = new xmldb_table('local_ecominfo');
+        $field = new xmldb_field('orderid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        $dbman->add_field($table, $field);
+        $field = new xmldb_field('orderdate', XMLDB_TYPE_TEXT, '', null, null, null, null, null);
+        $dbman->add_field($table, $field);
+    }
+
+    return true;
+}

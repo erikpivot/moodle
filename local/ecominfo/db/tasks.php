@@ -13,18 +13,26 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
- 
+
 /**
+ * Definition of customcert scheduled tasks.
+ *
  * @package   local_ecominfo
+ * @category  task
  * @copyright 2018 Pivot Creative
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
- 
+
 defined('MOODLE_INTERNAL') || die();
- 
-$plugin->version   = 2018091900.00;
-$plugin->requires  = 2017111300; // Requires this Moodle version (3.4).
-$plugin->cron      = 0;
-$plugin->component = 'local_ecominfo';
-$plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '3.4 release (Build: 2017111300)';
+
+$tasks = array(
+    array(
+        'classname' => 'local_ecominfo\task\get_orders_task',
+        'blocking' => 0,
+        'minute' => '*/30',
+        'hour' => '*',
+        'day' => '*',
+        'month' => '*',
+        'dayofweek' => '*'
+    )
+);
