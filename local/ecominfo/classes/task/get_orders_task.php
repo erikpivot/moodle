@@ -54,7 +54,8 @@ class get_orders_task extends \core\task\scheduled_task {
         $current_orders = $DB->get_records_sql($sql, null, 0, 1);
         $last_order = '2018-01-01T00:00:00';
         foreach ($current_orders as $this_order) {
-            $last_order = $this_order->orderdate;
+            $datetime = new DateTime($this_order->orderdate);
+            $last_order = $datetime->format('c');
         }
         
         // Make the curl request
@@ -72,7 +73,7 @@ class get_orders_task extends \core\task\scheduled_task {
             $orders_obj = json_decode($res);
             foreach($orders_obj as $order_info) {
                 $order_id = $order_info->id;
-                $order_date = $order_info->date_created;
+                $order_date = strtotime($order_info->date_created);
                 $student_id = $order_info->customer_id;
                 // go through each order item to get the courses associated with the order
                 foreach($order_info->line_items as $order_item) {
