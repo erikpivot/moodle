@@ -84,7 +84,7 @@ class get_orders_task extends \core\task\scheduled_task {
                         // this line item is a bundle product
                         $course_ids = $DB->get_record('local_course_bundles', array('ecommproductid' => $order_item->product_id), 'courses');
                         // wrap the courses in quotes so queries on the courses can be run against them
-                        $split_courses = explode($course_ids->courses, ",");
+                        $split_courses = explode(",", $course_ids->courses);
                         foreach($split_courses as $split_id) {
                             if (!empty($found_courses)) {
                                 $found_courses .= ",";
