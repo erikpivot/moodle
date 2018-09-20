@@ -76,37 +76,40 @@ class get_orders_task extends \core\task\scheduled_task {
                 $student_id = $order_info->customer_id;
                 // go through each order item to get the courses associated with the order
                 foreach($order_info->line_items as $order_item) {
-                    $found_courses = '';
                     $average_price = 0.00;
                     // search the individual courses first
                     $course_ids = $DB->get_record('course', array('productid' => $order_item->product_id), 'idnumber');
                     if (!$course_ids) {
                         // this line item is a bundle product
                         $course_ids = $DB->get_record('local_course_bundles', array('ecommproductid' => $order_item->product_id), 'courses');
-                        // wrap the courses in quotes so queries on the courses can be run against them
+                        // do individual records for each course in the bundle
                         $split_courses = explode(",", $course_ids->courses);
-                        foreach($split_courses as $split_id) {
-                            if (!empty($found_courses)) {
-                                $found_courses .= ",";
-                            }
-                            $found_courses .= "'" . $split_id . "'";
-                        }
                         $average_price = $order_item->subtotal / sizeof($split_courses);
+                        foreach($split_courses as $split_id) {
+                            $insert_obj = new \stdClass();
+                            $insert_obj->ecomstudentid = $student_id;
+                            $insert_obj->courses = $split_id;
+                            $insert_obj->price = $order_item->subtotal;
+                            $insert_obj->ecommproductid = $order_item->product_id;
+                            $insert_obj->orderid = $order_id;
+                            $insert_obj->orderdate = $order_date;
+                            $insert_obj->avgprice = round($average_price, 2);
+                            //echo print_r($insert_obj, true);
+                            $DB->insert_record('local_ecominfo', $insert_obj, false);
+                        }
                     } else {
-                        $found_courses = "'" . $course_ids->idnumber . "'";
                         $average_price = $order_item->subtotal;
+                        $insert_obj = new \stdClass();
+                        $insert_obj->ecomstudentid = $student_id;
+                        $insert_obj->courses = $course_ids->idnumber;
+                        $insert_obj->price = $order_item->subtotal;
+                        $insert_obj->ecommproductid = $order_item->product_id;
+                        $insert_obj->orderid = $order_id;
+                        $insert_obj->orderdate = $order_date;
+                        $insert_obj->avgprice = round($average_price, 2);
+                        //echo print_r($insert_obj, true);
+                        $DB->insert_record('local_ecominfo', $insert_obj, false);
                     }
-                    // add the order to the table
-                    $insert_obj = new \stdClass();
-                    $insert_obj->ecomstudentid = $student_id;
-                    $insert_obj->courses = $found_courses;
-                    $insert_obj->price = $order_item->subtotal;
-                    $insert_obj->ecommproductid = $order_item->product_id;
-                    $insert_obj->orderid = $order_id;
-                    $insert_obj->orderdate = $order_date;
-                    $insert_obj->avgprice = round($average_price, 2);
-                    //echo print_r($insert_obj, true);
-                    $DB->insert_record('local_ecominfo', $insert_obj, false);
                 }
             }
         }

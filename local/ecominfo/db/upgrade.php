@@ -47,7 +47,7 @@ function xmldb_local_ecominfo_upgrade($oldversion) {
     if ($oldversion < 2018092000) {
         // add new fields to the bundles table
         $table = new xmldb_table('local_ecominfo');
-        $field = new xmldb_field('avgprice', XMLDB_TYPE_FLOAT, '20', null, XMLDB_NOTNULL, null, '0', null);
+        $field = new xmldb_field('avgprice', XMLDB_TYPE_FLOAT, '20,', null, XMLDB_NOTNULL, null, '0', null);
         $dbman->add_field($table, $field);
     }
     
