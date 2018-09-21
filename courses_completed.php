@@ -22,6 +22,10 @@ if (!empty($_POST['action'])) {
 
 echo $OUTPUT->header();
 ?>
+<div class="course-info-text">
+<h3>Please be sure not to log out of the website or close the browser window while the course is running.</h3>
+</div>
+<hr />
 <div class="user-course-list">
 
 <div class="user-course-list">
