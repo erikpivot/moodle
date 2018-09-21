@@ -9,7 +9,7 @@
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="ecomstudentid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Student ID from the ECommerce Site"/>
         <FIELD NAME="courses" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Comma separated list of course ids"/>
-        <FIELD NAME="price" TYPE="float" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Purchase Price"/>
+        <FIELD NAME="price" TYPE="float" LENGTH="20" NOTNULL="true" SEQUENCE="false" DECIMALS="2" COMMENT="Purchase Price"/>
         <FIELD NAME="ecommproductid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Product ID from ECommerce Site"/>
       </FIELDS>
       <KEYS>

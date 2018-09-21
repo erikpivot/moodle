@@ -40,14 +40,14 @@ function xmldb_local_ecominfo_upgrade($oldversion) {
         $table = new xmldb_table('local_ecominfo');
         $field = new xmldb_field('orderid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
         $dbman->add_field($table, $field);
-        $field = new xmldb_field('orderdate', XMLDB_TYPE_TEXT, '', null, null, null, null, null);
+        $field = new xmldb_field('orderdate', XMLDB_TYPE_INTEGER, '10', null, null, null, null, null);
         $dbman->add_field($table, $field);
     }
     
     if ($oldversion < 2018092000) {
         // add new fields to the bundles table
         $table = new xmldb_table('local_ecominfo');
-        $field = new xmldb_field('avgprice', XMLDB_TYPE_FLOAT, '20,', null, XMLDB_NOTNULL, null, '0', null);
+        $field = new xmldb_field('avgprice', XMLDB_TYPE_FLOAT, '20,2', null, XMLDB_NOTNULL, null, '0', null);
         $dbman->add_field($table, $field);
     }
     

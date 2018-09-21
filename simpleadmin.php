@@ -34,14 +34,18 @@ if($isadmin) {
 <a href="<?=$CFG->wwwroot;?>/local/knowledge_base/index.php">Knowledge Base</a><br />
 <br />
 <h2>Reports</h2>
+<a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=3">Full Course Registrations</a><br />
+<a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=4">Life Completions</a><br />
+<a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=5">PACE Completions</a><br />
+<a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=2">Course Registrations</a><br />
 <a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=1">Student Enrollment Info</a><br />
-<a href="<?=$CFG->wwwroot;?>/report/courseenrollments/index.php">Enrollments</a><br />
+<!--<a href="<?=$CFG->wwwroot;?>/report/courseenrollments/index.php">Enrollments</a><br />
 <a href="<?=$CFG->wwwroot;?>/report/courseinfo/index.php">Course Information</a><br />
-<a href="<?=$CFG->wwwroot;?>/report/studentinformation/index.php">Student Information</a><br />
+<a href="<?=$CFG->wwwroot;?>/report/studentinformation/index.php">Student Information</a><br />-->
 <a href="<?=$CFG->wwwroot;?>/report/approvalnumstate/index.php">Approval Numbers By State</a><br />
 <br />
-<h2>Configuration</h2>
-<a href="<?=$CFG->wwwroot;?>/admin/repositoryinstance.php?sesskey=<?=$USER->sesskey;?>&type=s3bucket&edit=11">Amazon S3 File Settings/Uploader</a><br />
+<strong>State Course Registrations</strong>
+<a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=6">Alabama Course Registrations</a><br />
 <?php
 } else {
     echo "You are not authorized to view this page.";
