@@ -51,6 +51,13 @@ function xmldb_local_ecominfo_upgrade($oldversion) {
         $dbman->add_field($table, $field);
     }
     
+    if ($oldversion < 2018100200) {
+        // add new fields to the bundles table
+        $table = new xmldb_table('local_ecominfo');
+        $field = new xmldb_field('credithours', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        $dbman->add_field($table, $field);
+    }
+    
 
     return true;
 }

@@ -22,7 +22,7 @@
  
 defined('MOODLE_INTERNAL') || die();
  
-$plugin->version   = 2018092000.00;
+$plugin->version   = 2018100200.00;
 $plugin->requires  = 2017111300; // Requires this Moodle version (3.4).
 $plugin->cron      = 0;
 $plugin->component = 'local_ecominfo';

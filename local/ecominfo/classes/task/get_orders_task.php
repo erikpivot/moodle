@@ -79,10 +79,10 @@ class get_orders_task extends \core\task\scheduled_task {
                 foreach($order_info->line_items as $order_item) {
                     $average_price = 0.00;
                     // search the individual courses first
-                    $course_ids = $DB->get_record('course', array('productid' => $order_item->product_id), 'idnumber');
+                    $course_ids = $DB->get_record('course', array('productid' => $order_item->product_id), 'idnumber,credithrs');
                     if (!$course_ids) {
                         // this line item is a bundle product
-                        $course_ids = $DB->get_record('local_course_bundles', array('ecommproductid' => $order_item->product_id), 'courses');
+                        $course_ids = $DB->get_record('local_course_bundles', array('ecommproductid' => $order_item->product_id), 'courses,credithrs');
                         // do individual records for each course in the bundle
                         $split_courses = explode(",", $course_ids->courses);
                         $average_price = $order_item->subtotal / sizeof($split_courses);
@@ -95,6 +95,7 @@ class get_orders_task extends \core\task\scheduled_task {
                             $insert_obj->orderid = $order_id;
                             $insert_obj->orderdate = $order_date;
                             $insert_obj->avgprice = round($average_price, 2);
+                            $insert_obj->credithours = $course_ids->credithrs;
                             //echo print_r($insert_obj, true);
                             $DB->insert_record('local_ecominfo', $insert_obj, false);
                         }
@@ -108,6 +109,7 @@ class get_orders_task extends \core\task\scheduled_task {
                         $insert_obj->orderid = $order_id;
                         $insert_obj->orderdate = $order_date;
                         $insert_obj->avgprice = round($average_price, 2);
+                        $insert_obj->credithours = $course_ids->credithrs;
                         //echo print_r($insert_obj, true);
                         $DB->insert_record('local_ecominfo', $insert_obj, false);
                     }
