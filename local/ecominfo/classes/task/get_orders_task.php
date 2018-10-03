@@ -113,6 +113,17 @@ class get_orders_task extends \core\task\scheduled_task {
                         //echo print_r($insert_obj, true);
                         $DB->insert_record('local_ecominfo', $insert_obj, false);
                     }
+                    
+                    // add the raw data
+                    $raw_obj = new \stdClass();
+                    $raw_obj->ecomstudentid = $student_id;
+                    $raw_obj->courses = (!empty($course_ids->idnumber) ? $course_ids->idnumber : $course_ids->courses);
+                    $raw_obj->price = $order_item->subtotal;
+                    $raw_obj->ecommproductid = $order_item->product_id;
+                    $raw_obj->orderid = $order_id;
+                    $raw_obj->orderdate = $order_date;
+                    $raw_obj->credithours = $course_ids->credithrs;
+                    $DB->insert_record('local_ecominfo_raw_data', $raw_obj, false);
                 }
             }
         }
