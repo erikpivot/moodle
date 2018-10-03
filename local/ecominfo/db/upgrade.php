@@ -61,25 +61,18 @@ function xmldb_local_ecominfo_upgrade($oldversion) {
     if ($oldversion < 2018100300) {
         // add new fields to the bundles table
         $table = new xmldb_table('local_ecominfo_raw_data');
-        $dbman->create_table($table);
-        $field = new xmldb_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('ecomstudentid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('courses', XMLDB_TYPE_TEXT, '', null, XMLDB_NOTNULL, null, null, null);
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('price', XMLDB_TYPE_FLOAT, '20,2', null, XMLDB_NOTNULL, null, '0', null);
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('ecommproductid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('orderid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('orderdate', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
-        $dbman->add_field($table, $field);
-        $field = new xmldb_field('credithours', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
-        $dbman->add_field($table, $field);
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        $table->add_field('ecomstudentid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        $table->add_field('courses', XMLDB_TYPE_TEXT, '', null, XMLDB_NOTNULL, null, null, null);
+        $table->add_field('price', XMLDB_TYPE_FLOAT, '20,2', null, XMLDB_NOTNULL, null, '0', null);
+        $table->add_field('ecommproductid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        $table->add_field('orderid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        $table->add_field('orderdate', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        $table->add_field('credithours', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
         
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        
+        $dbman->create_table($table);\
     }
     
 
