@@ -61,7 +61,7 @@ function xmldb_local_ecominfo_upgrade($oldversion) {
     if ($oldversion < 2018100300) {
         // add new fields to the bundles table
         $table = new xmldb_table('local_ecominfo_raw_data');
-        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null);
         $table->add_field('ecomstudentid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', null);
         $table->add_field('courses', XMLDB_TYPE_TEXT, '', null, XMLDB_NOTNULL, null, null, null);
         $table->add_field('price', XMLDB_TYPE_FLOAT, '20,2', null, XMLDB_NOTNULL, null, '0', null);
