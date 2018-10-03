@@ -72,7 +72,7 @@ function xmldb_local_ecominfo_upgrade($oldversion) {
         
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
         
-        $dbman->create_table($table);\
+        $dbman->create_table($table);
     }
     
 
