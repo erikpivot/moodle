@@ -8,9 +8,9 @@ global $DB;
 
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
-$PAGE->set_title("Courses in Progress");
-$PAGE->set_heading("Courses in Progress");
-$PAGE->set_url($CFG->wwwroot . "/courses_in_progress.php");
+$PAGE->set_title("Expired Courses");
+$PAGE->set_heading("Expired Courses");
+$PAGE->set_url($CFG->wwwroot . "/courses_expired.php");
 
 echo $OUTPUT->header();
 ?>
@@ -22,9 +22,8 @@ echo $OUTPUT->header();
 
 <div class="user-course-item header">
 <div class="user-course-col description">Course Title</div>
-<div class="user-course-col open-course">Play/Resume</div>
 <div class="user-course-col purchased">Purchased</div>
-<div class="user-course-col expires">Expires</div>
+<div class="user-course-col expires">Expired</div>
 </div>
 <?php
 // get the user courses they are involved in
@@ -58,19 +57,13 @@ foreach ($courses as $course) {
         // get the sco information
         $sco = $DB->get_record('scorm_scoes', array('scorm' => $scorm_info->id, 'scormtype' => 'sco'), 'id,organization');
         
-        // do not display expired courses
-        if ($enrollment_end > strtotime(date('Y-m-d'))) {
-
+        // display expired courses only
+        if ($enrollment_end < strtotime(date('Y-m-d'))) {
 ?>
 <div class="user-course-item">
 <!--<form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">-->
 <div class="user-course-col description">
 <?=$course->fullname;?>
-</div>
-<div class="user-course-col open-course">
-<form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">
-<input type="submit" value="Open Course" class="btn btn-primary">
-</form>
 </div>
 <div class="user-course-col purchased">
 <?=date('m/d/Y', $start_time);?>
@@ -80,22 +73,8 @@ foreach ($courses as $course) {
 </div>
 <!--</form>-->
 </div>
-<script>
-jQuery('#scormviewform<?=$course->id;?>').on('submit', function(e) {
-    e.preventDefault();
-    var scorm = <?=$scorm_info->id;?>;
-    var currentorg = '<?=$sco->organization;?>';
-    var sco = <?=$sco->id;?>;
-    var launch_url = M.cfg.wwwroot + "/mod/scorm/player.php?a=" + scorm + "&currentorg=" + currentorg + "&scoid=" + sco + "&sesskey=" + M.cfg.sesskey + "&display=popup";
-    launch_url += '&mode=normal';
-    poptions = 'resizable=yes,location=no';
-    poptions = poptions + ',width=' + screen.availWidth + ',height=' + screen.availHeight + ',left=0,top=0';
-    winobj = window.open(launch_url, 'Popup', poptions);
-    this.target = 'Popup';
-});
-</script>
 <?php
-    } // end if not expired
+    } // end if expired
 } // end if completed
 
 }
