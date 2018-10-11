@@ -16,6 +16,7 @@ echo $OUTPUT->header();
 ?>
 <div class="course-info-text">
 <h3>Please be sure not to log out of the website or close the browser window while the course is running.</h3>
+<h4><a href="COURSE INSTRUCTIONS.mp4" target="_blank">Click here to watch a short video on how to take your courses</a></h4<br />
 </div>
 <hr />
 <div class="user-course-list">
