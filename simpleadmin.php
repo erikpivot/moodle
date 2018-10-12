@@ -37,7 +37,9 @@ if($isadmin) {
 <a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=3">Full Course Registrations</a><br />
 <a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=4">Life Completions</a><br />
 <a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=5">PACE Completions</a><br />
-<a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=2">Course Registrations</a><br />
+<a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=2">Total Course Registrations</a><br />
+<a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=57">Individual Course Registrations</a><br />
+<a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=58">Bundle Course Registrations</a><br />
 <a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=1">Student Enrollment Info</a><br />
 <!--<a href="<?=$CFG->wwwroot;?>/report/courseenrollments/index.php">Enrollments</a><br />
 <a href="<?=$CFG->wwwroot;?>/report/courseinfo/index.php">Course Information</a><br />
