@@ -282,6 +282,9 @@ class observer {
         $res = curl_exec($ch);
         curl_close($ch);
         file_put_contents(__DIR__ . 'delete_product_result.txt', $res . "\n", FILE_APPEND);
+        
+        // update any bundles that include the remove course
+        observer::reviseCourseBundles($course->idnumber, $course->credithrs);
     }
     
     public static function add_product_category(\core\event\tag_created $event) {
@@ -660,5 +663,67 @@ class observer {
             $descr_str .= $course_info->summary . '<br /><br />';
         }
         return $descr_str;
+    }
+    
+    /**
+     * @param string $idnumber
+     * @param int $credithours
+     */
+    public static function reviseCourseBundles($idnumber, $credithours) {
+        global $DB;
+        // get the bundles associated with the old id number
+        $select = "courses LIKE '%" . $idnumber . "%'";
+        //file_put_contents(__DIR__ . '/update_bundle_result.txt', "SELECT: " . $select . "\n");
+        $records = $DB->get_records_select('local_course_bundles', $select, array('id', 'courses', 'ecommproductid', 'credithrs'));
+        //file_put_contents(__DIR__ . '/update_bundle_result.txt', "RECORDS: " . print_r($records, true) . "\n", FILE_APPEND);
+        foreach ($records as $record) {
+            // rebuild the course list associated with the bundle
+            $all_courses = explode(",", $record->courses);
+            // remove the old course from the list
+            if (($key = array_search($idnumber, $all_courses)) !== false) {
+                unset($all_courses[$key]);
+            }
+            
+            // build the new course list
+            $new_course_list = implode(",", $all_courses);
+            file_put_contents(__DIR__ . '/update_bundle_result.txt', "COURSE LIST: " . $new_course_list . "\n", FILE_APPEND);
+            // update the bundle with the new course list
+            $bundle_obj = new \stdClass();
+            $bundle_obj->id = $record->id;
+            $bundle_obj->courses = $new_course_list;
+            // subtract the credit hours removed
+            $bundle_obj->credithrs = $record->credithrs - $credithours;
+            //file_put_contents(__DIR__ . '/update_bundle_result.txt', "BUNDLE OBJECT: " . print_r($bundle_obj, true) . "\n", FILE_APPEND);
+            $DB->update_record('local_course_bundles', $bundle_obj);
+            
+            // get the courses involved
+            $cselect = "idnumber IN ('" . str_replace(",", "','", $new_course_list) . "')";
+            //file_put_contents(__DIR__ . '/update_bundle_result.txt', "SELECT COURSE: " . $cselect . "\n", FILE_APPEND);
+            $courses = $DB->get_records_select('course', $cselect, array('id', 'fullname', 'credithrs', 'summary'));
+            //file_put_contents(__DIR__ . '/update_bundle_result.txt', "COURSE RECORDS: " . print_r($courses, true) . "\n", FILE_APPEND);
+            $bundle_descr = observer::buildDescription($courses);
+            // send the update to the ecommerce site
+            // create the woocommerce data object for the new product
+            $woo_data = [
+                'description' => $bundle_descr,
+                'meta_data' => [
+                    [
+                        'key' => 'dc_course_ids',
+                        'value' => $new_course_list
+                    ]
+                ]
+            ];
+            
+            // Make the curl request
+            $config = get_config('local_sales_front');
+            $ch = curl_init($config->ecommerce_url . "/wp-json/wc/v2/products/" . $record->ecommproductid . "/?consumer_key=" . $config->wc_client_key . "&consumer_secret=" . $config->wc_client_secret);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($woo_data));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $res = curl_exec($ch);
+            curl_close($ch);
+            //file_put_contents(__DIR__ . '/update_bundle_result.txt', $res . "\n", FILE_APPEND);
+        }
     }
 }

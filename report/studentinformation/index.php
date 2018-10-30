@@ -73,6 +73,8 @@ $callbacks = report_studentinformation_get_list_records($studfirstname, $studlas
 $titlepage = get_string('pluginname', 'report_studentinformation');
 $PAGE->set_heading($titlepage);
 $PAGE->set_title($titlepage);
+$PAGE->requires->js(new moodle_url($CFG->wwwroot . '/report/studentinformation/js/printThis.js'));
+$PAGE->requires->js(new moodle_url($CFG->wwwroot . '/report/studentinformation/js/custom.js'));
 echo $OUTPUT->header();
 
 // table declaration
@@ -90,6 +92,7 @@ $header_arr = array(
 $table->define_headers($header_arr);
 $table->define_baseurl($baseurl);
 $table->setup();
+$table->set_attribute('id', 'studs_info_report');
 
 // go through the results
 foreach($callbacks['results'] as $callback) {
@@ -105,6 +108,7 @@ foreach($callbacks['results'] as $callback) {
 }
 // output the form
 $mform->display();
+echo '<a href="#" id="print-btn" class="btn btn-primary">Print</a><br />';
 
 // output the results table
 $table->print_html();

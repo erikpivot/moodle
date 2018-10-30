@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/revise_courses/db" VERSION="20180116" COMMENT="XMLDB file for Moodle local/revise_courses"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_revise_courses" COMMENT="Table logging what courses were revised">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="newcourseidnumber" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="New course id"/>
+        <FIELD NAME="oldcourseidnumber" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Old course id"/>
+        <FIELD NAME="coursename" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Course that was changed"/>
+        <FIELD NAME="revisiondate" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Unix timestamp of revision"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>

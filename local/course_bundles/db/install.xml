@@ -10,7 +10,7 @@
         <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Bundle Name"/>
         <FIELD NAME="state" TYPE="char" LENGTH="30" NOTNULL="true" SEQUENCE="false" COMMENT="State Bundle is associated with"/>
         <FIELD NAME="courses" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Comma separated list of course ids"/>
-        <FIELD NAME="price" TYPE="float" LENGTH="20" NOTNULL="true" SEQUENCE="false" COMMENT="Price of the bundle"/>
+        <FIELD NAME="price" TYPE="float" LENGTH="20" NOTNULL="true" SEQUENCE="false" DECIMALS="2" COMMENT="Price of the bundle"/>
         <FIELD NAME="ecommproductid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Product ID from ECommerce Site"/>
       </FIELDS>
       <KEYS>

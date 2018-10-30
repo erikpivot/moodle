@@ -178,7 +178,7 @@ function local_course_bundles_update_record($data, $insert = true) {
         if (201 == $http_status) {
             // save the product id and course number to the course record
             $product = json_decode($res);
-            $up_obj = new \stdClass();
+            $up_obj = new stdClass();
             $up_obj->id = $result;
             $up_obj->ecommproductid = $product->id;
             file_put_contents(__DIR__. '/create_product_result.txt', print_r($up_obj, true) . "\n", FILE_APPEND);

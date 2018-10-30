@@ -22,6 +22,7 @@ if($isadmin) {
 <a href="<?=$CFG->wwwroot;?>/course/management.php">Manage Courses</a><br />
 <a href="<?=$CFG->wwwroot;?>/local/course_bundles/index.php">Manage Course Bundles</a><br />
 <a href="<?=$CFG->wwwroot;?>/tag/manage.php?tc=3">Manage Course Categories</a><br />
+<a href="<?=$CFG->wwwroot;?>/local/revise_courses/index.php">Revise All Courses</a><br />
 <br />
 <h2>States</h2>
 <a href="<?=$CFG->wwwroot;?>/local/state_settings/index.php">State Settings</a><br />
