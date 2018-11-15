@@ -40,6 +40,8 @@ class observer {
         global $DB, $CFG;
         $eventdata = $event->get_data();
         $course = get_course($eventdata['objectid']);
+        file_put_contents(__DIR__ . 'create_product.txt', date('Y-m-d h:i:s') . "\n", FILE_APPEND);
+        file_put_contents(__DIR__ . 'create_product.txt', "------------------------------------\n", FILE_APPEND);
         file_put_contents(__DIR__ . 'create_product.txt', print_r($course, true) . "\n", FILE_APPEND);
         file_put_contents(__DIR__ . 'create_product.txt', print_r($eventdata, true) . "\n", FILE_APPEND);
         
