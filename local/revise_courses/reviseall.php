@@ -68,8 +68,8 @@ foreach($all_courses as $course_info) {
     
     // set the new course id number
     //$course_no = date('Ymdhis') . "-" . $new_course->id;
-    $course_obj = new \stdClass();
-    $course_obj->id = $new_course->id;
+    //$course_obj = new \stdClass();
+    //$course_obj->id = $new_course->id;
     //$course_obj->idnumber = $course_no;
     $DB->update_record('course', $course_obj);
     
