@@ -59,7 +59,7 @@ foreach ($courses as $course) {
 ?>
 <div class="user-course-item">
 <div class="user-course-col">
-<?=$course->fullname;?>&nbsp;(Revision: <?=$course->revisionno;?>&nbsp;-&nbsp;<?=date('m-d-Y', $course->timecreated);?>)
+<?=$course->fullname;?>&nbsp;(Rev# <?=$course->revisionno;?>)
 </div>
 <div class="user-course-col">
 <form id="coursecert<?=$course->id;?>" method="post">
