@@ -216,7 +216,7 @@ foreach($all_courses as $course_info) {
     
     // log the update
     $rev_obj = new \stdClass();
-    $rev_obj->newcourseidnumber = $course_no;
+    $rev_obj->newcourseidnumber = $new_course->id;
     $rev_obj->oldcourseidnumber = $oldidnumber;
     $rev_obj->coursename = $course_info->fullname;
     $rev_obj->revisiondate = time();
