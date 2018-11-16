@@ -71,7 +71,7 @@ foreach($all_courses as $course_info) {
     //$course_obj = new \stdClass();
     //$course_obj->id = $new_course->id;
     //$course_obj->idnumber = $course_no;
-    $DB->update_record('course', $course_obj);
+    //$DB->update_record('course', $course_obj);
     
     // copy the scorm and certificate modules associated with the revised course
     $scorm_mod = $DB->get_record('course_modules', array('course' => $course_info->id));
