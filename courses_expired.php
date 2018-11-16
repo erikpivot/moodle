@@ -63,7 +63,7 @@ foreach ($courses as $course) {
 <div class="user-course-item">
 <!--<form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">-->
 <div class="user-course-col description">
-<?=$course->fullname;?>
+<?=$course->fullname;?>&nbsp;(Revision: <?=$course->revisionno;?>&nbsp;-&nbsp;<?=date('m-d-Y', $course->timecreated);?>)
 </div>
 <div class="user-course-col purchased">
 <?=date('m/d/Y', $start_time);?>

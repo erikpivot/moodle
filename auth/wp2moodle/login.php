@@ -189,12 +189,12 @@ function update_user_license_info($userid, $new = false) {
                 // update the postal code
                 update_license_field($license_info->address->zip, $userid, 10, $new);
             }
-            /*
+            
             if (!empty($license_info->old_id) || $new) {
                 // update the student id from the old system
                 update_license_field($license_info->old_id, $userid, 11, $new);
             }
-            */
+            
         }
 }
 
@@ -398,6 +398,8 @@ if (!empty($_GET)) {
 			// find in table roles, record with shortname = student
 			$studentrow = $DB->get_record('role', array('shortname'=>'student'));
 			$ids = explode(',', $course_idnumbers);
+			
+			file_put_contents(__DIR__ . '/course_info.txt', print_r($ids, true));
 
 			foreach ($ids as $course) {
 				if ($DB->record_exists('course', array('idnumber'=>$course))) {

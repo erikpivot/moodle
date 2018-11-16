@@ -92,7 +92,7 @@ foreach ($courses as $course) {
 ?>
 <div class="user-course-item">
 <div class="user-course-col description">
-<?=$course->fullname;?>
+<?=$course->fullname;?>&nbsp;(Revision: <?=$course->revisionno;?>&nbsp;-&nbsp;<?=date('m-d-Y', $course->timecreated);?>)
 </div>
 <div class="user-course-col open-course">
 <?php

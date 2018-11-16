@@ -90,7 +90,9 @@ jQuery('#scormviewform<?=$course->id;?>').on('submit', function(e) {
     var launch_url = M.cfg.wwwroot + "/mod/scorm/player.php?a=" + scorm + "&currentorg=" + currentorg + "&scoid=" + sco + "&sesskey=" + M.cfg.sesskey + "&display=popup";
     launch_url += '&mode=normal';
     poptions = 'resizable=yes,location=no';
-    poptions = poptions + ',width=' + screen.availWidth + ',height=' + screen.availHeight + ',left=0,top=0';
+    var centerLeft = parseInt((screen.availWidth - 200) / 2);
+    var centerTop = parseInt(((screen.availHeight - 150) / 2) - window.outerHeight);
+    poptions = poptions + ',width=' + (screen.availWidth - 200) + ',height=' + (screen.availHeight - 150) + 'left=' + centerLeft + ',top=' + centerTop;
     winobj = window.open(launch_url, 'Popup', poptions);
     this.target = 'Popup';
 });
