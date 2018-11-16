@@ -67,10 +67,10 @@ foreach($all_courses as $course_info) {
     \core_tag_tag::set_item_tags('core', 'course', $new_course->id, \context_course::instance($new_course->id), $old_course_tags);
     
     // set the new course id number
-    $course_no = date('Ymdhis') . "-" . $new_course->id;
+    //$course_no = date('Ymdhis') . "-" . $new_course->id;
     $course_obj = new \stdClass();
     $course_obj->id = $new_course->id;
-    $course_obj->idnumber = $course_no;
+    //$course_obj->idnumber = $course_no;
     $DB->update_record('course', $course_obj);
     
     // copy the scorm and certificate modules associated with the revised course

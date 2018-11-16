@@ -39,9 +39,9 @@ $old_course_tags = core_tag_tag::get_item_tags_array('core', 'course', $id);
 //echo print_r($old_course_tags, true);
 core_tag_tag::set_item_tags('core', 'course', $new_course->id, context_course::instance($new_course->id), $old_course_tags);
 // set the new course id number
-$course_no = date('Ymdhis') . "-" . $new_course->id;
+//$course_no = date('Ymdhis') . "-" . $new_course->id;
 $course_obj = new stdClass();
-$course_obj->id = $new_course->id;
+//$course_obj->id = $new_course->id;
 $course_obj->idnumber = $course_no;
 $DB->update_record('course', $course_obj);
 // revise any bundles that this course is associated with
