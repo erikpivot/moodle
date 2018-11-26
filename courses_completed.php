@@ -92,7 +92,7 @@ foreach ($courses as $course) {
 ?>
 <div class="user-course-item">
 <div class="user-course-col description">
-<?=$course->fullname;?>&nbsp;(Rev# <?=$course->revisionno;?>)
+<?=$course->fullname;?>
 </div>
 <div class="user-course-col open-course">
 <?php
