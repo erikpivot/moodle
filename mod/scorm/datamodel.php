@@ -48,9 +48,9 @@ if (!empty($id)) {
 
 $PAGE->set_url('/mod/scorm/datamodel.php', array('scoid' => $scoid, 'attempt' => $attempt, 'id' => $cm->id));
 
-require_login($course, false, $cm);
+//require_login($course, false, $cm);
 
-if (confirm_sesskey() && (!empty($scoid))) {
+//if (confirm_sesskey() && (!empty($scoid))) {
     $result = true;
     $request = null;
     if (has_capability('mod/scorm:savetrack', context_module::instance($cm->id))) {
@@ -97,4 +97,4 @@ if (confirm_sesskey() && (!empty($scoid))) {
     if ($request != null) {
         echo "\n".$request;
     }
-}
+//}
