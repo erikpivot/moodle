@@ -95,7 +95,7 @@ class email_certificate_task extends \core\task\scheduled_task {
                           FROM {customcert_issues} ci
                           JOIN {user} u
                             ON ci.userid = u.id
-                         WHERE ci.customcertid = :customcertid";
+                         WHERE ci.customcertid = :customcertid AND ci.emailed = 0";
                 $issuedusers = $DB->get_records_sql($sql, array('customcertid' => $customcert->id));
 
                 // Now, get a list of users who can access the certificate but have not yet.
