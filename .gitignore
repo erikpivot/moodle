@@ -41,3 +41,4 @@ atlassian-ide-plugin.xml
 /repository/s3bucket
 /repository/s3links
 /local/aws
+error_log
