@@ -39,6 +39,7 @@ if ($navdraweropen) {
 }
 
 if (is_siteadmin()) {
+    // add extra class for site administrators
     $extraclasses[] = 'pivot-site-admin';
 }
 
