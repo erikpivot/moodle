@@ -1,6 +1,6 @@
 <?php
 /**
- * DC Hours
+ * DC Hours Theme for Moodle
  *
  * @package   theme_dchours
  * @copyright 2018 Pivot Creative
