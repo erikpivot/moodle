@@ -35,6 +35,7 @@ if (isloggedin()) {
 }
 $extraclasses = [];
 if ($navdraweropen) {
+    // default to the drawer being open
     $extraclasses[] = 'drawer-open-left';
 }
 
