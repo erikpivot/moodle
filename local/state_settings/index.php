@@ -43,7 +43,7 @@ $mform = new settings_edit_form($PAGE->url);
 
 $mform->set_data($settingsrecord);
 
-// states
+// states list
 $states_array = array(
     'al'=>'Alabama',
     'ak'=>'Alaska',
