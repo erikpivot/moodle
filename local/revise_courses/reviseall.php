@@ -65,18 +65,47 @@ foreach($all_courses as $course_info) {
     $old_course_tags = \core_tag_tag::get_item_tags_array('core', 'course', $course_info->id);
     //echo print_r($old_course_tags, true);
     \core_tag_tag::set_item_tags('core', 'course', $new_course->id, \context_course::instance($new_course->id), $old_course_tags);
-    
-    // set the new course id number
-    //$course_no = date('Ymdhis') . "-" . $new_course->id;
-    //$course_obj = new \stdClass();
-    //$course_obj->id = $new_course->id;
-    //$course_obj->idnumber = $course_no;
-    //$DB->update_record('course', $course_obj);
-    
+
     // copy the scorm and certificate modules associated with the revised course
     $scorm_mod = $DB->get_record('course_modules', array('course' => $course_info->id));
     
+    // copy the course summary image from the old course
+    $new_course_context = \context_course::instance($new_course->id);
+    $sql = "SELECT f.filename, f.contenthash FROM {context} cx 
+        JOIN {course} c ON cx.instanceid = c.id 
+        JOIN {files} f ON cx.id=f.contextid 
+        WHERE f.filename <> '.' 
+        AND f.component = 'course' 
+        AND c.id = ?";
+    $sum_files = $DB->get_records_sql($sql, array($course_info->id));
+    foreach ($sum_files as $file) {
+        // get the full file path from the contenthash
+        $first_part = substr($file->contenthash, 0, 2);
+        $second_part = substr($file->contenthash, 2, 2);
+        $file_loc = $CFG->dataroot . '/filedir/' . $first_part . '/' . $second_part . '/' . $file->contenthash;
+        //file_put_contents(__DIR__ . '/file_test.txt', $file_loc, FILE_APPEND);
+        $fs = get_file_storage();
+        $file_record = array(
+            'contextid' => $new_course_context->id,
+            'component' => 'course',
+            'filearea' => 'overviewfiles',
+            'itemid' => 0,
+            'filepath' => '/',
+            'filename' => $file->filename,
+            'timecreated' => time(),
+            'timemodified' => time()
+        );
+        //file_put_contents(__DIR__ . '/file_test.txt', print_r($file_record, true), FILE_APPEND);
+        $fs->create_file_from_pathname($file_record, $file_loc);
+    }
+
     // revise any bundles that this course is associated with
+    $course_no = '';
+    while (empty($course_no)) {
+        // query until the idnumber is returned
+        $new_course_info = get_course($new_course->id);
+        $course_no = $new_course_info->idnumber;
+    }
     reviseCourseBundles($oldidnumber, $course_no);
     
     // copy the activities
