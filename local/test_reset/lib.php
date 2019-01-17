@@ -66,4 +66,34 @@ function local_test_reset_remove_record($userid = 0, $scormid = 0) {
     $sql = "UPDATE {scorm_scoes_track} SET value = 'incomplete' WHERE element = 'cmi.core.lesson_status'
             AND userid = ? AND scormid = ?";
     $DB->execute($sql, array($userid, $scormid));
+    
+    // log the removal into the results table
+    $sql = "SELECT CONCAT(usr.firstname, \" \", usr.lastname, \" (\", usr.username, \")\") AS username, crs.fullname AS course 
+            FROM {scorm_scoes_track} st
+            JOIN {user} usr ON st.userid = usr.id
+            JOIN {scorm} srm ON st.scormid = srm.id
+            JOIN {course} crs ON srm.course = crs.id
+            WHERE st.element = 'x.start.time'
+            AND st.userid = ? AND st.scormid = ?";
+    $reset_info = $DB->get_record_sql($sql);
+    
+    $log_record = new stdClass();
+    $log_record->removedresult = $reset_info->username . ' Course: ' . $reset_info->course;
+    $log_record->executeddate = time();
+    $DB->insert_record('local_test_reset', $log_record, false);
+}
+
+/**
+ * Getting a list of all removal results
+ * 
+ * @param number $limitfrom
+ * @param number $limitnum
+ * @return array
+ */
+function local_test_reset_list_history($limitfrom = 0, $limitnum = 0) {
+    global $DB;
+    
+    $listtritems = $DB->get_records('local_test_reset', array(), 'executeddate');
+    
+    return $listtritems;
 }

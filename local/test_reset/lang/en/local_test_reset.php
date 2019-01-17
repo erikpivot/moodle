@@ -29,3 +29,5 @@ $string['deletedtritem'] = 'Test Results Entry Removed';
 $string['tritemdeleted'] = "Test Results Entry Removed";
 $string['deletetritemcheck'] = "Are you sure you want to delete the test results?";
 $string['deletingtritem'] = "Removing Test Results";
+$string['removedinfo'] = "What Was Reset";
+$string['removaltime'] = "Reset Date/Time";

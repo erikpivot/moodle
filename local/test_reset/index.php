@@ -47,6 +47,7 @@ if (boolval($deleteid)) {
 
 // retrieve a list of services
 $callbacks = local_test_reset_list_records();
+$callbacks2 = local_test_reset_list_history();
 
 // the page title
 $titlepage = get_string('pluginname', 'local_test_reset');
@@ -83,6 +84,29 @@ foreach($callbacks as $callback) {
 
 // display the table
 $table->print_html();
+?>
+<hr />
+<h3>List of Previous Test Resets</h3>
+<?php
+// create a second table that will show any previous removals from the system
+$table2 = new flexible_table('removal_results');
 
+// customize the table
+$table2->define_columns(array('inforemoved', 'removetime'));
+$table2->define_headers(array(get_string('removedinfo', 'local_test_reset'), get_string('removaltime', 'local_test_reset')));
+$table2->define_baseurl($baseurl);
+$table2->setup();
+
+foreach($callbacks2 as $callback2) {
+    // filling of information columns
+    $infocallback = html_writer::div($callback2->removedresult, 'inforemoved');
+    $removetimecallback = html_writer::div(date('Y-m-d h:i:s', $callback2->executeddate), 'removetime');
+    
+    // adding data to the table
+    $table2->add_data(array($infocallback, $removetimecallback));
+}
+
+// display the table
+$table2->print_html();
 // output the footer
 echo $OUTPUT->footer();
