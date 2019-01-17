@@ -30,6 +30,7 @@ if($isadmin) {
 <h2>Users</h2>
 <a href="<?=$CFG->wwwroot;?>/admin/user.php">User List</a><br />
 <a href="<?=$CFG->wwwroot;?>/user/editadvanced.php?id=-1">Add New User</a><br />
+<a href="<?$CFG->wwwroot;?>/local/test_reset/index.php">Reset User Tests</a><br />
 <br />
 <h2>Help</h2>
 <a href="<?=$CFG->wwwroot;?>/local/knowledge_base/index.php">Knowledge Base</a><br />

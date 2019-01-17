@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/local_test_reset/db" VERSION="20190116" COMMENT="XMLDB file for Moodle local/test_reset"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="local_test_reset" COMMENT="Test Reset">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="removedresult" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Result of a removal"/>
+        <FIELD NAME="executeddate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Date posted as a unix timestamp"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>
