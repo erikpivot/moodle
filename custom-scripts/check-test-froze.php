@@ -25,22 +25,28 @@ $sql = "SELECT CONCAT(usr.firstname, \" \", usr.lastname, \" (\", usr.username, 
 $result = $conn->query($sql);
 echo $result->num_rows . "\n";
 while ($row = $result->fetch_object()) {
+    file_put_contents("result_log.txt", "[" . date('Y-m-d h:i:s') . "] - RESET TEST RESULTS\n", FILE_APPEND);
     // reset the test and log the result
     $sql = "DELETE FROM mdl_scorm_scoes_track WHERE element LIKE 'cmi.interactions_%' 
             AND userid = " . $row->userid . " AND scormid = " . $row->scormid;
+    file_put_contents("result_log.txt", $sql . "\n", FILE_APPEND);
     echo $sql . "\n";
     $del_res = $conn->query($sql);
     if ($del_res) {
         // update the test status
         $sql = "UPDATE mdl_scorm_scoes_track SET value = 'incomplete' WHERE element = 'cmi.core.lesson_status' AND 
                 userid = " . $row->userid . " AND scormid = " . $row->scormid;
+        file_put_contents("result_log.txt", $sql . "\n", FILE_APPEND);
         echo $sql . "\n";
         $up_res = $conn->query($sql);
         // add to the history
         $sql = "INSERT INTO mdl_local_test_reset (removedresult, executeddate) 
                 VALUES('" . $conn->real_escape_string($row->username . " Course: " . $row->course) . "', " . time() . ")";
+        file_put_contents("result_log.txt", $sql . "\n", FILE_APPEND);
         echo $sql . "\n";
         $ins_res = $conn->query($sql);
+    } else {
+        file_put_contents("result_log.txt", "REMOVAL FAILED\n\n", FILE_APPEND);
     }
 }
 
