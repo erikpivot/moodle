@@ -75,7 +75,7 @@ function local_test_reset_remove_record($userid = 0, $scormid = 0) {
             JOIN {course} crs ON srm.course = crs.id
             WHERE st.element = 'x.start.time'
             AND st.userid = ? AND st.scormid = ?";
-    $reset_info = $DB->get_record_sql($sql);
+    $reset_info = $DB->get_record_sql($sql, array($userid, $scormid));
     
     $log_record = new stdClass();
     $log_record->removedresult = $reset_info->username . ' Course: ' . $reset_info->course;
