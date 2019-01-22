@@ -42,3 +42,4 @@ atlassian-ide-plugin.xml
 /repository/s3links
 /local/aws
 error_log
+/custom-scripts/connect.php
