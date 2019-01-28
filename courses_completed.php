@@ -31,6 +31,7 @@ echo $OUTPUT->header();
 <div class="user-course-list">
 <div class="user-course-item header">
 <div class="user-course-col description">Course Title</div>
+<div class="user-course-col credit-hours">Credit Hours</div>
 <div class="user-course-col open-course">Play/Resume</div>
 <div class="user-course-col download-certificate">Download Certificate</div>
 <div class="user-course-col purchased">Purchased</div>
@@ -94,6 +95,7 @@ foreach ($courses as $course) {
 <div class="user-course-col description">
 <?=$course->fullname;?>
 </div>
+<div class="user-course-col credit-hours"><?=$course->credithrs;?></div>
 <div class="user-course-col open-course">
 <?php
 // check to see if the course can still be viewed

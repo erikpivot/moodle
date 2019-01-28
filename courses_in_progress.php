@@ -23,6 +23,7 @@ echo $OUTPUT->header();
 
 <div class="user-course-item header">
 <div class="user-course-col description">Course Title</div>
+<div class="user-course-col credit-hours">Credit Hours</div>
 <div class="user-course-col open-course">Play/Resume</div>
 <div class="user-course-col purchased">Purchased</div>
 <div class="user-course-col expires">Expires</div>
@@ -67,6 +68,9 @@ foreach ($courses as $course) {
 <!--<form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">-->
 <div class="user-course-col description">
 <?=$course->fullname;?>
+</div>
+<div class="user-course-col credit-hours">
+<?=$course->credithrs;?>
 </div>
 <div class="user-course-col open-course">
 <form id="scormviewform<?=$course->id;?>" method="post" action="http://moodledev.dchours.com/mod/scorm/player.php">
