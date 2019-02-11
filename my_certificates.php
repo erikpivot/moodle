@@ -31,11 +31,16 @@ $courses = enrol_get_my_courses('*', $sort);
 $courseinfo = array();
 foreach ($courses as $course) {
 
-    $completion = new \completion_info($course);
+    //$completion = new \completion_info($course);
     // course completion is based on the percentage
     // if 100 then the course is considered complete (there's only 1 activity that has to be completed)
-    $percentage = progress::get_course_progress_percentage($course);
-    if (100 == $percentage) {
+    //$percentage = progress::get_course_progress_percentage($course);
+    
+    // course completion is based off of whether the scorm module was marked completed
+    $course_mod = $DB->get_record('course_modules', array('course' => $course->id, 'module' => 18));
+    $completion_state = $DB->get_record('course_modules_completion', array('userid' => $USER->id, 'coursemoduleid' => $course_mod->id, 'completionstate' => 1));
+    
+    if (!empty($completion_state)) {
         // find the certificate
         $cert_info = $DB->get_record('customcert', array('course' => $course->id), 'id,templateid');
         
