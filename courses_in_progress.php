@@ -104,7 +104,16 @@ jQuery('#scormviewform<?=$course->id;?>').on('submit', function(e) {
     poptions = poptions + ',width=' + (screen.availWidth - 200) + ',height=' + (screen.availHeight - 150) + 'left=' + centerLeft + ',top=' + centerTop;
     winobj = window.open(launch_url, 'Popup', poptions);
     this.target = 'Popup';
+    winobj.addEventListener("unload", function(event) {
+        // Onunload is called multiple times in the SCORM window - we only want to handle when it is actually closed.
+        setTimeout(function() {
+            if (winobj.closed) {
+                window.location.href = window.location.href;
+            }
+        }, 800);  
+    });
 });
+
 </script>
 <?php
     } // end if not expired
