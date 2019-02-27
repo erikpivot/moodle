@@ -54,7 +54,8 @@ class get_orders_task extends \core\task\scheduled_task {
         $current_orders = $DB->get_records_sql($sql, null, 0, 1);
         $last_order = '2018-01-01T00:00:00';
         foreach ($current_orders as $this_order) {
-            $datetime = new \DateTime($this_order->orderdate);
+            $datetime = new \DateTime();
+            $datetime->setTimestamp($this_order->orderdate);
             $last_order = $datetime->format('c');
         }
         
