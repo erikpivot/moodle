@@ -48,6 +48,9 @@ if($isadmin) {
 <a href="<?=$CFG->wwwroot;?>/report/studentinformation/index.php">Student Information</a><br />-->
 <a href="<?=$CFG->wwwroot;?>/report/approvalnumstate/index.php">Approval Numbers By State</a><br />
 <br />
+<strong>State Course Completions</strong><br />
+<a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=59">Texas Completions</a><br />
+<br />
 <strong>State Course Registrations</strong><br />
 <a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=6">Alabama Course Registrations</a><br />
 <a href="<?=$CFG->wwwroot;?>/report/customsql/view.php?id=7">Alaska Course Registrations</a><br />
