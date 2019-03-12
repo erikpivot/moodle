@@ -272,3 +272,7 @@
 #page-mod-scorm-player #scormpage div.yui3-g-r img {
     max-width: 100%;
 }
+
+#main-window {
+    z-index: -1;
+}
