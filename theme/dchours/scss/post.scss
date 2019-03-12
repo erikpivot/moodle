@@ -54,6 +54,11 @@ body.pagelayout-login {
 .pivot-site-admin a[href*='courses_completed'], 
 .pivot-site-admin a[href*='my-account'], 
 .pivot-site-admin a[href*='my_certificates'], 
-.pivot-site-admin a[href*='course-listings'] {
+.pivot-site-admin a[href*='course-listings'], 
+.pivot-site-admin a[href*='courses_expired'] {
     display: none;
+}
+
+#main-window {
+    z-index: -1;
 }
