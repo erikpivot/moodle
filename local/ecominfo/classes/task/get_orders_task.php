@@ -85,7 +85,7 @@ class get_orders_task extends \core\task\scheduled_task {
                     $prod_res = curl_exec($prod_ch);
                     $prod_http_status = curl_getinfo($prod_ch, CURLINFO_HTTP_CODE);
                     curl_close($prod_ch);
-                    $cat_obj = json_decod($prod_res);
+                    $cat_obj = json_decode($prod_res);
                     $average_price = 0.00;
                     // search the individual courses first
                     $course_ids = $DB->get_record('course', array('productid' => $order_item->product_id), 'idnumber,credithrs');
