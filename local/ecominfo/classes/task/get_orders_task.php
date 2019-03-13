@@ -78,6 +78,14 @@ class get_orders_task extends \core\task\scheduled_task {
                 $student_id = $order_info->customer_id;
                 // go through each order item to get the courses associated with the order
                 foreach($order_info->line_items as $order_item) {
+                    // get the categories for the line item
+                    $prod_ch = curl_init($config->ecommerce_url . "/wp-json/wc/v2/products/" . $order_item->product_id . "/?consumer_key=" . $config->wc_client_key . "&consumer_secret=" . $config->wc_client_secret . "&after=" . $last_order . "&per_page=100");
+                    curl_setopt($prod_ch, CURLOPT_CUSTOMREQUEST, "GET");
+                    curl_setopt($prod_ch, CURLOPT_RETURNTRANSFER, true);
+                    $prod_res = curl_exec($prod_ch);
+                    $prod_http_status = curl_getinfo($prod_ch, CURLINFO_HTTP_CODE);
+                    curl_close($prod_ch);
+                    $cat_obj = json_decod($prod_res);
                     $average_price = 0.00;
                     // search the individual courses first
                     $course_ids = $DB->get_record('course', array('productid' => $order_item->product_id), 'idnumber,credithrs');
@@ -97,6 +105,13 @@ class get_orders_task extends \core\task\scheduled_task {
                             $insert_obj->orderdate = $order_date;
                             $insert_obj->avgprice = round($average_price, 2);
                             $insert_obj->credithours = $course_ids->credithrs;
+                            // add the categories
+                            foreach($cat_obj->categories as $cat) {
+                                if (!empty($insert_obj->categories)) {
+                                    $insert_obj->categories .= ",";
+                                }
+                                $insert_obj->categories .= $cat->name;
+                            }
                             //echo print_r($insert_obj, true);
                             $DB->insert_record('local_ecominfo', $insert_obj, false);
                         }
@@ -111,6 +126,13 @@ class get_orders_task extends \core\task\scheduled_task {
                         $insert_obj->orderdate = $order_date;
                         $insert_obj->avgprice = round($average_price, 2);
                         $insert_obj->credithours = $course_ids->credithrs;
+                        // add the categories
+                        foreach($cat_obj->categories as $cat) {
+                            if (!empty($insert_obj->categories)) {
+                                $insert_obj->categories .= ",";
+                            }
+                            $insert_obj->categories .= $cat->name;
+                        }
                         //echo print_r($insert_obj, true);
                         $DB->insert_record('local_ecominfo', $insert_obj, false);
                     }
@@ -124,6 +146,13 @@ class get_orders_task extends \core\task\scheduled_task {
                     $raw_obj->orderid = $order_id;
                     $raw_obj->orderdate = $order_date;
                     $raw_obj->credithours = $course_ids->credithrs;
+                    // add the categories
+                    foreach($cat_obj->categories as $cat) {
+                        if (!empty($raw_obj->categories)) {
+                            $raw_obj->categories .= ",";
+                        }
+                        $raw_obj->categories .= $cat->name;
+                    }
                     $DB->insert_record('local_ecominfo_raw_data', $raw_obj, false);
                 }
             }
