@@ -78,11 +78,11 @@ function xmldb_local_ecominfo_upgrade($oldversion) {
     if ($oldversion < 2019031301) {
         // add new fields for categories in the ecommerce info table
         $table = new xmldb_table('local_ecominfo');
-        $field = new xmldb_field('categories', XMLDB_TYPE_TEXT, '', null, XMLDB_NOTNULL, null, null, null);
+        $field = new xmldb_field('categories', XMLDB_TYPE_TEXT, '', null, XMLDB_NULL, null, null, null);
         $dbman->add_field($table, $field);
         
         $table = new xmldb_table('local_ecominfo_raw_data');
-        $field = new xmldb_field('categories', XMLDB_TYPE_TEXT, '', null, XMLDB_NOTNULL, null, null, null);
+        $field = new xmldb_field('categories', XMLDB_TYPE_TEXT, '', null, XMLDB_NULL, null, null, null);
         $dbman->add_field($table, $field);
     }
     
