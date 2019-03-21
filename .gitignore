@@ -44,3 +44,4 @@ atlassian-ide-plugin.xml
 error_log
 /custom-scripts/connect.php
 /scripts/
+simpleadmin.php
