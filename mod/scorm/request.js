@@ -60,3 +60,22 @@ function popupwin(content) {
     op.document.write(content);
     op.document.close();
 }
+
+var observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+        [].filter.call(mutation.addedNodes, function (node) {
+            return node.nodeName == 'IFRAME';
+        }).forEach(function (node) {
+            node.addEventListener('load', function (e) {
+                console.log('loaded', node.src);
+                var iframeDocument = node.contentDocument || node.contentWindow.document;
+                var iframeHead = iframeDocument.head;
+                console.log(iframeHead);
+                var stuff = iframeDocument.createElement('style');
+                stuff.innerHTML = '.main-window-slide-container{z-index: -1;}';
+                iframeHead.appendChild(stuff);
+            });
+        });
+    });
+});
+observer.observe(document.body, { childList: true, subtree: true });
