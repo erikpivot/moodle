@@ -35,7 +35,7 @@ function local_test_reset_list_records($limitfrom = 0, $limitnum = 0) {
     global $DB;
     
     $sql = "SELECT CONCAT(usr.firstname, \" \", usr.lastname, \" (\", usr.username, \")\") AS username, st.userid, st.scormid, 
-            st.value AS coursestarttime, crs.fullname AS course 
+            st.timemodified AS coursestarttime, crs.fullname AS course 
             FROM {scorm_scoes_track} st
             JOIN {user} usr ON st.userid = usr.id
             JOIN {scorm} srm ON st.scormid = srm.id
