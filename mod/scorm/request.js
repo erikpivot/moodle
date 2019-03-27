@@ -72,7 +72,7 @@ var observer = new MutationObserver(function (mutations) {
                 var iframeHead = iframeDocument.head;
                 console.log(iframeHead);
                 var stuff = iframeDocument.createElement('style');
-                stuff.innerHTML = '.main-window-slide-container{z-index: -1;}';
+                stuff.innerHTML = '.main-window-slide-container{z-index: 0;} .header-primary{z-index: 1}';
                 iframeHead.appendChild(stuff);
             });
         });
