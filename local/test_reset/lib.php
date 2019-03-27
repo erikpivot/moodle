@@ -40,9 +40,10 @@ function local_test_reset_list_records($limitfrom = 0, $limitnum = 0) {
             JOIN {user} usr ON st.userid = usr.id
             JOIN {scorm} srm ON st.scormid = srm.id
             JOIN {course} crs ON srm.course = crs.id
-            WHERE st.element = 'x.start.time'
+            WHERE st.element = 'cmi.core.lesson_status' AND value = 'failed'
             AND st.userid IN (SELECT userid FROM {scorm_scoes_track} WHERE element = 'cmi.core.lesson_status' AND value = 'failed')
-            AND st.scormid IN (SELECT scormid FROM {scorm_scoes_track} WHERE element = 'cmi.core.lesson_status' AND value = 'failed')";
+            AND st.scormid IN (SELECT scormid FROM {scorm_scoes_track} WHERE element = 'cmi.core.lesson_status' AND value = 'failed') 
+            ORDER BY coursestarttime";
     $listtritems = $DB->get_records_sql($sql);
     
     return $listtritems;
