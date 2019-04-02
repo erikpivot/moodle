@@ -290,7 +290,7 @@ function reviseCourseBundles($oldidnumber, $newidnumber) {
         //file_put_contents(__DIR__ . '/update_bundle_result.txt', "SELECT COURSE: " . $cselect . "\n", FILE_APPEND);
         $courses = $DB->get_records_select('course', $cselect, array('id', 'fullname', 'credithrs', 'summary'));
         //file_put_contents(__DIR__ . '/update_bundle_result.txt', "COURSE RECORDS: " . print_r($courses, true) . "\n", FILE_APPEND);
-        $bundle_descr = buildDescription($courses);
+        $bundle_descr = buildDescriptionRevise($courses);
         // send the update to the ecommerce site
         // create the woocommerce data object for the new product
         $woo_data = [
@@ -320,7 +320,7 @@ function reviseCourseBundles($oldidnumber, $newidnumber) {
  * @param object $courses - contains information of all assigned courses
  * @return string - the long description for eCommerce
  */
-function buildDescription($courses) {
+function buildDescriptionRevise($courses) {
     global $DB;
     file_put_contents(__DIR__ . '/build_bundle_descripts.txt', print_r($courses, true), FILE_APPEND);
     $descr_str = '';
