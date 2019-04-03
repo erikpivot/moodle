@@ -38,3 +38,4 @@ $string['deletingbundle'] = 'Deleting Bundle {$a}';
 $string['deletedbundle'] = 'Bundle {$a} Deleted';
 $string['deletebundlecheck'] = 'Are you sure you want to delete this bundle?  This action cannot be undone.';
 $string['bundlefeaturedimage'] = 'Featured Image';
+$string['charlie'] = 'Charlie Annunziata Bundle';

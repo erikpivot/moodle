@@ -1,0 +1,349 @@
+stdClass Object
+(
+    [id] => 3724
+    [category] => 1
+    [sortorder] => 10001
+    [fullname] => New Testing Course
+    [shortname] => NEWTEST
+    [idnumber] => 20190114044158-3724
+    [summary] => <p>This is a test course.</p>
+    [summaryformat] => 1
+    [format] => topics
+    [showgrades] => 0
+    [newsitems] => 0
+    [startdate] => 1547528400
+    [enddate] => 0
+    [marker] => 0
+    [maxbytes] => 0
+    [legacyfiles] => 0
+    [showreports] => 0
+    [visible] => 1
+    [visibleold] => 1
+    [groupmode] => 0
+    [groupmodeforce] => 0
+    [defaultgroupingid] => 0
+    [lang] => 
+    [calendartype] => 
+    [theme] => 
+    [timecreated] => 1547502118
+    [timemodified] => 1554149905
+    [requested] => 0
+    [enablecompletion] => 1
+    [completionnotify] => 0
+    [cacherev] => 1554149905
+    [credithrs] => 1
+    [courseprice] => 15.00
+    [alapprovalno] => 
+    [akapprovalno] => 
+    [azapprovalno] => 
+    [arapprovalno] => 
+    [caapprovalno] => 
+    [coapprovalno] => 
+    [ctapprovalno] => 
+    [deapprovalno] => 
+    [dcapprovalno] => 
+    [flapprovalno] => 
+    [gaapprovalno] => 
+    [hiapprovalno] => 
+    [idapprovalno] => 
+    [ilapprovalno] => 
+    [inapprovalno] => 
+    [iaapprovalno] => 
+    [ksapprovalno] => 
+    [kyapprovalno] => 
+    [laapprovalno] => 
+    [meapprovalno] => 
+    [mdapprovalno] => 
+    [maapprovalno] => 
+    [miapprovalno] => 
+    [mnapprovalno] => 
+    [msapprovalno] => 
+    [moapprovalno] => 
+    [mtapprovalno] => 
+    [neapprovalno] => 
+    [nvapprovalno] => 
+    [nhapprovalno] => 
+    [njapprovalno] => 
+    [nmapprovalno] => 
+    [nyapprovalno] => 
+    [ncapprovalno] => 
+    [ndapprovalno] => 
+    [ohapprovalno] => 
+    [okapprovalno] => 
+    [orapprovalno] => 
+    [paapprovalno] => 
+    [riapprovalno] => 
+    [scapprovalno] => 
+    [sdapprovalno] => 
+    [tnapprovalno] => 
+    [txapprovalno] => 
+    [utapprovalno] => 
+    [vtapprovalno] => 
+    [vaapprovalno] => 
+    [waapprovalno] => 
+    [wvapprovalno] => 
+    [wiapprovalno] => 
+    [wyapprovalno] => 
+    [ecommtitle] => 
+    [paceapprovalno] => PACE1254
+    [productid] => 2910
+    [ecommshortdescr] => 
+    [revisiontext] => 
+    [revisionno] => 0
+    [includecustomstates] => 0
+    [lifeapprovedstates] => 0
+    [alexclude] => 0
+    [akexclude] => 0
+    [azexclude] => 0
+    [arexclude] => 0
+    [caexclude] => 0
+    [coexclude] => 0
+    [ctexclude] => 0
+    [deexclude] => 0
+    [dcexclude] => 0
+    [flexclude] => 0
+    [gaexclude] => 0
+    [hiexclude] => 0
+    [idexclude] => 0
+    [ilexclude] => 0
+    [inexclude] => 0
+    [iaexclude] => 0
+    [ksexclude] => 0
+    [kyexclude] => 0
+    [laexclude] => 0
+    [meexclude] => 0
+    [mdexclude] => 0
+    [maexclude] => 0
+    [miexclude] => 0
+    [mnexclude] => 0
+    [msexclude] => 0
+    [moexclude] => 0
+    [mtexclude] => 0
+    [neexclude] => 0
+    [nvexclude] => 0
+    [nhexclude] => 0
+    [njexclude] => 0
+    [nmexclude] => 0
+    [nyexclude] => 0
+    [ncexclude] => 0
+    [ndexclude] => 0
+    [ohexclude] => 0
+    [okexclude] => 0
+    [orexclude] => 0
+    [paexclude] => 0
+    [riexclude] => 0
+    [scexclude] => 0
+    [sdexclude] => 0
+    [tnexclude] => 0
+    [txexclude] => 0
+    [utexclude] => 0
+    [vtexclude] => 0
+    [vaexclude] => 0
+    [waexclude] => 0
+    [wvexclude] => 0
+    [wiexclude] => 0
+    [wyexclude] => 0
+)
+
+Array
+(
+    [eventname] => \core\event\course_updated
+    [component] => core
+    [action] => updated
+    [target] => course
+    [objecttable] => course
+    [objectid] => 3724
+    [crud] => u
+    [edulevel] => 1
+    [contextid] => 34194
+    [contextlevel] => 50
+    [contextinstanceid] => 3724
+    [userid] => 2
+    [courseid] => 3724
+    [relateduserid] => 
+    [anonymous] => 0
+    [other] => Array
+        (
+            [shortname] => NEWTEST
+            [fullname] => New Testing Course
+        )
+
+    [timecreated] => 1554149905
+)
+
+Array
+(
+    [118] => Charlie Annunziata
+    [112] => Clinical
+)
+
+Category ID: 112
+Categories: Array
+(
+    [0] => Array
+        (
+            [id] => 43
+        )
+
+    [1] => Array
+        (
+            [id] => 99
+        )
+
+    [2] => Array
+        (
+            [id] => 46
+        )
+
+    [3] => Array
+        (
+            [id] => 47
+        )
+
+    [4] => Array
+        (
+            [id] => 48
+        )
+
+    [5] => Array
+        (
+            [id] => 50
+        )
+
+    [6] => Array
+        (
+            [id] => 51
+        )
+
+    [7] => Array
+        (
+            [id] => 52
+        )
+
+    [8] => Array
+        (
+            [id] => 53
+        )
+
+    [9] => Array
+        (
+            [id] => 55
+        )
+
+    [10] => Array
+        (
+            [id] => 57
+        )
+
+    [11] => Array
+        (
+            [id] => 58
+        )
+
+    [12] => Array
+        (
+            [id] => 61
+        )
+
+    [13] => Array
+        (
+            [id] => 64
+        )
+
+    [14] => Array
+        (
+            [id] => 66
+        )
+
+    [15] => Array
+        (
+            [id] => 71
+        )
+
+    [16] => Array
+        (
+            [id] => 73
+        )
+
+    [17] => Array
+        (
+            [id] => 74
+        )
+
+    [18] => Array
+        (
+            [id] => 76
+        )
+
+    [19] => Array
+        (
+            [id] => 77
+        )
+
+    [20] => Array
+        (
+            [id] => 79
+        )
+
+    [21] => Array
+        (
+            [id] => 80
+        )
+
+    [22] => Array
+        (
+            [id] => 81
+        )
+
+    [23] => Array
+        (
+            [id] => 83
+        )
+
+    [24] => Array
+        (
+            [id] => 84
+        )
+
+    [25] => Array
+        (
+            [id] => 86
+        )
+
+    [26] => Array
+        (
+            [id] => 87
+        )
+
+    [27] => Array
+        (
+            [id] => 88
+        )
+
+    [28] => Array
+        (
+            [id] => 89
+        )
+
+    [29] => Array
+        (
+            [id] => 90
+        )
+
+    [30] => Array
+        (
+            [id] => 92
+        )
+
+    [31] => Array
+        (
+            [id] => 93
+        )
+
+    [32] => Array
+        (
+            [id] => 94
+        )
+
+)
+

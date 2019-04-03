@@ -87,11 +87,14 @@ class observer {
             // build the category array
             $product_cats = [];
             foreach($tag_info as $key => $value) {
-                file_put_contents(__DIR__ . 'update_product.txt', "Category ID: " . $key . "\n", FILE_APPEND);
-                $cat_res = $DB->get_record('tag', array('id' => $key), 'ecommproductcat');
-                $product_cats[] = [
-                    'id' => $cat_res->ecommproductcat
-                ];
+                // do not include charlie's tag
+                if ($key != 118) {
+                    file_put_contents(__DIR__ . 'update_product.txt', "Category ID: " . $key . "\n", FILE_APPEND);
+                    $cat_res = $DB->get_record('tag', array('id' => $key), 'ecommproductcat');
+                    $product_cats[] = [
+                        'id' => $cat_res->ecommproductcat
+                    ];   
+                }
             }
             
             // designate states that are pace, if neccessary
@@ -195,11 +198,14 @@ class observer {
         // get the product category ids
         $cat_array = [];
         foreach($tag_info as $key => $value) {
-            file_put_contents(__DIR__ . '/update_product.txt', "Category ID: " . $key . "\n", FILE_APPEND);
-            $cat_res = $DB->get_record('tag', array('id' => $key), 'ecommproductcat');
-            $cat_array[] = [
-                'id' => $cat_res->ecommproductcat
-            ];
+            // do not include charlie's tag
+            if ($key != 118) {
+                file_put_contents(__DIR__ . '/update_product.txt', "Category ID: " . $key . "\n", FILE_APPEND);
+                $cat_res = $DB->get_record('tag', array('id' => $key), 'ecommproductcat');
+                $cat_array[] = [
+                    'id' => $cat_res->ecommproductcat
+                ];
+            }
         }
         
         // designate states that are pace, if neccessary
@@ -660,7 +666,10 @@ class observer {
             $tag_info = \core_tag_tag::get_item_tags_array('core', 'course', $course_info->id);
             //file_put_contents(__DIR__ . '/tag_info.txt', "Course: " . $course_info['fullname'] . "\n" . print_r($tag_info, true), FILE_APPEND);
             foreach($tag_info as $key => $value) {
-                $descr_str .= '<span class="course-category">' . $value . '</span>';
+                // do not include charlie's tag
+                if ($key != 118) {
+                    $descr_str .= '<span class="course-category">' . $value . '</span>';
+                }
             }
             $descr_str .= $course_info->summary . '<br /><br />';
         }

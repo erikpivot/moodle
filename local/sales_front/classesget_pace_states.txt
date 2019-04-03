@@ -1,0 +1,176 @@
+Array
+(
+    [3] => stdClass Object
+        (
+            [id] => 3
+            [state] => az
+            [pace] => 0
+            [life] => 0
+            [stateapproval] => 1
+            [staterequire] => <p></p><h1>Arizona Chiropractic Continuing Education Requirements</h1><p><span style="font-size: 1rem;">Arizona requires 12 hours of CE per year due on December 31 of each year. Beginning in the calendar year 2014, all actively licensed chiropractic physicians will be required to complete 2 hours of record keeping for every </span>even-numbered<span style="font-size: 1rem;"> year in order to renew their licenses. This 2-hour requirement is not in addition to the twelve hours of continuing education required for renewal.</span><br></p><p><span style="font-size: 1rem;"></span></p><h2>Online Chiropractic Continuing Education Policies for Alaska</h2><p></p><p>Arizona allows all 12 of the required hours to be obtained online.</p><p><span style="font-size: 1rem;">All internet based courses offered in Arizona are sponsored by
+Life University.</span></p><br><p></p><p></p><p></p>
+            [ecommcatid] => 47
+            [customapprove] => 2
+            [ecommbundlecatid] => 104
+        )
+
+    [4] => stdClass Object
+        (
+            [id] => 4
+            [state] => ar
+            [pace] => 0
+            [life] => 0
+            [stateapproval] => 1
+            [staterequire] => <p></p><h1>Arkansas Chiropractic Continuing Education Requirements</h1><p></p><p><span style="font-size: 1rem;">Arkansas requires 24 hours of CE due by December 31st of each year.</span></p><p></p><h2>Online Chiropractic Continuing Education Policies for Arkansas</h2><p>Arkansas allows 12 of the 24 required hours to be obtained online.</p><p></p><p>All internet based courses offered in Arkansas are sponsored by
+Life University.</p><p></p><p></p><p></p><p></p>
+            [ecommcatid] => 48
+            [customapprove] => 2
+            [ecommbundlecatid] => 105
+        )
+
+    [6] => stdClass Object
+        (
+            [id] => 6
+            [state] => co
+            [pace] => 0
+            [life] => 0
+            [stateapproval] => 0
+            [staterequire] => <p></p><h1>Colorado Chiropractic Continuing Education Requirements</h1><p>Colorado requires 15 hours of CE per year. (30 hours per renewal period) Colorado requires that 4 of the required 30 hours must be in recordkeeping and documentation. Additionally, each licensed CO Chiropractor is required to maintain CPR certification.</p><p></p><h2>Online Chiropractic Continuing Education Policies for Colorado</h2><p></p><p>Colorado allows 10 of the 30 required hours to be obtained online.</p>
+
+<p>All Internet-based courses offered in Colorado are sponsored by Life University.</p><p></p><br><p></p>
+            [ecommcatid] => 50
+            [customapprove] => 2
+            [ecommbundlecatid] => 107
+        )
+
+    [8] => stdClass Object
+        (
+            [id] => 8
+            [state] => de
+            [pace] => 0
+            [life] => 0
+            [stateapproval] => 0
+            [staterequire] => <p></p><h1>Delaware Chiropractic Continuing Education Requirements</h1><p></p><p>Delaware requires 24 hours of CE every biennial licensure period. Delaware requires that 3 of the 24 required hours must contain ethics, record keeping, or risk management.</p>
+
+<p></p><h2>Online Chiropractic Continuing Education Policies for Delaware</h2><p>Delaware allows 6 of the 24 required hours to be obtained online.<br></p><p></p><p>All internet based courses offered in Delaware are sponsored by Life University.</p>
+            [ecommcatid] => 52
+            [customapprove] => 2
+            [ecommbundlecatid] => 109
+        )
+
+    [14] => stdClass Object
+        (
+            [id] => 14
+            [state] => il
+            [pace] => 0
+            [life] => 0
+            [stateapproval] => 0
+            [staterequire] => <p></p><h1>Illinois Chiropractic Continuing Education Requirements</h1><p></p><p>Illinois requires 150 hours of CE every 3 years. A minimum of 60 hours of the required 150 hours needs to be in Type 1 or Formal category. A maximum of 90 hours of the required 150 hours needs to be in Type 2 or Informal category.  All internet based courses listed on this site are considered Type 1 or Formal hours by the State of Illinois.</p><p></p><h2>Online Chiropractic Continuing Education Policies for Illinois</h2><p></p>
+
+<p>Illinois allows all of the required 150 hours to be obtained online.</p>
+
+<p>All internet based courses offered in Illinois are sponsored by Life University.</p>
+            [ecommcatid] => 57
+            [customapprove] => 2
+            [ecommbundlecatid] => 114
+        )
+
+    [30] => stdClass Object
+        (
+            [id] => 30
+            [state] => nh
+            [pace] => 0
+            [life] => 0
+            [stateapproval] => 0
+            [staterequire] => <p></p><h1>New Hampshire Chiropractic Continuing Education Requirements</h1><p></p><p>New Hampshire requires 20 hours of chiropractic CE biennially.</p><p></p><p></p><h2>Online Chiropractic Continuing Education Policies for New Hampshire</h2><p></p><p>New Hampshire allows 5 of the 20 required hours to be obtained online.</p>
+
+<p>All Internet-based courses offered in New Hampshire are sponsored by Life University.</p>
+            [ecommcatid] => 74
+            [customapprove] => 2
+            [ecommbundlecatid] => 131
+        )
+
+    [32] => stdClass Object
+        (
+            [id] => 32
+            [state] => nm
+            [pace] => 0
+            [life] => 0
+            [stateapproval] => 0
+            [staterequire] => <p></p><h1>New Mexico Chiropractic Continuing Education Requirements</h1><p></p><p>New Mexico requires 16 hours of CE due on June 1 of each year.</p>
+
+<p>New Mexico allows 8 of the required 16 hours to be obtained online.</p><p></p><h2>Online Chiropractic Continuing Education Policies for New Mexico</h2><p></p>
+
+<p>All internet based courses offered in New Mexico are sponsored by Life University.</p>
+            [ecommcatid] => 76
+            [customapprove] => 2
+            [ecommbundlecatid] => 133
+        )
+
+    [33] => stdClass Object
+        (
+            [id] => 33
+            [state] => ny
+            [pace] => 0
+            [life] => 0
+            [stateapproval] => 1
+            [staterequire] => <p></p><p></p><h1>New York Chiropractic Continuing Education Requirements</h1><p></p><p>New York requires 36 hours of CE every 3 year registration period. New York requires that 12 of the 36 required hours must be in Category 1 (Risk Mgmt type courses). Note that a new licensee is exempt from the continuing education requirement during the initial 3-year renewal cycle.</p><p></p><h2>Online Chiropractic Continuing Education Policies for New York</h2><p></p>
+
+<p>New York allows 12 of the required 36 hours to be obtained online.</p>
+
+<p>All internet based courses offered in New York are sponsored by Life University.</p>
+            [ecommcatid] => 77
+            [customapprove] => 2
+            [ecommbundlecatid] => 134
+        )
+
+    [39] => stdClass Object
+        (
+            [id] => 39
+            [state] => pa
+            [pace] => 0
+            [life] => 0
+            [stateapproval] => 1
+            [staterequire] => <p></p><h1>Pennsylvania Chiropractic Continuing Education Requirements</h1><p></p><p>Pennsylvania requires 24 hours of CE every 2 years due 9/1 of even years. Effective with the first license renewal after January 1, 2015, all health-related licensees applying for the renewal of a license issued by the PA Board shall be required to complete at least 2 hours of Board-approved continuing education in child abuse recognition and reporting requirements as a condition of renewal.</p><p></p><h2>Online Chiropractic Continuing Education Policies for Pennsylvania</h2><p></p>
+
+<p>Pennsylvania allows all of the 24 required hours to be obtained online.</p>
+
+<p>All internet based courses offered in Pennsylvania are sponsored by Life University.</p>
+            [ecommcatid] => 83
+            [customapprove] => 2
+            [ecommbundlecatid] => 140
+        )
+
+    [44] => stdClass Object
+        (
+            [id] => 44
+            [state] => tx
+            [pace] => 0
+            [life] => 0
+            [stateapproval] => 1
+            [staterequire] => <p></p><h1>Texas Chiropractic Continuing Education Requirements</h1><p></p><p>Texas requires 16 hours of CE per year. Texas requires that 4 of the 16 required hours consists of 3 hours documentation/ethics, and 1 hour risk management. These required hours can be taken online through a course offered by the Board.</p><p></p><h2>Online Chiropractic Continuing Education Policies for Texas</h2><p></p>
+
+<p>Texas now allows 10 of the 16 required hours to be obtained online.</p>
+
+<p>All internet based courses offered in Texas are sponsored by Life University.</p>
+            [ecommcatid] => 87
+            [customapprove] => 2
+            [ecommbundlecatid] => 144
+        )
+
+    [49] => stdClass Object
+        (
+            [id] => 49
+            [state] => wv
+            [pace] => 0
+            [life] => 0
+            [stateapproval] => 1
+            [staterequire] => <p></p><h1>West Virginia Chiropractic Continuing Education Requirements</h1><p></p><p>West Virginia requires 18 hours of CE per year due 6/30. West Virginia requires that 6 hours be in Chiropractic Risk Assessment and CVA.&nbsp;</p><p></p><h2>Online Chiropractic Continuing Education Policies for West Virginia</h2><p></p><p>These hours may be completed online between July 1, 2017 and June 30, 2018. This is a one-time requirement for this cycle. West Virginia allows 6 of the 18 required hours to be obtained online.</p>
+
+<p>All internet based courses offered in West Virginia are sponsored by Life University.</p>
+            [ecommcatid] => 93
+            [customapprove] => 2
+            [ecommbundlecatid] => 150
+        )
+
+)

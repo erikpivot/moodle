@@ -53,6 +53,8 @@ class bundle_edit_form extends moodleform {
         $mform->addRule('name', null, 'required');
         $mform->setType('name', PARAM_NOTAGS);
         
+        $mform->addElement('advcheckbox', 'charlieannunziata', get_string('charlie', 'local_course_bundles'), '', array(), array(0, 1));
+        
         // state selector
         $all_states = array(
             'al'=>'Alabama',

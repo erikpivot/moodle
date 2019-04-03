@@ -4,9 +4,10 @@ $(function() {
     $('[name="state"]').on('change', function() {
         // hide all checkboxes first
         $('input[type="checkbox"][states!="' + $(this).val() + '"]').parent().parent().parent().hide();
-        console.log($(this).val());
+        $('#id_charlieannunziata').parent().parent().parent().show();
+        //console.log($(this).val());
         // show the checkboxes in the state selected
-        console.log($('input[states*="' + $(this).val() + '"]'));
+        //console.log($('input[states*="' + $(this).val() + '"]'));
         $('input[type="checkbox"][states*="' + $(this).val() + '"]').parent().parent().parent().show();
     });
     

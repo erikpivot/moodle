@@ -1,0 +1,9 @@
+Product Cats: Array
+(
+    [0] => Array
+        (
+            [id] => 116
+        )
+
+)
+

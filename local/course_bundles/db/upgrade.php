@@ -52,6 +52,13 @@ function xmldb_local_course_bundles_upgrade($oldversion) {
         $field = new xmldb_field('courses', XMLDB_TYPE_TEXT, '', null, null, null, null, null);
         $dbman->change_field_type($table, $field);
     }
+    
+    if ($oldversion < 2019040200) {
+        // add a new field to mark the bundle as Charlie's
+        $table = new xmldb_table('local_course_bundles');
+        $field = new xmldb_field('charlieannunziata', XMLDB_TYPE_INTEGER, '10', null, null, null, null, null);
+        $dbman->add_field($table, $field);
+    }
 
 
     return true;

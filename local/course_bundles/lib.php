@@ -292,7 +292,10 @@ function buildDescription($courses) {
         $tag_info = \core_tag_tag::get_item_tags_array('core', 'course', $course_info['id']);
         //file_put_contents(__DIR__ . '/tag_info.txt', "Course: " . $course_info['fullname'] . "\n" . print_r($tag_info, true), FILE_APPEND);
         foreach($tag_info as $key => $value) {
-            $descr_str .= '<span class="course-category">' . $value . '</span>';
+            // exclude charlie's category
+            if ($key != 118) {
+                $descr_str .= '<span class="course-category">' . $value . '</span>';   
+            }
         }
         $descr_str .= '</p>';
         $descr_str .= '<div class="bundle-course-summary">' . $course_info['summary'] . '</div>';

@@ -1,0 +1,28 @@
+Array
+(
+    [eventname] => \core\event\tag_created
+    [component] => core
+    [action] => created
+    [target] => tag
+    [objecttable] => tag
+    [objectid] => 118
+    [crud] => c
+    [edulevel] => 0
+    [contextid] => 1
+    [contextlevel] => 10
+    [contextinstanceid] => 0
+    [userid] => 2
+    [courseid] => 0
+    [relateduserid] => 2
+    [anonymous] => 0
+    [other] => Array
+        (
+            [name] => charlie annunziata
+            [rawname] => Charlie Annunziata
+        )
+
+    [timecreated] => 1553803837
+)
+
+{"id":153,"name":"Charlie Annunziata","slug":"charlie-annunziata","parent":0,"description":"","display":"default","image":null,"menu_order":0,"count":0,"_links":{"self":[{"href":"https:\/\/dev.dchours.com\/wp-json\/wc\/v2\/products\/categories\/153"}],"collection":[{"href":"https:\/\/dev.dchours.com\/wp-json\/wc\/v2\/products\/categories"}]}}
+201

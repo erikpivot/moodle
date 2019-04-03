@@ -1,0 +1,57 @@
+stdClass Object
+(
+    [name] => Charlie Bundle
+    [charlieannunziata] => 1
+    [state] => ga
+    [courses20181116124557-3692] => 0
+    [courses20181116124630-3693] => 0
+    [courses20181116124723-3694] => 0
+    [courses20181116124906-3695] => 0
+    [courses20181116125015-3696] => 0
+    [courses20181116125125-3697] => 0
+    [courses20181116125231-3698] => 0
+    [courses20181116125319-3699] => 0
+    [courses20181116125435-3700] => 0
+    [courses20181116125548-3701] => 0
+    [courses20181116125658-3702] => 0
+    [courses20181116125736-3703] => 0
+    [courses20181116125814-3704] => 0
+    [courses20181116125949-3705] => 0
+    [courses20181116010025-3706] => 0
+    [courses20181116010123-3707] => 0
+    [courses20181116010222-3708] => 0
+    [courses20181116010356-3709] => 0
+    [courses20181116010457-3710] => 0
+    [courses20181116010540-3711] => 0
+    [courses20181116010643-3712] => 0
+    [courses20181116010741-3713] => 0
+    [courses20181116010843-3714] => 0
+    [courses20181116010938-3715] => 0
+    [courses20181116011116-3716] => 0
+    [courses20181116011232-3717] => 0
+    [courses20181116011347-3718] => 0
+    [courses20181116011354-3719] => 20181116011354-3719
+    [courses20181116011520-3720] => 20181116011520-3720
+    [courses20181116011658-3723] => 0
+    [courses20190114044158-3724] => 20190114044158-3724
+    [courses20190401090149-3725] => 0
+    [courses20190401090201-3726] => 0
+    [courses20190401090211-3727] => 0
+    [courses20190401090222-3728] => 0
+    [courses20190401091417-3729] => 20190401091417-3729
+    [courses] => 20190114044158-3724,20181116011354-3719,20181116011520-3720,20190401091417-3729
+    [ecommproductid] => 
+    [description] => <p>This is a bundle for Charlie</p>
+    [credithrs] => 4
+    [price] => 150
+    [submitbutton] => Save changes
+)
+
+{"id":2915,"name":"Charlie Bundle","slug":"charlie-bundle","permalink":"https:\/\/dev.dchours.com\/course\/charlie-bundle\/","date_created":"2019-04-03T07:06:32","date_created_gmt":"2019-04-03T11:06:32","date_modified":"2019-04-03T07:06:32","date_modified_gmt":"2019-04-03T11:06:32","type":"simple","status":"publish","featured":false,"catalog_visibility":"visible","description":"<div class=\"bundle-course-block\"><p class=\"bundle-title-line\"><span class=\"bundle-course-title\">New Testing Course<\/span> - <span class=\"bundle-course-credit-hrs\">Credit Hours: 1<\/span><span class=\"course-category\">Charlie Annunziata<\/span><span class=\"course-category\">Clinical<\/span><\/p><div class=\"bundle-course-summary\"><p>This is a test course.<\/p><\/div><\/div><div class=\"bundle-course-block\"><p class=\"bundle-title-line\"><span class=\"bundle-course-title\">BASIC MRI PART 1<\/span> - <span class=\"bundle-course-credit-hrs\">Credit Hours: 1<\/span><span class=\"course-category\">Clinical<\/span><\/p><div class=\"bundle-course-summary\"><p>Although a detailed understanding of nuclear physics is not necessary to interpret MRI studies, chiropractors should have a solid understanding of the basic principles involved in producing MRI images. This course describes the basic fundamental principles shared by all MRI scanners.<br><\/p><\/div><\/div><div class=\"bundle-course-block\"><p class=\"bundle-title-line\"><span class=\"bundle-course-title\">BASIC MRI PART 3<\/span> - <span class=\"bundle-course-credit-hrs\">Credit Hours: 1<\/span><span class=\"course-category\">Clinical<\/span><\/p><div class=\"bundle-course-summary\"><p>In the third part of this series we will discuss the Contraindications to MRI, how to read an MRI report, the MRI appearance of DDD, Ligamentum Flavum Hypertrophy, Disc Herniations, Annular Tears and Post-disc Surgical cases.<br><\/p><\/div><\/div><div class=\"bundle-course-block\"><p class=\"bundle-title-line\"><span class=\"bundle-course-title\">BASIC MRI PART 2<\/span> - <span class=\"bundle-course-credit-hrs\">Credit Hours: 1<\/span><span class=\"course-category\">Clinical<\/span><\/p><div class=\"bundle-course-summary\"><p>The second part to this series will begin with a discussion regarding the multiplanar images of MRI, the shades of gray and the differences between T1 and T2 weighted images. We will then explore the special MRI studies that have been created to help identify different pathologies. This will include discussions on Fat Suppression, Contrast Enhanced and Functional MRI studies.<br><\/p><\/div><\/div>","short_description":"<p>This is a bundle for Charlie<\/p>","sku":"","price":"150","regular_price":"150","sale_price":"","date_on_sale_from":null,"date_on_sale_from_gmt":null,"date_on_sale_to":null,"date_on_sale_to_gmt":null,"price_html":"<span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#36;<\/span>150.00<\/span>","on_sale":false,"purchasable":true,"total_sales":0,"virtual":false,"downloadable":false,"downloads":[],"download_limit":-1,"download_expiry":-1,"external_url":"","button_text":"","tax_status":"taxable","tax_class":"","manage_stock":false,"stock_quantity":null,"in_stock":true,"backorders":"no","backorders_allowed":false,"backordered":false,"sold_individually":true,"weight":"","dimensions":{"length":"","width":"","height":""},"shipping_required":true,"shipping_taxable":true,"shipping_class":"","shipping_class_id":0,"reviews_allowed":true,"average_rating":"0","rating_count":0,"related_ids":[2314,2315,2316,2313],"upsell_ids":[],"cross_sell_ids":[],"parent_id":0,"purchase_note":"","categories":[{"id":116,"name":"Georgia Bundles","slug":"georgia-bundles"}],"tags":[],"images":[{"id":0,"date_created":"2019-04-03T03:06:32","date_created_gmt":"2019-04-03T11:06:32","date_modified":"2019-04-03T03:06:32","date_modified_gmt":"2019-04-03T11:06:32","src":"https:\/\/dev.dchours.com\/wp-content\/uploads\/2018\/08\/DC_Hours_Bundle.jpg","name":"Placeholder","alt":"Placeholder","position":0}],"attributes":[],"default_attributes":[],"variations":[],"grouped_products":[],"menu_order":0,"meta_data":[{"id":54354,"key":"dc_credit_hours","value":"4"},{"id":54355,"key":"dc_course_ids","value":"20190114044158-3724,20181116011354-3719,20181116011520-3720,20190401091417-3729"}],"_links":{"self":[{"href":"https:\/\/dev.dchours.com\/wp-json\/wc\/v2\/products\/2915"}],"collection":[{"href":"https:\/\/dev.dchours.com\/wp-json\/wc\/v2\/products"}]}}
+201
+stdClass Object
+(
+    [id] => 126
+    [ecommproductid] => 2915
+)
+

@@ -1,0 +1,191 @@
+Array
+(
+    [name] => New Testing Course
+    [type] => simple
+    [regular_price] => 15.00
+    [description] => <p>This is a test course.</p>
+    [categories] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 43
+                )
+
+            [1] => Array
+                (
+                    [id] => 99
+                )
+
+            [2] => Array
+                (
+                    [id] => 46
+                )
+
+            [3] => Array
+                (
+                    [id] => 47
+                )
+
+            [4] => Array
+                (
+                    [id] => 48
+                )
+
+            [5] => Array
+                (
+                    [id] => 50
+                )
+
+            [6] => Array
+                (
+                    [id] => 51
+                )
+
+            [7] => Array
+                (
+                    [id] => 52
+                )
+
+            [8] => Array
+                (
+                    [id] => 53
+                )
+
+            [9] => Array
+                (
+                    [id] => 55
+                )
+
+            [10] => Array
+                (
+                    [id] => 57
+                )
+
+            [11] => Array
+                (
+                    [id] => 58
+                )
+
+            [12] => Array
+                (
+                    [id] => 61
+                )
+
+            [13] => Array
+                (
+                    [id] => 64
+                )
+
+            [14] => Array
+                (
+                    [id] => 66
+                )
+
+            [15] => Array
+                (
+                    [id] => 71
+                )
+
+            [16] => Array
+                (
+                    [id] => 73
+                )
+
+            [17] => Array
+                (
+                    [id] => 74
+                )
+
+            [18] => Array
+                (
+                    [id] => 76
+                )
+
+            [19] => Array
+                (
+                    [id] => 77
+                )
+
+            [20] => Array
+                (
+                    [id] => 79
+                )
+
+            [21] => Array
+                (
+                    [id] => 80
+                )
+
+            [22] => Array
+                (
+                    [id] => 81
+                )
+
+            [23] => Array
+                (
+                    [id] => 83
+                )
+
+            [24] => Array
+                (
+                    [id] => 84
+                )
+
+            [25] => Array
+                (
+                    [id] => 86
+                )
+
+            [26] => Array
+                (
+                    [id] => 87
+                )
+
+            [27] => Array
+                (
+                    [id] => 88
+                )
+
+            [28] => Array
+                (
+                    [id] => 89
+                )
+
+            [29] => Array
+                (
+                    [id] => 90
+                )
+
+            [30] => Array
+                (
+                    [id] => 92
+                )
+
+            [31] => Array
+                (
+                    [id] => 93
+                )
+
+            [32] => Array
+                (
+                    [id] => 94
+                )
+
+        )
+
+    [images] => Array
+        (
+        )
+
+    [meta_data] => Array
+        (
+            [0] => Array
+                (
+                    [key] => dc_credit_hours
+                    [value] => 1
+                )
+
+        )
+
+)
+{"id":2910,"name":"New Testing Course","slug":"new-testing-course","permalink":"https:\/\/dev.dchours.com\/course\/new-testing-course\/","date_created":"2019-01-14T16:41:59","date_created_gmt":"2019-01-14T21:41:59","date_modified":"2019-04-01T16:18:28","date_modified_gmt":"2019-04-01T20:18:28","type":"simple","status":"publish","featured":false,"catalog_visibility":"visible","description":"<p>This is a test course.<\/p>","short_description":"","sku":"","price":"15.00","regular_price":"15.00","sale_price":"","date_on_sale_from":null,"date_on_sale_from_gmt":null,"date_on_sale_to":null,"date_on_sale_to_gmt":null,"price_html":"<span class=\"woocommerce-Price-amount amount\"><span class=\"woocommerce-Price-currencySymbol\">&#36;<\/span>15.00<\/span>","on_sale":false,"purchasable":true,"total_sales":0,"virtual":false,"downloadable":false,"downloads":[],"download_limit":-1,"download_expiry":-1,"external_url":"","button_text":"","tax_status":"taxable","tax_class":"","manage_stock":false,"stock_quantity":null,"in_stock":true,"backorders":"no","backorders_allowed":false,"backordered":false,"sold_individually":true,"weight":"","dimensions":{"length":"","width":"","height":""},"shipping_required":true,"shipping_taxable":true,"shipping_class":"","shipping_class_id":0,"reviews_allowed":true,"average_rating":"0","rating_count":0,"related_ids":[2292,2285,2287,2294,2295],"upsell_ids":[],"cross_sell_ids":[],"parent_id":0,"purchase_note":"","categories":[{"id":99,"name":"Alabama","slug":"alabama"},{"id":46,"name":"Alaska","slug":"alaska"},{"id":47,"name":"Arizona","slug":"arizona"},{"id":48,"name":"Arkansas","slug":"arkansas"},{"id":43,"name":"Clinical","slug":"clinical"},{"id":50,"name":"Colorado","slug":"colorado"},{"id":51,"name":"Connecticut","slug":"connecticut"},{"id":52,"name":"Delaware","slug":"delaware"},{"id":53,"name":"District of Columbia","slug":"district-of-columbia"},{"id":55,"name":"Idaho","slug":"idaho"},{"id":57,"name":"Illinois","slug":"illinois"},{"id":58,"name":"Iowa","slug":"iowa"},{"id":61,"name":"Kansas","slug":"kansas"},{"id":64,"name":"Maine","slug":"maine"},{"id":66,"name":"Massachusetts","slug":"massachusetts"},{"id":71,"name":"Montana","slug":"montana"},{"id":73,"name":"Nevada","slug":"nevada"},{"id":74,"name":"New Hampshire","slug":"new-hampshire"},{"id":76,"name":"New Mexico","slug":"new-mexico"},{"id":77,"name":"New York","slug":"new-york"},{"id":79,"name":"North Dakota","slug":"north-dakota"},{"id":80,"name":"Ohio","slug":"ohio"},{"id":81,"name":"Oklahoma","slug":"oklahoma"},{"id":83,"name":"Pennsylvania","slug":"pennsylvania"},{"id":84,"name":"Rhode Island","slug":"rhode-island"},{"id":86,"name":"Tennessee","slug":"tennessee"},{"id":87,"name":"Texas","slug":"texas"},{"id":88,"name":"Utah","slug":"utah"},{"id":89,"name":"Vermont","slug":"vermont"},{"id":90,"name":"Virginia","slug":"virginia"},{"id":92,"name":"Washington","slug":"washington"},{"id":93,"name":"West Virginia","slug":"west-virginia"},{"id":94,"name":"Wyoming","slug":"wyoming"}],"tags":[],"images":[{"id":0,"date_created":"2019-04-01T12:18:28","date_created_gmt":"2019-04-01T20:18:28","date_modified":"2019-04-01T12:18:28","date_modified_gmt":"2019-04-01T20:18:28","src":"https:\/\/dev.dchours.com\/wp-content\/uploads\/2018\/08\/DC_Hours_Bundle.jpg","name":"Placeholder","alt":"Placeholder","position":0}],"attributes":[],"default_attributes":[],"variations":[],"grouped_products":[],"menu_order":0,"meta_data":[{"id":54118,"key":"dc_course_ids","value":"20190114044158-3724"},{"id":54219,"key":"dc_credit_hours","value":"1"}],"_links":{"self":[{"href":"https:\/\/dev.dchours.com\/wp-json\/wc\/v2\/products\/2910"}],"collection":[{"href":"https:\/\/dev.dchours.com\/wp-json\/wc\/v2\/products"}]}}
