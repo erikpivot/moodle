@@ -66,7 +66,7 @@ class element extends \mod_customcert\element {
         }
         
         // make sure the time spent in the course does not exceed the credit hours
-        if (($hours > $time_res->credithrs) || (empty($hours) && empty($minutes))) {
+        if (($hours > $time_res->credithrs) || ($hours == 0 && $minutes == 0)) {
             $hours = $time_res->credithrs;
             $minutes = 0;
         }
