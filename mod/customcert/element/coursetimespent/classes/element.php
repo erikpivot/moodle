@@ -62,6 +62,11 @@ class element extends \mod_customcert\element {
             $hours = $time_res->credithrs;
             $minutes = 0;
         }
+        
+        if (empty($hours)) {
+            $hours = 0;
+        }
+        
         $time_str = $hours . ' hours and ' . $minutes . ' minutes';
 
         \mod_customcert\element_helper::render_content($pdf, $this, $time_str);
