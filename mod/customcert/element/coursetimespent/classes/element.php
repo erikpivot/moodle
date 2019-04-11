@@ -54,20 +54,29 @@ class element extends \mod_customcert\element {
                 WHERE a.element = 'cmi.core.total_time'
                 AND userid = ? AND b.course = ?";
         $time_res = $DB->get_record_sql($sql, array($user->id, $courseid));
-        $formatted_time = explode(':', $time_res->value);
-        $hours = ltrim($formatted_time[0], 0);
-        $minutes = ltrim($formatted_time[1], 0);
-        if (empty($hours)) {
-            $hours = 0;
-        }
-        
-        if (empty($minutes)) {
-            $minutes = 0;
-        }
-        
-        // make sure the time spent in the course does not exceed the credit hours
-        if (($hours > $time_res->credithrs) || ($hours == 0 && $minutes == 0)) {
-            $hours = $time_res->credithrs;
+        if (!empty($time_res)) {
+            $formatted_time = explode(':', $time_res->value);
+            $hours = ltrim($formatted_time[0], 0);
+            $minutes = ltrim($formatted_time[1], 0);
+            
+            // make sure the time spent in the course does not exceed the credit hours
+            if ($hours > $time_res->credithrs) {
+                $hours = $time_res->credithrs;
+                $minutes = 0;
+            }
+            
+            if (empty($hours)) {
+                $hours = $time_res->credithrs;
+            }
+            
+            if (empty($minutes)) {
+                $minutes = 0;
+            }
+        } else {
+            // no time data found, use the credit hours
+            $sql = "SELECT credithrs FROM {course} WHERE id = ?";
+            $credit_hr_res = $DB->get_record_sql($sql, array($courseid));
+            $hours = $credit_hr_res->credithrs;
             $minutes = 0;
         }
         
