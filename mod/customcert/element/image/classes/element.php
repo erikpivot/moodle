@@ -173,6 +173,7 @@ class element extends \mod_customcert\element {
      * @param \stdClass $user the user we are rendering this for
      */
     public function render($pdf, $preview, $user) {
+        global $DB;
         // If there is no element data, we have nothing to display.
         if (empty($this->get_data())) {
             return;
@@ -183,6 +184,111 @@ class element extends \mod_customcert\element {
         // If there is no file, we have nothing to display.
         if (empty($imageinfo->filename)) {
             return;
+        }
+        
+        // check to see if pace logo should be shown
+        if ($imageinfo->filename == "PACE Logo - Resized.jpg") {
+            // state references
+            $state_abbr = array(
+                'al'=>'Alabama',
+                'ak'=>'Alaska',
+                'az'=>'Arizona',
+                'ar'=>'Arkansas',
+                'ca'=>'California',
+                'co'=>'Colorado',
+                'ct'=>'Connecticut',
+                'de'=>'Delaware',
+                'dc'=>'District of Columbia',
+                'fl'=>'Florida',
+                'ga'=>'Georgia',
+                'hi'=>'Hawaii',
+                'id'=>'Idaho',
+                'il'=>'Illinois',
+                'in'=>'Indiana',
+                'ia'=>'Iowa',
+                'ks'=>'Kansas',
+                'ky'=>'Kentucky',
+                'la'=>'Louisiana',
+                'me'=>'Maine',
+                'md'=>'Maryland',
+                'ma'=>'Massachusetts',
+                'mi'=>'Michigan',
+                'mn'=>'Minnesota',
+                'ms'=>'Mississippi',
+                'mo'=>'Missouri',
+                'mt'=>'Montana',
+                'ne'=>'Nebraska',
+                'nv'=>'Nevada',
+                'nh'=>'New Hampshire',
+                'nj'=>'New Jersey',
+                'nm'=>'New Mexico',
+                'ny'=>'New York',
+                'nc'=>'North Carolina',
+                'nd'=>'North Dakota',
+                'oh'=>'Ohio',
+                'ok'=>'Oklahoma',
+                'or'=>'Oregon',
+                'pa'=>'Pennsylvania',
+                'ri'=>'Rhode Island',
+                'sc'=>'South Carolina',
+                'sd'=>'South Dakota',
+                'tn'=>'Tennessee',
+                'tx'=>'Texas',
+                'ut'=>'Utah',
+                'vt'=>'Vermont',
+                'va'=>'Virginia',
+                'wa'=>'Washington',
+                'wv'=>'West Virginia',
+                'wi'=>'Wisconsin',
+                'wy'=>'Wyoming'
+            );
+            
+            $user_states = array();
+            
+            // get the states the user is associated with
+            $user_info_data = $DB->get_records('user_info_data', array('userid' => $user->id));
+            
+            // go through the records and find the primary, secondary and tertiary license numbers
+            foreach($user_info_data as $license_info) {
+                switch ($license_info->fieldid) {
+                    case 1:
+                    case 3:
+                    case 5:
+                        $key = array_search(trim($license_info->data), $state_abbr);
+                        $user_states[$license_info->fieldid + 1] = array(
+                                                                        'numberkey' => $key . 'approvalno',
+                                                                        'state' => $key,
+                                                                        'state_name' => trim($license_info->data)
+                                                                    );
+                        break;
+                    case 2:
+                    case 4:
+                    case 6:
+                        // does the state need to be removed?
+                        if (empty($license_info->data)) {
+                            unset($user_states[$license_info->fieldid]);
+                        }
+                        break;
+                }
+            }
+            
+             // go through each state found and see if the pace logo needs to be shown
+             $show_logo = false;
+            foreach($user_states as $state_info) {
+                $state_settings = $DB->get_record('local_state_settings', array('state' => $state_info['state']));
+                //file_put_contents(__DIR__ . '/debug.txt', print_r($state_settings, true), FILE_APPEND);
+                if ($state_settings->customapprove == 1) {
+                    // break out of the loop, can show the logo
+                    $show_logo = true;
+                    break;
+                }
+            }
+            
+            //file_put_contents(__DIR__ . '/debug.txt', 'SHOW LOGO: ' . ($show_logo ? 'Yes' : 'No') . "\n", FILE_APPEND);
+            
+            if (!$show_logo) {
+                return;
+            }
         }
 
         if ($file = $this->get_file()) {
