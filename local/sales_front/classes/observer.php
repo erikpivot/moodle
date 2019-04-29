@@ -116,7 +116,8 @@ class observer {
             */
             
             // find out what states were selected (based on approval numbers entered)
-            observer::processStateCategoryIds($course, $product_cats);
+            $included_states = [];
+            observer::processStateCategoryIds($course, $product_cats, $included_states);
             
             file_put_contents(__DIR__ . 'create_product.txt', "Product Cats: " . print_r($product_cats, true) . "\n", FILE_APPEND);
             
@@ -220,7 +221,8 @@ class observer {
         }
         
         // find out what states were selected (based on approval numbers entered)
-        observer::processStateCategoryIds($course, $cat_array);
+        $included_states = [];
+        observer::processStateCategoryIds($course, $cat_array, $included_states);
         
         file_put_contents(__DIR__ . '/update_product.txt', "Categories: " . print_r($cat_array, true) . "\n", FILE_APPEND);
         
@@ -272,6 +274,7 @@ class observer {
         file_put_contents(__DIR__ . '/update_product_result.txt', $res . "\n", FILE_APPEND);
         
         // update any bundles the course is associated with
+        observer::bundleStates($course->idnumber, $course->credithrs);
         observer::updateBundleDescriptions($course->idnumber);
         
     }
@@ -368,7 +371,7 @@ class observer {
         file_put_contents(__DIR__ . 'delete_category_result.txt', $res . "\n", FILE_APPEND);
     }
     
-    public static function processStateCategoryIds($course_info, &$product_cats) {
+    public static function processStateCategoryIds($course_info, &$product_cats, &$included_states) {
         global $DB;
         
         // get the category ids
@@ -381,156 +384,207 @@ class observer {
         // which id's need to be returned?
         if (!empty($course_info->alapprovalno) && 0 == $course_info->alexclude) {
             $product_cats[] = ['id' => $state_cats['alapprovalno']];
+            $included_states[] = 'al';
         }
         if (!empty($course_info->akapprovalno) && 0 == $course_info->akexclude) {
             $product_cats[] = ['id' => $state_cats['akapprovalno']];
+            $included_states[] = 'ak';
         }
         if (!empty($course_info->azapprovalno) && 0 == $course_info->azexclude) {
             $product_cats[] = ['id' => $state_cats['azapprovalno']];
+            $included_states[] = 'az';
         }
         if (!empty($course_info->arapprovalno) && 0 == $course_info->arexclude) {
             $product_cats[] = ['id' => $state_cats['arapprovalno']];
+            $included_states[] = 'ar';
         }
         if (!empty($course_info->caapprovalno) && 0 == $course_info->caexclude) {
             $product_cats[] = ['id' => $state_cats['caapprovalno']];
+            $included_states[] = 'ca';
         }
         if (!empty($course_info->coapprovalno) && 0 == $course_info->coexclude) {
             $product_cats[] = ['id' => $state_cats['coapprovalno']];
+            $included_states[] = 'co';
         }
         if (!empty($course_info->ctapprovalno) && 0 == $course_info->ctexclude) {
             $product_cats[] = ['id' => $state_cats['ctapprovalno']];
+            $included_states[] = 'ct';
         }
         if (!empty($course_info->deapprovalno) && 0 == $course_info->deexclude) {
             $product_cats[] = ['id' => $state_cats['deapprovalno']];
+            $included_states[] = 'de';
         }
         if (!empty($course_info->dcapprovalno) && 0 == $course_info->dcexclude) {
             $product_cats[] = ['id' => $state_cats['dcapprovalno']];
+            $included_states[] = 'dc';
         }
         if (!empty($course_info->flapprovalno) && 0 == $course_info->flexclude) {
             $product_cats[] = ['id' => $state_cats['flapprovalno']];
+            $included_states[] = 'fl';
         }
         if (!empty($course_info->gaapprovalno) && 0 == $course_info->gaexclude) {
             $product_cats[] = ['id' => $state_cats['gaapprovalno']];
+            $included_states[] = 'ga';
         }
         if (!empty($course_info->hiapprovalno) && 0 == $course_info->hiexclude) {
             $product_cats[] = ['id' => $state_cats['hiapprovalno']];
+            $included_states[] = 'hi';
         }
         if (!empty($course_info->idapprovalno) && 0 == $course_info->idexclude) {
             $product_cats[] = ['id' => $state_cats['idapprovalno']];
+            $included_states[] = 'id';
         }
         if (!empty($course_info->ilapprovalno) && 0 == $course_info->ilexclude) {
             $product_cats[] = ['id' => $state_cats['ilapprovalno']];
+            $included_states[] = 'il';
         }
         if (!empty($course_info->inapprovalno) && 0 == $course_info->inexclude) {
             $product_cats[] = ['id' => $state_cats['inapprovalno']];
+            $included_states[] = 'in';
         }
         if (!empty($course_info->iaapprovalno) && 0 == $course_info->iaexclude) {
             $product_cats[] = ['id' => $state_cats['iaapprovalno']];
+            $included_states[] = 'ia';
         }
         if (!empty($course_info->ksapprovalno) && 0 == $course_info->ksexclude) {
             $product_cats[] = ['id' => $state_cats['ksapprovalno']];
+            $included_states[] = 'ks';
         }
         if (!empty($course_info->kyapprovalno) && 0 == $course_info->kyexclude) {
             $product_cats[] = ['id' => $state_cats['kyapprovalno']];
+            $included_states[] = 'ky';
         }
         if (!empty($course_info->laapprovalno) && 0 == $course_info->laexclude) {
             $product_cats[] = ['id' => $state_cats['laapprovalno']];
+            $included_states[] = 'la';
         }
         if (!empty($course_info->meapprovalno) && 0 == $course_info->meexclude) {
             $product_cats[] = ['id' => $state_cats['meapprovalno']];
+            $included_states[] = 'me';
         }
         if (!empty($course_info->mdapprovalno) && 0 == $course_info->mdexclude) {
             $product_cats[] = ['id' => $state_cats['mdapprovalno']];
+            $included_states[] = 'md';
         }
         if (!empty($course_info->maapprovalno) && 0 == $course_info->maexclude) {
             $product_cats[] = ['id' => $state_cats['maapprovalno']];
+            $included_states[] = 'ma';
         }
         if (!empty($course_info->miapprovalno) && 0 == $course_info->miexclude) {
             $product_cats[] = ['id' => $state_cats['miapprovalno']];
+            $included_states[] = 'mi';
         }
         if (!empty($course_info->mnapprovalno) && 0 == $course_info->mnexclude) {
             $product_cats[] = ['id' => $state_cats['mnapprovalno']];
+            $included_states[] = 'mn';
         }
         if (!empty($course_info->msapprovalno) && 0 == $course_info->msexclude) {
             $product_cats[] = ['id' => $state_cats['msapprovalno']];
+            $included_states[] = 'ms';
         }
         if (!empty($course_info->moapprovalno) && 0 == $course_info->moexclude) {
             $product_cats[] = ['id' => $state_cats['moapprovalno']];
+            $included_states[] = 'mo';
         }
         if (!empty($course_info->mtapprovalno) && 0 == $course_info->mtexclude) {
             $product_cats[] = ['id' => $state_cats['mtapprovalno']];
+            $included_states[] = 'mt';
         }
         if (!empty($course_info->neapprovalno) && 0 == $course_info->neexclude) {
             $product_cats[] = ['id' => $state_cats['neapprovalno']];
+            $included_states[] = 'ne';
         }
         if (!empty($course_info->nvapprovalno) && 0 == $course_info->nvexclude) {
             $product_cats[] = ['id' => $state_cats['nvapprovalno']];
+            $included_states[] = 'nv';
         }
         if (!empty($course_info->nhapprovalno) && 0 == $course_info->nhexclude) {
             $product_cats[] = ['id' => $state_cats['nhapprovalno']];
+            $included_states[] = 'nh';
         }
         if (!empty($course_info->njapprovalno) && 0 == $course_info->njexclude) {
             $product_cats[] = ['id' => $state_cats['njapprovalno']];
+            $included_states[] = 'nj';
         }
         if (!empty($course_info->nmapprovalno) && 0 == $course_info->nmexclude) {
             $product_cats[] = ['id' => $state_cats['nmapprovalno']];
+            $included_states[] = 'nm';
         }
         if (!empty($course_info->nyapprovalno) && 0 == $course_info->nyexclude) {
             $product_cats[] = ['id' => $state_cats['nyapprovalno']];
+            $included_states[] = 'ny';
         }
         if (!empty($course_info->ncapprovalno) && 0 == $course_info->ncexclude) {
             $product_cats[] = ['id' => $state_cats['ncapprovalno']];
+            $included_states[] = 'nc';
         }
         if (!empty($course_info->ndapprovalno) && 0 == $course_info->ndexclude) {
             $product_cats[] = ['id' => $state_cats['ndapprovalno']];
+            $included_states[] = 'nd';
         }
         if (!empty($course_info->ohapprovalno) && 0 == $course_info->ohexclude) {
             $product_cats[] = ['id' => $state_cats['ohapprovalno']];
+            $included_states[] = 'oh';
         }
         if (!empty($course_info->okapprovalno) && 0 == $course_info->okexclude) {
             $product_cats[] = ['id' => $state_cats['okapprovalno']];
+            $included_states[] = 'ok';
         }
         if (!empty($course_info->orapprovalno) && 0 == $course_info->orexclude) {
             $product_cats[] = ['id' => $state_cats['orapprovalno']];
+            $included_states[] = 'or';
         }
         if (!empty($course_info->paapprovalno) && 0 == $course_info->paexclude) {
             $product_cats[] = ['id' => $state_cats['paapprovalno']];
+            $included_states[] = 'pa';
         }
         if (!empty($course_info->riapprovalno) && 0 == $course_info->riexclude) {
             $product_cats[] = ['id' => $state_cats['riapprovalno']];
+            $included_states[] = 'ri';
         }
         if (!empty($course_info->scapprovalno) && 0 == $course_info->scexclude) {
             $product_cats[] = ['id' => $state_cats['scapprovalno']];
+            $included_states[] = 'sc';
         }
         if (!empty($course_info->sdapprovalno) && 0 == $course_info->sdexclude) {
             $product_cats[] = ['id' => $state_cats['sdapprovalno']];
+            $included_states[] = 'sd';
         }
         if (!empty($course_info->tnapprovalno) && 0 == $course_info->tnexclude) {
             $product_cats[] = ['id' => $state_cats['tnapprovalno']];
+            $included_states[] = 'tn';
         }
         if (!empty($course_info->txapprovalno) && 0 == $course_info->txexclude) {
             $product_cats[] = ['id' => $state_cats['txapprovalno']];
+            $included_states[] = 'tx';
         }
         if (!empty($course_info->utapprovalno) && 0 == $course_info->utexclude) {
             $product_cats[] = ['id' => $state_cats['utapprovalno']];
+            $included_states[] = 'ut';
         }
         if (!empty($course_info->vtapprovalno) && 0 == $course_info->vtexclude) {
             $product_cats[] = ['id' => $state_cats['vtapprovalno']];
+            $included_states[] = 'vt';
         }
         if (!empty($course_info->vaapprovalno) && 0 == $course_info->vaexclude) {
             $product_cats[] = ['id' => $state_cats['vaapprovalno']];
+            $included_states[] = 'va';
         }
         if (!empty($course_info->waapprovalno) && 0 == $course_info->waexclude) {
             $product_cats[] = ['id' => $state_cats['waapprovalno']];
+            $included_states[] = 'wa';
         }
         if (!empty($course_info->wvapprovalno) && 0 == $course_info->wvexclude) {
             $product_cats[] = ['id' => $state_cats['wvapprovalno']];
+            $included_states[] = 'wv';
         }
         if (!empty($course_info->wiapprovalno) && 0 == $course_info->wiexclude) {
             $product_cats[] = ['id' => $state_cats['wiapprovalno']];
+            $included_states[] = 'wi';
         }
         if (!empty($course_info->wyapprovalno) && 0 == $course_info->wyexclude) {
             $product_cats[] = ['id' => $state_cats['wyapprovalno']];
+            $included_states[] = 'wy';
         }
         
     }
@@ -735,6 +789,71 @@ class observer {
             $res = curl_exec($ch);
             curl_close($ch);
             //file_put_contents(__DIR__ . '/update_bundle_result.txt', $res . "\n", FILE_APPEND);
+        }
+    }
+    
+    /**
+     * Revises course bundles if a state was removed from a course
+     * @param string $idnumber
+     * @param number $credithours
+     */
+    public static function bundleStates($idnumber, $credithours) {
+        global $DB;
+        // get the course state information
+        $course_info = $DB->get_record('course', array('idnumber' => $idnumber));
+        $is_custom_approve = false;
+        if (!empty($course_info->paceapprovalno)) {
+            $is_custom_approve = true;
+        }
+        // get the bundles associated with the idnumber
+        $select = "courses LIKE '%" . $idnumber . "%'";
+        $records = $DB->get_records_select('local_course_bundles', $select, array('id', 'courses', 'name', 'state', 'credithrs'));
+        foreach ($records as $bundle_record) {
+            $remove_from_bundle = false;
+            // is this a custom approved course?
+            if ($is_custom_approve) {
+                // check if the state associated with the bundle is excluded, if so it needs
+                // to be removed from the bundle.  If not, check for an approval number
+                $obj_name = $bundle_record->state . 'exclude';
+                $obj_name_2 = $bundle_record->state . 'approvalno';
+                if ($course_info->$obj_name == 1) {
+                    $remove_from_bundle = true;
+                } else if (empty($course_info->$obj_name_2)) {
+                    $remove_from_bundle = true;
+                }
+            } else {
+                // see if there is an approval number
+                $obj_name = $bundle_record->state . 'approvalno';
+                if (empty($course_info->$obj_name)) {
+                    $remove_from_bundle = true;
+                }
+            }
+            
+            if ($remove_from_bundle) {
+                // extract the course number from the bundle
+                $new_course_numbers = str_replace($idnumber, "", $bundle_record->courses);
+                $new_course_numbers = str_replace(",,", ",", $new_course_numbers);
+                //echo $new_course_numbers . "<br />";
+                
+                // subtract the credit hours of the course from the bundle
+                $new_credit_hours = $bundle_record->credithrs - $credithours;
+                //echo "New Credit Hours: " . $new_credit_hours . "<br />";
+                
+                // re-build the title text of the bundle
+                $new_bundle_title = str_replace($bundle_record->credithrs, $new_credit_hours, $bundle_record->name);
+                //echo "New Title: " . $new_bundle_title . "<br />";
+                
+                // update the bundle record
+                $update_obj = new \stdClass();
+                $update_obj->id = $bundle_record->id;
+                $update_obj->name = $new_bundle_title;
+                $update_obj->credithrs = $new_credit_hours;
+                $update_obj->courses = $new_course_numbers;
+                //echo '<pre>';
+                //echo print_r($update_obj, true);
+                //echo '</pre>';
+                $DB->update_record('local_course_bundles', $update_obj);
+            }
         }
     }
 }
