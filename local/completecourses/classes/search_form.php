@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines forms.
+ * Defines the search form on the home page
  *
- * @package   local_completecourses
+ * @package   local\completecourses
  * @copyright 2018 Pivot Creative <team@pivotcreates.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,11 +26,13 @@ defined("MOODLE_INTERNAL") || die();
 require_once $CFG->libdir . '/formslib.php';
 
 /**
- * Editing form definition
+ * Search form definition
  */
 class search_form extends moodleform {
     /**
-     * @param string $baseurl
+     * Constructor
+     * 
+     * @param string $baseurl the current url for the page calling the form
      */
     public function __construct($baseurl) {
         parent::__construct($baseurl);
@@ -38,6 +40,8 @@ class search_form extends moodleform {
     
     /**
      * Defines the standard structure of the form
+     * 
+     * The search form contains fields for the first name and last name.
      */
     protected function definition() {
         global $DB;

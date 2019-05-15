@@ -15,14 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
  
 /**
- * @package   local_completecourses
+ * Version file
+ * 
+ * This file must be updated every time a major change is made to the module.
+ * The only value that must be updated after a major change is $plugin->version.
+ * 
+ * @package   local\completecourses
  * @copyright 2018 Pivot Creative
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
  
 defined('MOODLE_INTERNAL') || die();
  
-$plugin->version   = 2019042900.00;
+$plugin->version   = 2019051500.00;
 $plugin->requires  = 2017111300; // Requires this Moodle version (3.4).
 $plugin->cron      = 0;
 $plugin->component = 'local_completecourses';

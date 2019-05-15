@@ -17,7 +17,7 @@
 /**
  * Settings of the plugin.
  *
- * @package   local_completecourses
+ * @package   local\completecourses
  * @copyright 2018 Pivot Creative <team@pivotcreates.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

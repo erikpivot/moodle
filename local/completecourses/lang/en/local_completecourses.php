@@ -17,7 +17,7 @@
 /**
  * Strings for component "local_completecourses", language "en".
  *
- * @package   local_completecourses
+ * @package   local\completecourses
  * @copyright 2018 Pivot Creative <team@pivotcreates.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -38,3 +38,4 @@ $string['completionstatefield'] = "Check to Mark Completed";
 $string['completiondatefield'] = "Date of Completion";
 $string['searchbutton'] = "Search";
 $string['iscompleted'] = "Completed?";
+$string['enrolldate'] = "Date of Enrollment";

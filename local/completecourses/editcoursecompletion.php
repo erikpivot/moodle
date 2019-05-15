@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Page for editing the knowledge base entry.
+ * Page for editing the completion for a user's course
  *
- * @package   local_completecourses
+ * @package   local\completecourses
  * @copyright 2018 Pivot Creative <team@pivotcreates.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -33,6 +33,9 @@ $completiondate = optional_param('completiondate', 0, PARAM_INT);
 $certissueid = optional_param('certissueid', 0, PARAM_INT);
 $firstname = optional_param('userfirstname', '', PARAM_TEXT);
 $lastname = optional_param('userlastname', '', PARAM_TEXT);
+$userid = optional_param('userid', 0, PARAM_INT);
+$certid = optional_param('certificateid', 0, PARAM_INT);
+$moduleid = optional_param('moduleid', 0, PARAM_INT);
 
 // convert the date?
 if (is_array($completiondate)) {
@@ -41,7 +44,7 @@ if (is_array($completiondate)) {
 }
 
 // Link generation
-$urlparams = array('completionid' => $completeid, 'completionstate' => $completestate, 'completiondate' => $completiondate, 'certissueid' => $certissueid, 'userfirstname' => $firstname, 'userlastname' => $lastname);
+$urlparams = array('completionid' => $completeid, 'completionstate' => $completestate, 'completiondate' => $completiondate, 'certissueid' => $certissueid, 'userfirstname' => $firstname, 'userlastname' => $lastname, 'userid' => $userid, 'certificateid' => $certid, 'moduleid' => $moduleid);
 $baseurl = new moodle_url('/local/completecourses/editcoursecompletion.php', $urlparams);
 //echo $baseurl . "\n";
 $completeparams = array('userfirstname' => $firstname, 'userlastname' => $lastname);
@@ -61,23 +64,20 @@ if ($mform->is_cancelled()) {
 
 // Getting the data
 $completerecord = new stdClass();
-if ($editing = boolval($completeid)) {
-    //$completerecord = local_completecourses_get_record($completeid);
-    $completerecord = new stdClass();
-    $completerecord->completionstate = $completestate;
-    $completerecord->completiondate = $completiondate;
-    $mform->set_data($completerecord);
-}
+$completerecord->completionstate = $completestate;
+$completerecord->completiondate = $completiondate;
+$mform->set_data($completerecord);
 
 // processing of received data
 if ($data = $mform->get_data()) {
-    if ($editing) {
-        $data->completeid = $completeid;
-        $data->certissueid = $certissueid;
-        //echo print_r($data, true);
-        local_completecourses_update_record($data);
-        redirect($managercompleteitem, get_string('eventcompleteitemupdated', 'local_completecourses'));
-    }
+    $data->completeid = $completeid;
+    $data->certissueid = $certissueid;
+    $data->userid = $userid;
+    $data->customcertid = $certid;
+    $data->moduleid = $moduleid;
+    //echo print_r($data, true);
+    local_completecourses_update_record($data);
+    redirect($managercompleteitem, get_string('eventcompleteitemupdated', 'local_completecourses'));
 }
 
 // the page title

@@ -1,23 +1,14 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
- * Knowledge Base Entries Manager
- *
- * @package   local_completecourses
+ * Custom Course Completions Manager
+ * 
+ * This module provides an alternate way to mark a user's courses complete.
+ * Two search fields are provided to find users by their first and last name.
+ * A list of users found are displayed and an edit button is provided for each.
+ * Clicking the edit button takes you to a page to change the completion status
+ * and the completion date for a user's course.
+ * 
+ * @package   local\completecourses
  * @copyright 2018 Pivot Creative <team@pivotcreates.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,7 +18,12 @@ require_once $CFG->libdir . '/adminlib.php';
 require_once $CFG->libdir . '/tablelib.php';
 require_once __DIR__ . '/classes/search_form.php';
 
-// optional parameters
+/**
+ * Optional parameters sent to the page as GET parameters
+ * 
+ * @param string $firstname user's first name
+ * @param string $lastname user's last name
+ */
 $firstname = optional_param('userfirstname', '', PARAM_TEXT);
 $lastname = optional_param('userlastname', '', PARAM_TEXT);
 
@@ -53,8 +49,8 @@ echo $OUTPUT->header();
 $table = new flexible_table('course_completion_list');
 
 // customize the table
-$table->define_columns(array('user', 'course', 'completionstate', 'completiondate', 'actions'));
-$table->define_headers(array(get_string('user', 'local_completecourses'), get_string('course', 'local_completecourses'), get_string('iscompleted', 'local_completecourses'), get_string('completiondate', 'local_completecourses'), new lang_string('actions', 'moodle')));
+$table->define_columns(array('user', 'course', 'enrolldate', 'completionstate', 'completiondate', 'actions'));
+$table->define_headers(array(get_string('user', 'local_completecourses'), get_string('course', 'local_completecourses'), get_string('enrolldate', 'local_completecourses'), get_string('iscompleted', 'local_completecourses'), get_string('completiondate', 'local_completecourses'), new lang_string('actions', 'moodle')));
 $table->define_baseurl($baseurl);
 $table->setup();
 
@@ -65,13 +61,14 @@ foreach($callbacks as $callback) {
     $completestate = ($callback['completionstate'] == 1 ? 'Yes' : 'No');
     $completionstatecallback = html_writer::div($completestate, 'completionstate');
     $completiondatecallback = html_writer::div(date('m/d/Y', $callback['issuedate']), 'completiondate');
+    $enrolldatecallback = html_writer::div(date('m/d/Y', $callback['enrolldate']), 'enrolldate');
     
     // link for editing
-    $editlink = new moodle_url($editcompleteitem, array('completionid' => $callback['completionid'], 'completionstate' => $callback['completionstate'], 'completiondate' => $callback['issuedate'], 'certissueid' => $callback['certificateissueid'], 'userfirstname' => $firstname, 'userlastname' => $lastname));
+    $editlink = new moodle_url($editcompleteitem, array('completionid' => $callback['completionid'], 'completionstate' => $callback['completionstate'], 'completiondate' => $callback['issuedate'], 'certissueid' => $callback['certificateissueid'], 'userfirstname' => $firstname, 'userlastname' => $lastname, 'userid' => $callback['userid'], 'certificateid' => $callback['certificateid'], 'moduleid' => $callback['moduleid']));
     $edititem = $OUTPUT->action_icon($editlink, new pix_icon('t/edit', new lang_string('edit', 'moodle')));
     
     // adding data to the table
-    $table->add_data(array($usercallback, $coursecallback, $completionstatecallback, $completiondatecallback, $edititem));
+    $table->add_data(array($usercallback, $coursecallback, $enrolldatecallback, $completionstatecallback, $completiondatecallback, $edititem));
 }
 
 // Form to filter tags.

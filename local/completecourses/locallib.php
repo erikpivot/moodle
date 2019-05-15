@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Classes of modules.
+ * The file contains the event triggers
  *
- * @package   local_completecourses
+ * @package   local\completecourses
  * @copyright 2018 Pivot Creative <team@pivotcreates.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,7 +31,7 @@ class local_completecourses_events {
     /**
      * Call event when the response is received from the service
      *
-     * @param number $objectid Service ID
+     * @param int $objectid Service ID
      * @param array  $response Server response
      */
     public static function response_answer($objectid = 0, $response = array()) {
@@ -53,7 +53,7 @@ class local_completecourses_events {
     /**
      * Call event when the service is updated
      * 
-     * @param number $objectid Bundle ID
+     * @param int $objectid Bundle ID
      */
     public static function course_completion_updated($objectid = 0) {
         $context = context_system::instance();
